@@ -1,0 +1,31 @@
+version: '3.2'
+services:
+  app:
+    ports:
+      - 8888:80
+    volumes:
+      - ./public_html:/var/www/html
+    environment:
+      DB_HOST:      mysql
+      DB_DATABASE:  baom
+      DB_USERNAME:  baom
+      DB_PASSWORD:  password
+
+  mysql:
+    environment:
+      MYSQL_DATABASE:       baom
+      MYSQL_USER:           baom
+      MYSQL_PASSWORD:       password
+      MYSQL_ROOT_PASSWORD:  password
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin:4.8
+    links:
+      - mysql:mysql
+    ports:
+      - 8181:80
+    environment:
+      PMA_HOST:             mysql
+      MYSQL_USERNAME:       root
+      MYSQL_ROOT_PASSWORD:  password

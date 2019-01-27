@@ -1,0 +1,23 @@
+version: '3.2'
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: msse661-baom:production
+    links:
+      - mysql
+
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    volumes:
+      - type:   volume
+        source: mysqlvol
+        target: /var/lib/mysql
+        volume:
+          nocopy: true
+
+volumes:
+  mysqlvol:

@@ -13,7 +13,7 @@ $c1 = get_content('content-id-1');
 <html>
 <head>
     <title><?php print $c1['title']; ?></title>
-    <link rel='stylesheet' href='resources/table.css'/>
+    <link rel='stylesheet' href='css/table.css'/>
 </head>
 <body>
 <h1><?php print $c1['title']; ?></h1>
