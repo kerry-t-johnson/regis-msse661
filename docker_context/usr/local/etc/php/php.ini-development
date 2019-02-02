@@ -711,7 +711,7 @@ default_charset = "UTF-8"
 ;
 ; PHP's default setting for include_path is ".;/path/to/php/pear"
 ; http://php.net/include-path
-include_path = ".:/usr/local/lib/php:/var/www/html/src:/var/www/html/resources"
+include_path = ".:/usr/local/lib/php:/var/www/html:/var/www/webapp"
 
 ; The root of the PHP pages, used only if nonempty.
 ; if PHP was not compiled with FORCE_REDIRECT, you SHOULD set doc_root

@@ -2,8 +2,22 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/public_html/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/webapp/test" isTestSource="false" packagePrefix="Msse661\" />
+      <sourceFolder url="file://$MODULE_DIR$/webapp/src" isTestSource="false" packagePrefix="Msse661\" />
+      <excludeFolder url="file://$MODULE_DIR$/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/composer/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/composer/vendor/monolog/monolog" />
+      <excludeFolder url="file://$MODULE_DIR$/composer/vendor/paragonie/random_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/composer/vendor/psr/log" />
+      <excludeFolder url="file://$MODULE_DIR$/composer/vendor/ramsey/uuid" />
+      <excludeFolder url="file://$MODULE_DIR$/composer/vendor/symfony/polyfill-ctype" />
+      <excludeFolder url="file://$MODULE_DIR$/docker_context" />
+      <excludeFolder url="file://$MODULE_DIR$/webapp/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/webapp/vendor/monolog/monolog" />
+      <excludeFolder url="file://$MODULE_DIR$/webapp/vendor/paragonie/random_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/webapp/vendor/psr/log" />
+      <excludeFolder url="file://$MODULE_DIR$/webapp/vendor/ramsey/uuid" />
+      <excludeFolder url="file://$MODULE_DIR$/webapp/vendor/symfony/polyfill-ctype" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

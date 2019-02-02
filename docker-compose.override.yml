@@ -1,40 +1,45 @@
 version: '3.2'
 services:
   app:
+    image: regis/msse661:dev
     ports:
       - 8888:80
+      - 9999:9000
     volumes:
       - type:   bind
-        source: ./public_html
+        source: ./html
         target: /var/www/html
-    environment:
-      DB_HOST:      mysql
-      DB_DATABASE:  baom
-      DB_USERNAME:  baom
-      DB_PASSWORD:  password
+      - type:   bind
+        source: ./webapp/config
+        target: /var/www/webapp/config
+      - type:   bind
+        source: ./webapp/src
+        target: /var/www/webapp/src
+      - type:   bind
+        source: ./webapp/test
+        target: /var/www/webapp/test
+    env_file:
+      - development.env
 
   mysql:
-    environment:
-      MYSQL_DATABASE:       baom
-      MYSQL_USER:           baom
-      MYSQL_PASSWORD:       password
-      MYSQL_ROOT_PASSWORD:  password
+    env_file:
+      - development.env
 
-  ftp:
-    container_name: ftp
-    image: bogem/ftp
-    ports:
-      - '20:20'
-      - '21:21'
-      - '47400-47470:47400-47470'
-    volumes:
-      - type:   bind
-        source: ./public_html
-        target: /home/vsftpd
-    environment:
-      FTP_USER: Regis
-      FTP_PASS: Regis123
-      PASV_ADDRESS:
+#  ftp:
+#    container_name: ftp
+#    image: bogem/ftp
+#    ports:
+#      - '20:20'
+#      - '21:21'
+#      - '47400-47470:47400-47470'
+#    volumes:
+#      - type:   bind
+#        source: ./html
+#        target: /home/vsftpd
+#    env_file:
+#      - development.env
+#    environment:
+#      PASV_ADDRESS:
 
   phpmyadmin:
     container_name: phpmyadmin
@@ -43,10 +48,8 @@ services:
       - mysql:mysql
     ports:
       - 8181:80
-    environment:
-      PMA_HOST:             mysql
-      MYSQL_USERNAME:       root
-      MYSQL_ROOT_PASSWORD:  password
+    env_file:
+      - development.env
 
 volumes:
   htmldata:

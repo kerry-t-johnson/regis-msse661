@@ -2,9 +2,84 @@
 <project version="4">
   <component name="PhpIncludePathManager">
     <include_path>
-      <path value="$PROJECT_DIR$/src" />
-      <path value="$PROJECT_DIR$/../../../phpunit" />
+      <path value="$PROJECT_DIR$/webapp" />
+      <path value="$PROJECT_DIR$/webapp/vendor/composer" />
+      <path value="$PROJECT_DIR$/webapp/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/webapp/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/webapp/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/webapp/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/webapp/vendor/paragonie/random_compat" />
+      <path value="C:/sw/phpunit" />
     </include_path>
+  </component>
+  <component name="PhpInterpreters">
+    <interpreters>
+      <interpreter home="docker-compose://[C:\dev\regis-msse661\docker-compose.yml, C:\dev\regis-msse661\docker-compose.override.yml]:app/php" id="6f5cfbc9-3e7a-47b7-be08-0018305df398" name="Docker/msse661" debugger_id="php.debugger.XDebug">
+        <remote_data DOCKER_ACCOUNT_NAME="Docker" DOCKER_COMPOSE_SERVICE_NAME="app" DOCKER_REMOTE_PROJECT_PATH="/opt/project" INTERPRETER_PATH="php" HELPERS_PATH="/opt/.phpstorm_helpers" INITIALIZED="false" VALID="true">
+          <dockerComposeConfigurationPaths>
+            <item value="C:\dev\regis-msse661\docker-compose.yml" />
+            <item value="C:\dev\regis-msse661\docker-compose.override.yml" />
+          </dockerComposeConfigurationPaths>
+          <envs>
+            <env name="MYSQL_HOST" value="mysql" />
+            <env name="MYSQL_DATABASE" value="msse661" />
+            <env name="MYSQL_USER" value="msse661" />
+            <env name="MYSQL_ROOT_PASSWORD" value="password" />
+            <env name="MYSQL_PASSWORD" value="password" />
+          </envs>
+        </remote_data>
+      </interpreter>
+    </interpreters>
+  </component>
+  <component name="PhpInterpretersPhpInfoCache">
+    <phpInfoCache>
+      <interpreter name="Docker/msse661">
+        <phpinfo binary_type="PHP" php_cli="/usr/local/bin/php" path_separator=":" version="7.2.14">
+          <additional_php_ini>/usr/local/etc/php/conf.d/docker-php-ext-pdo_mysql.ini, /usr/local/etc/php/conf.d/docker-php-ext-sodium.ini</additional_php_ini>
+          <configuration_file>/usr/local/etc/php/php.ini</configuration_file>
+          <configuration_options>
+            <configuration_option name="include_path" value=".:/usr/local/lib/php:/var/www/html/src:/var/www/html/resources" />
+          </configuration_options>
+          <debuggers />
+          <loaded_extensions>
+            <extension name="Core" />
+            <extension name="PDO" />
+            <extension name="Phar" />
+            <extension name="Reflection" />
+            <extension name="SPL" />
+            <extension name="SimpleXML" />
+            <extension name="ctype" />
+            <extension name="curl" />
+            <extension name="date" />
+            <extension name="dom" />
+            <extension name="fileinfo" />
+            <extension name="filter" />
+            <extension name="ftp" />
+            <extension name="hash" />
+            <extension name="iconv" />
+            <extension name="json" />
+            <extension name="libxml" />
+            <extension name="mbstring" />
+            <extension name="mysqlnd" />
+            <extension name="openssl" />
+            <extension name="pcre" />
+            <extension name="pdo_mysql" />
+            <extension name="pdo_sqlite" />
+            <extension name="posix" />
+            <extension name="readline" />
+            <extension name="session" />
+            <extension name="sodium" />
+            <extension name="sqlite3" />
+            <extension name="standard" />
+            <extension name="tokenizer" />
+            <extension name="xml" />
+            <extension name="xmlreader" />
+            <extension name="xmlwriter" />
+            <extension name="zlib" />
+          </loaded_extensions>
+        </phpinfo>
+      </interpreter>
+    </phpInfoCache>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
   <component name="PhpRuntimeConfiguration">
@@ -25,7 +100,8 @@
   </component>
   <component name="PhpUnit">
     <phpunit_settings>
-      <PhpUnitSettings load_method="PHPUNIT_PHAR" custom_loader_path="$PROJECT_DIR$/../../../phpunit/phpunit.php" phpunit_phar_path="$PROJECT_DIR$/../../../phpunit/phpunit.phar" />
+      <phpunit_by_interpreter interpreter_id="6f5cfbc9-3e7a-47b7-be08-0018305df398" load_method="PHPUNIT_PHAR" bootstrap_file_path="vendor/autoload.php" custom_loader_path="C:\..\phpunit\phpunit.php" phpunit_phar_path="/usr/local/bin/phpunit" use_bootstrap_file="true" />
+      <PhpUnitSettings load_method="CUSTOM_LOADER" custom_loader_path="$PROJECT_DIR$/webapp/vendor/autoload.php" phpunit_phar_path="" />
     </phpunit_settings>
   </component>
 </project>

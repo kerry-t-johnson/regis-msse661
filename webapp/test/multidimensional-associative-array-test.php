@@ -10,7 +10,7 @@ require_once 'multidimensional-associative-array.php';
 
 use PHPUnit\Framework\TestCase;
 
-class Test extends TestCase
+class MultidimensionalAssociativeArrayTest extends TestCase
 {
     public function testGetAnswers(): void
     {

@@ -1,0 +1,14 @@
+{
+  "require": {
+    "monolog/monolog": "2.0.0-beta1",
+    "ramsey/uuid": "3.8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "msse661\\": [
+        "src",
+        "test"
+      ]
+    }
+  }
+}
