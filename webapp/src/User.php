@@ -4,18 +4,14 @@
 namespace msse661;
 
 
-interface User
+interface User extends Entity
 {
-    public function getUuid(): string;
+    public function getFullName(): string;
 
     public function getEmail(): string;
 
     public function getFirstName(): string;
 
     public function getLastName(): string;
-
-    public function getCreationDateTime(): \DateTime;
-
-    public function getUpdatedDateTime(): \DateTime;
 
 }

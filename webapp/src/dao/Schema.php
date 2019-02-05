@@ -75,6 +75,12 @@ class Schema {
 
                 'primary-key' => 'id',
 
+                'unique-keys' => [
+                    'name' => [
+                        'name',
+                    ],
+                ],
+
                 'post-queries' => [
                     'INSERT IGNORE INTO content_state (id, name, description) VALUES(UUID(), "pending", "Content has not been approved by moderator")',
                     'INSERT IGNORE INTO content_state (id, name, description) VALUES(UUID(), "approved", "Content has been approved by moderator")',
@@ -85,6 +91,10 @@ class Schema {
                 'columns' => [
                     'id' => [
                         'type' => 'VARCHAR(36)',
+                    ],
+
+                    'title' => [
+                        'type'  => 'VARCHAR(1024)',
                     ],
 
                     'users' => [
@@ -135,8 +145,8 @@ class Schema {
                     ],
 
                     'parent' => [
-                        'type' => 'VARCHAR(36)',
-                        'null-ok' => true,
+                        'type'      => 'VARCHAR(36)',
+                        'null-ok'   => true,
                     ],
                 ],
 
@@ -207,7 +217,7 @@ class Schema {
                         'null-ok' => true,
                     ],
 
-                    'comments' => [
+                    'text' => [
                         'type' => 'VARCHAR(2048)',
                     ],
 

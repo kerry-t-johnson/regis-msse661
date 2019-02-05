@@ -7,7 +7,7 @@
     "psr-4": {
       "msse661\\": [
         "src",
-        "test"
+        "unittest"
       ]
     }
   }

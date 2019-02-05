@@ -9,16 +9,22 @@
       <path value="$PROJECT_DIR$/webapp/vendor/monolog/monolog" />
       <path value="$PROJECT_DIR$/webapp/vendor/symfony/polyfill-ctype" />
       <path value="$PROJECT_DIR$/webapp/vendor/paragonie/random_compat" />
-      <path value="C:/sw/phpunit" />
+      <path value="$PROJECT_DIR$/../../../phpunit" />
+      <path value="C:/dev/regis-msse661/webapp/vendor/composer" />
+      <path value="C:/dev/regis-msse661/webapp/vendor/psr/log" />
+      <path value="C:/dev/regis-msse661/webapp/vendor/ramsey/uuid" />
+      <path value="C:/dev/regis-msse661/webapp/vendor/monolog/monolog" />
+      <path value="C:/dev/regis-msse661/webapp/vendor/symfony/polyfill-ctype" />
+      <path value="C:/dev/regis-msse661/webapp/vendor/paragonie/random_compat" />
     </include_path>
   </component>
   <component name="PhpInterpreters">
     <interpreters>
-      <interpreter home="docker-compose://[C:\dev\regis-msse661\docker-compose.yml, C:\dev\regis-msse661\docker-compose.override.yml]:app/php" id="6f5cfbc9-3e7a-47b7-be08-0018305df398" name="Docker/msse661" debugger_id="php.debugger.XDebug">
+      <interpreter home="docker-compose://[C:\sw\ampps\www\regis-msse661\docker-compose.yml, C:\sw\ampps\www\regis-msse661\docker-compose.override.yml]:app/php" id="6f5cfbc9-3e7a-47b7-be08-0018305df398" name="Docker/msse661" debugger_id="php.debugger.XDebug">
         <remote_data DOCKER_ACCOUNT_NAME="Docker" DOCKER_COMPOSE_SERVICE_NAME="app" DOCKER_REMOTE_PROJECT_PATH="/opt/project" INTERPRETER_PATH="php" HELPERS_PATH="/opt/.phpstorm_helpers" INITIALIZED="false" VALID="true">
           <dockerComposeConfigurationPaths>
-            <item value="C:\dev\regis-msse661\docker-compose.yml" />
-            <item value="C:\dev\regis-msse661\docker-compose.override.yml" />
+            <item value="C:\sw\ampps\www\regis-msse661\docker-compose.yml" />
+            <item value="C:\sw\ampps\www\regis-msse661\docker-compose.override.yml" />
           </dockerComposeConfigurationPaths>
           <envs>
             <env name="MYSQL_HOST" value="mysql" />
@@ -100,8 +106,8 @@
   </component>
   <component name="PhpUnit">
     <phpunit_settings>
-      <phpunit_by_interpreter interpreter_id="6f5cfbc9-3e7a-47b7-be08-0018305df398" load_method="PHPUNIT_PHAR" bootstrap_file_path="vendor/autoload.php" custom_loader_path="C:\..\phpunit\phpunit.php" phpunit_phar_path="/usr/local/bin/phpunit" use_bootstrap_file="true" />
-      <PhpUnitSettings load_method="CUSTOM_LOADER" custom_loader_path="$PROJECT_DIR$/webapp/vendor/autoload.php" phpunit_phar_path="" />
+      <phpunit_by_interpreter interpreter_id="6f5cfbc9-3e7a-47b7-be08-0018305df398" load_method="PHPUNIT_PHAR" bootstrap_file_path="/var/www/webapp/vendor/autoload.php" configuration_file_path="/var/www/webapp/phpunit.xml" custom_loader_path="C:\..\phpunit\phpunit.php" phpunit_phar_path="/usr/local/bin/phpunit" use_bootstrap_file="true" use_configuration_file="true" />
+      <PhpUnitSettings load_method="PHPUNIT_PHAR" bootstrap_file_path="$PROJECT_DIR$/webapp/vendor/autoload.php" configuration_file_path="$PROJECT_DIR$/webapp/phpunit.xml" custom_loader_path="C:/dev/regis-msse661/webapp/vendor/autoload.php" phpunit_phar_path="$PROJECT_DIR$/../../../phpunit/phpunit.phar" use_bootstrap_file="true" use_configuration_file="true" />
     </phpunit_settings>
   </component>
 </project>

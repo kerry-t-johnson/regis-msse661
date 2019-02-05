@@ -23,17 +23,5 @@ namespace msse661 {
 
         }
 
-        private function createOrRetrieveTestUser($userSpec): array {
-            $user = getUser($userSpec['email'], 'email');
-
-            if ($user) {
-                return $user;
-            }
-
-            $uuid = createUser($userSpec);
-
-            return getUser($uuid);
-        }
-
     }
 }

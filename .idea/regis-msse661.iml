@@ -2,7 +2,7 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/webapp/test" isTestSource="false" packagePrefix="Msse661\" />
+      <sourceFolder url="file://$MODULE_DIR$/webapp/unittest" isTestSource="false" packagePrefix="Msse661\" />
       <sourceFolder url="file://$MODULE_DIR$/webapp/src" isTestSource="false" packagePrefix="Msse661\" />
       <excludeFolder url="file://$MODULE_DIR$/composer" />
       <excludeFolder url="file://$MODULE_DIR$/composer/vendor/composer" />

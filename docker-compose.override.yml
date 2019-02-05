@@ -16,8 +16,11 @@ services:
         source: ./webapp/src
         target: /var/www/webapp/src
       - type:   bind
-        source: ./webapp/test
-        target: /var/www/webapp/test
+        source: ./webapp/phpunit.xml
+        target: /var/www/webapp/phpunit.xml
+      - type:   bind
+        source: ./webapp/unittest
+        target: /var/www/webapp/unittest
     env_file:
       - development.env
 

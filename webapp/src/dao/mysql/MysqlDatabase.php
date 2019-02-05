@@ -3,17 +3,13 @@
 
 namespace msse661\dao\mysql;
 
-use msse661\util\logger\LoggerManager;
-
 class MysqlDatabase extends BaseMysqlDao
 {
-    private $logger;
     private $dbSpec;
 
     public function __construct($dbSpec) {
         parent::__construct();
 
-        $this->logger = LoggerManager::getLogger(basename(__FILE__, '.php'));
         $this->dbSpec = $dbSpec;
 
         $this->initialize();

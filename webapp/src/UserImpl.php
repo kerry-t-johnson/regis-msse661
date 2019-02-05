@@ -4,14 +4,16 @@
 namespace msse661;
 
 
-class UserImpl extends Entity implements User
+class UserImpl extends EntityImpl implements User
 {
     private const REQUIRED_KEYS = ['id', 'email', 'first_name', 'last_name'];
 
     public function __construct(array $userSpec) {
-        self::assertRequiredSpec(self::REQUIRED_KEYS, $userSpec);
+        parent::__construct($userSpec, self::REQUIRED_KEYS);
+    }
 
-        parent::__construct($userSpec);
+    public function getFullName(): string {
+        return $this->getFirstName() . ' ' . $this->getLastName();
     }
 
     public function getEmail(): string {

@@ -11,8 +11,8 @@ interface UserDao
 
     function create(array $userSpec): User;
 
-    function getByUuid(string $uuid): ?User;
+    function getByUuid(string $uuid): User;
 
-    function getByEmail(string $uuid): ?User;
+    function getByEmail(string $email): User;
 
 }
