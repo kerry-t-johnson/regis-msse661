@@ -97,6 +97,11 @@ class Schema {
                         'type'  => 'VARCHAR(1024)',
                     ],
 
+                    'description' => [
+                        'type'      => 'VARCHAR(2048)',
+                        'null-ok'   => true,
+                    ],
+
                     'users' => [
                         'type' => 'VARCHAR(36)',
                     ],
@@ -107,6 +112,10 @@ class Schema {
 
                     'path' => [
                         'type' => 'VARCHAR(1024)',
+                    ],
+
+                    'hash'  => [
+                        'type'  => 'VARCHAR(40)',
                     ],
                 ],
 
@@ -125,6 +134,12 @@ class Schema {
                         'reference-table' => 'content_state',
                         'reference-column' => 'id',
                         'on-delete-action' => 'RESTRICT',
+                    ],
+                ],
+
+                'unique-keys' => [
+                    'hash' => [
+                        'hash',
                     ],
                 ],
             ],

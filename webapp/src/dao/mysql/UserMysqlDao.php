@@ -22,6 +22,17 @@ ________QUERY;
         return new UserImpl(['id' => $userSpec['id'], 'email' =>$userSpec['email'], 'first_name' => $userSpec['first_name'], 'last_name' => $userSpec['last_name']]);
     }
 
+    public function getAll(int $offset = 0, int $limit = 0): array {
+        $raw = $this->fetch('users', $offset, $limit);
+
+        $entities = [];
+        foreach($raw as $r) {
+            $entities[] = new UserImpl($r);
+        }
+        return $entities;
+
+    }
+
     public function getByEmail(string $email): User {
         return new UserImpl($this->fetchExactlyOne('users', 'email', $email));
     }

@@ -22,6 +22,7 @@ $test_content = [
         'title'         => 'Test Content 1',
         'state'         => 'approved',
         'path'          => '10/short/headers',
+        'hash'          => sha1('Test Content 1'),
         'test_user_id'  => 'user-id-1',
     ],
 
@@ -29,6 +30,7 @@ $test_content = [
         'title'         => 'Test Content 2',
         'state'         => 'approved',
         'path'          => '5/medium/headers/code',
+        'hash'          => sha1('Test Content 2'),
         'test_user_id'  => 'user-id-1',
     ],
 
@@ -36,6 +38,7 @@ $test_content = [
         'title'         => 'Test Content 3',
         'state'         => 'approved',
         'path'          => '10/short/headers/ul/ol',
+        'hash'          => sha1('Test Content 3'),
         'test_user_id'  => 'user-id-1',
     ]
 ];

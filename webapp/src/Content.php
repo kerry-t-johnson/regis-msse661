@@ -8,9 +8,14 @@ interface Content extends Entity {
 
     function getTitle(): string;
 
+    function getDescription(): string;
+
     function getUserUuid(): string;
 
     function getPath(): string;
 
     function getState(): string;
+
+    function getHash(): string;
+
 }

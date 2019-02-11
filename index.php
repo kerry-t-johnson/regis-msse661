@@ -1,6 +1,8 @@
 <?php
 require_once 'bootstrap.php';
 
+$request    = \msse661\controller\SiteController::extractRequest($_SERVER);
+
 $contentDao = new \msse661\dao\mysql\ContentMysqlDao();
 $userDao    = new \msse661\dao\mysql\UserMysqlDao();
 $commentDao = new \msse661\dao\mysql\CommentMysqlDao();
@@ -11,10 +13,12 @@ $content    = $contentDao->getAll();
 <head>
     <title>MSSE 661</title>
     <link rel='stylesheet' href='css/table.css'/>
+    <link rel='stylesheet' href='css/debug.css'/>
 </head>
 <body>
 <h1>MSSE 661</h1>
 <div class="container">
+    <a href="./file_upload.php">Submit new content...</a>
     <?php if($content): ?>
         <table class="responsive-table">
             <caption>Test Content</caption>
@@ -28,12 +32,12 @@ $content    = $contentDao->getAll();
             <tbody>
             <?php foreach ($content as $c): ?>
                 <?php
-                    $user       = $userDao->getByUuid($c->getUserUuid());
-                    $comments   = $commentDao->getByContent($c->getUuid());
+                $user       = $userDao->getByUuid($c->getUserUuid());
+                $comments   = $commentDao->getByContent($c->getUuid());
                 ?>
                 <tr>
                     <td data-title="Content Title">
-                         <?php print $c->getTitle(); ?>
+                        <?php print $c->getTitle(); ?>
                     </td>
                     <td data-title="User">
                         <a href="mailto:<?php print $user->getEmail(); ?>?Subject=Hello" target="_top"><?php print $user->getFullName(); ?></td>
@@ -55,8 +59,11 @@ $content    = $contentDao->getAll();
             </tbody>
         </table>
     <?php else: ?>
-        <a href="./create_test_data">Create test data...</a>
+        <a href="./create_test_data.php">Create test data...</a>
     <?php endif; ?>
 </div>
+<!--<div class="debug">-->
+<!--    --><?php //print_r($request); ?>
+<!--</div>-->
 </body>
 </html>

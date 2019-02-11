@@ -86,15 +86,27 @@ class BaseMysqlDao extends \mysqli
         return $result->fetch_assoc();
     }
 
+    protected function countWhere(string $table, string $where, array $values): bool {
+        $query          = <<<________QUERY
+            SELECT  COUNT(*) AS count
+            FROM    {$table}
+            WHERE   {$where}
+________QUERY;
+        $query  = $this->escapeQuery($query, $values);
+        $result = $this->query($query);
+
+        return $result->fetch_assoc()['count'];
+    }
+
     protected function fetch(string $table, int $offset = 0, int $limit = 0) {
         $limitQuery     = $limit  > 0 ? "LIMIT  {$limit}"  : '';
         $offsetQuery    = $offset > 0 ? "OFFSET {$offset}" : '';
-        $query          = <<<QUERY
+        $query          = <<<________QUERY
             SELECT  *
             FROM    {$table}
             {$limitQuery}
             {$offsetQuery}
-QUERY;
+________QUERY;
 
         $result = $this->query($query);
 
@@ -110,13 +122,13 @@ QUERY;
     protected function fetchWhere(string $table, string $where, array $values, int $offset = 0, int $limit = 0) {
         $limitQuery     = $limit  > 0 ? "LIMIT  {$limit}"  : '';
         $offsetQuery    = $offset > 0 ? "OFFSET {$offset}" : '';
-        $query          = <<<QUERY
+        $query          = <<<________QUERY
             SELECT  *
             FROM    {$table}
             WHERE   {$where}
             {$limitQuery}
             {$offsetQuery}
-QUERY;
+________QUERY;
         $query  = $this->escapeQuery($query, $values);
 
         $result = $this->query($query);
@@ -151,7 +163,7 @@ QUERY;
         try {
             $uuid = Uuid::uuid4();
 
-            if(defined(APP_TEST_ENV)) {
+            if(defined('APP_TEST_ENV')) {
                 return preg_replace('/(.{8})-(.{4})-/', '\1-test-', $uuid);
             }
             else {
