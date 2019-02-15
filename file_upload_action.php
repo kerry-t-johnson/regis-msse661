@@ -21,10 +21,10 @@ try {
     print "<h3>{$content->getTitle()}</h3>\n";
     print "<div>\n";
     print "<p>Description: {$content->getDescription()}</p>\n";
-    print "<p>User: {$user->getFullName()}</p>\n";
-    print "<p>Path: {$content->getPath()}</p>\n";
-    print "<p>State: {$content->getState()}</p>\n";
-    print "<p>Hash: {$content->getHash()}</p>\n";
+    print "<p>User:        {$user->getFullName()}</p>\n";
+    print "<p>Path:        {$content->getPath()}</p>\n";
+    print "<p>State:       {$content->getState()}</p>\n";
+    print "<p>Hash:        {$content->getHash()}</p>\n";
     print "</div>\n";
     print "<a href='./index'>Main page</a>\n";
 

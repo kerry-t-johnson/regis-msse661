@@ -1,14 +1,4 @@
-<?php
-require_once 'bootstrap.php';
-
-$request    = \msse661\controller\SiteController::extractRequest($_SERVER);
-
-$contentDao = new \msse661\dao\mysql\ContentMysqlDao();
-$userDao    = new \msse661\dao\mysql\UserMysqlDao();
-$commentDao = new \msse661\dao\mysql\CommentMysqlDao();
-
-$content    = $contentDao->getAll();
-?>
+<?php require_once 'bootstrap.php'; ?>
 <html>
 <head>
     <title>MSSE 661</title>
@@ -18,49 +8,14 @@ $content    = $contentDao->getAll();
 <body>
 <h1>MSSE 661</h1>
 <div class="container">
-    <a href="./file_upload.php">Submit new content...</a>
-    <?php if($content): ?>
-        <table class="responsive-table">
-            <caption>Test Content</caption>
-            <thead>
-            <tr>
-                <th scope="col">Content Title</th>
-                <th scope="col">User</th>
-                <th scope="col">Comments</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($content as $c): ?>
-                <?php
-                $user       = $userDao->getByUuid($c->getUserUuid());
-                $comments   = $commentDao->getByContent($c->getUuid());
-                ?>
-                <tr>
-                    <td data-title="Content Title">
-                        <?php print $c->getTitle(); ?>
-                    </td>
-                    <td data-title="User">
-                        <a href="mailto:<?php print $user->getEmail(); ?>?Subject=Hello" target="_top"><?php print $user->getFullName(); ?></td>
-                    <td data-title="Comments">
-                        <table>
-                            <tbody>
-                            <?php foreach ($comments as $comment): ?>
-                                <tr>
-                                    <td>
-                                        <?php print $comment->getTitle(); ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <a href="./create_test_data.php">Create test data...</a>
-    <?php endif; ?>
+    <?php print \msse661\controller\SiteController::route($_SERVER); ?>
+    <div>
+        <a href="./file_upload.php">Submit new content...</a>
+    </div>
+<!--    --><?php //if($content): ?>
+<!--    --><?php //else: ?>
+<!--        <a href="./create_test_data.php">Create test data...</a>-->
+<!--    --><?php //endif; ?>
 </div>
 <!--<div class="debug">-->
 <!--    --><?php //print_r($request); ?>

@@ -4,9 +4,9 @@
 namespace  msse661\controller;
 
 
-class SiteController implements Controller {
+class SiteController {
 
-    public static function extractRequest(array $request) {
+    private static function extractRequest(array $request) {
         $doc_root       = dirname($request['SCRIPT_NAME']);
         $request_uri    = $request['REQUEST_URI'];
         $request_uri    = str_replace($doc_root, '', $request_uri);
@@ -25,14 +25,20 @@ class SiteController implements Controller {
         return ['path'  => $request_path, 'query' => $request_query];
     }
 
-    public function route(array $path, array $query = []) {
-        $entity_type        = ucwords($path[0]);
-        $entity_controller  = "\msse661\controller\{$entity_type}Controller";
+    public static function route($request = null) : string {
+        $request            = $request ?? $_SERVER;
+        $request            = SiteController::extractRequest($request);
+        $entity_type        = ucwords(array_shift($request['path']));
+        $entity_type        = !empty($entity_type) ? $entity_type : 'Content';
+        $entity_controller  = "\\msse661\\controller\\{$entity_type}Controller";
 
         if(class_exists($entity_controller)) {
             /** @var Controller $entity_controller */
             $entity_controller = new $entity_controller();
-            $entity_controller->route(array_shift($path), $query);
+            return $entity_controller->route($request['path'], $request['query']);
+        }
+        else {
+            return "Unknown route: {$entity_controller}...\n\n" . print_r($request, true);
         }
     }
 
