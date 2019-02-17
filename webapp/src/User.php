@@ -14,4 +14,6 @@ interface User extends Entity
 
     public function getLastName(): string;
 
+    public function verifyPassword(string $password): void;
+
 }

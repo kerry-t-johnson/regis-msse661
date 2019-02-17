@@ -8,12 +8,14 @@ $test_users = [
         'email'         => 'fred.flintstone@gmail.com',
         'first_name'    => 'Fred',
         'last_name'     => 'Flintstone',
+        'password'      => '12345678',
     ],
 
     'user-id-2' => [
         'email'         => 'barney.rubble@gmail.com',
         'first_name'    => 'Barney',
         'last_name'     => 'Rubble',
+        'password'      => 'abcdefgh',
     ]
 ];
 
@@ -21,7 +23,7 @@ $test_content = [
     'content-id-1' => [
         'title'         => 'Test Content 1',
         'state'         => 'approved',
-        'path'          => '10/short/headers',
+        'path'          => 'https://loripsum.net/api/10/short/headers',
         'hash'          => sha1('Test Content 1'),
         'test_user_id'  => 'user-id-1',
     ],
@@ -29,7 +31,7 @@ $test_content = [
     'content-id-2' => [
         'title'         => 'Test Content 2',
         'state'         => 'approved',
-        'path'          => '5/medium/headers/code',
+        'path'          => 'https://loripsum.net/api/5/medium/headers/code',
         'hash'          => sha1('Test Content 2'),
         'test_user_id'  => 'user-id-1',
     ],
@@ -37,7 +39,7 @@ $test_content = [
     'content-id-3' => [
         'title'         => 'Test Content 3',
         'state'         => 'approved',
-        'path'          => '10/short/headers/ul/ol',
+        'path'          => 'https://loripsum.net/api/10/short/headers/ul/ol',
         'hash'          => sha1('Test Content 3'),
         'test_user_id'  => 'user-id-1',
     ]

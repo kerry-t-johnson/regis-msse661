@@ -17,4 +17,6 @@ interface UserDao
 
     function getByEmail(string $email): User;
 
+    function getByEmailAndPassword(string $email, string $password): User;
+
 }

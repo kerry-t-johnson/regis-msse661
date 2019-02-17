@@ -145,11 +145,11 @@ ________QUERY;
     public function escapeQuery(string $query, array $args): string {
         $logger = LoggerManager::getLogger('test');
 
-        $logger->debug('escapeQuery (before)', ['query' => $query, 'args' => $args]);
+        // $logger->debug('escapeQuery (before)', ['query' => $query, 'args' => $args]);
         foreach ($args as $key => $value) {
             $query = str_replace(":{$key}", is_string($value) ? $this->real_escape_string((string)$value) : $value, $query);
         }
-        $logger->debug('escapeQuery (after)', ['query' => $query]);
+        // $logger->debug('escapeQuery (after)', ['query' => $query]);
 
         return $query;
     }

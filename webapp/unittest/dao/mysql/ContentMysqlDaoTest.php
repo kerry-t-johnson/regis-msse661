@@ -60,9 +60,11 @@ ________QUERY;
         $user = UserMysqlDaoTest::createTestUser();
 
         $testContentSpec = [
-            'users'   => $user->getUuid(),
-            'state'   => 'pending',
-            'path'    => '5/medium/headers/code',
+            'title' => self::generateRandomString(10),
+            'users' => $user->getUuid(),
+            'state' => 'pending',
+            'path'  => 'https://loripsum.net/api/5/medium/headers/code',
+            'hash'  => sha1('5/medium/headers/code'),
         ];
 
         return $dao->create($testContentSpec);

@@ -18,4 +18,8 @@ interface Content extends Entity {
 
     function getHash(): string;
 
+    function getMimeType(): string;
+
+    function getImageType(): int;
+
 }

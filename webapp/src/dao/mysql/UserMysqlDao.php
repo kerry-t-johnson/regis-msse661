@@ -13,10 +13,11 @@ class UserMysqlDao extends BaseMysqlDao implements UserDao
     public function create(array $userSpec): User {
         $query = <<<________QUERY
             INSERT INTO users
-                        (id, email, first_name, last_name )
-            VALUES      (':id', ':email', ':first_name', ':last_name')
+                        (id,    email,    first_name,    last_name,     hashed_password )
+            VALUES      (':id', ':email', ':first_name', ':last_name', ':hashed_password')
 ________QUERY;
 
+        $userSpec['hashed_password'] = password_hash($userSpec['password'], PASSWORD_DEFAULT);
         $userSpec = $this->createEntity($userSpec, $query);
 
         return new UserImpl(['id' => $userSpec['id'], 'email' =>$userSpec['email'], 'first_name' => $userSpec['first_name'], 'last_name' => $userSpec['last_name']]);
@@ -35,6 +36,13 @@ ________QUERY;
 
     public function getByEmail(string $email): User {
         return new UserImpl($this->fetchExactlyOne('users', 'email', $email));
+    }
+
+    public function getByEmailAndPassword(string $email, string $password): User {
+        $user = $this->getByEmail($email);
+        $user->verifyPassword($password);
+
+        return $user;
     }
 
     public function getByUuid(string $uuid): User {

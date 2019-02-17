@@ -1,5 +1,5 @@
 <?php if(!empty($user)): ?>
-    <a class="user-link" href="mailto:<?php print $user->getEmail(); ?>?Subject=Hello" target="_top">
+    <a class="user-link" href="/user/<?php print $user->getUuid(); ?>">
         <?php print $user->getFullName(); ?>
     </a>
 <?php else: ?>

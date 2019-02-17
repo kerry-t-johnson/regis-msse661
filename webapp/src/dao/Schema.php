@@ -43,6 +43,10 @@ class Schema {
                     'last_name' => [
                         'type' => 'VARCHAR(255)',
                     ],
+
+                    'hashed_password'   => [
+                        'type'  => 'VARCHAR(255)',
+                    ],
                 ],
 
                 'track-updates' => true,

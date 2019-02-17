@@ -9,7 +9,7 @@ class EntityImpl
     private $values;
 
     protected function __construct(array $spec, array $requiredKeys) {
-        self::assertRequiredSpec($spec, $requiredKeys);
+        $this->assertRequiredSpec($spec, $requiredKeys);
         $this->values = $spec;
     }
 
@@ -27,21 +27,21 @@ class EntityImpl
 
     protected function getAttributeValue(string $attributeName, bool $required = true) {
         if ($required) {
-            self::assertValueExists($this->values, $attributeName);
+            $this->assertValueExists($this->values, $attributeName);
         }
 
         return $this->values[$attributeName] ?? null;
     }
 
-    protected static function assertValueExists(array $values, string $key) {
+    protected function assertValueExists(array $values, string $key) {
         if(!array_key_exists($key, $values)) {
-            throw new \Exception("EntityImpl has no attribute: {$key}");
+            throw new \Exception(get_class($this) . " has no attribute: {$key}");
         }
     }
 
-    private static function assertRequiredSpec($values, $requiredKeys) {
+    private function assertRequiredSpec($values, $requiredKeys) {
         foreach($requiredKeys as $key) {
-            self::assertValueExists($values, $key);
+            $this->assertValueExists($values, $key);
         }
     }
 

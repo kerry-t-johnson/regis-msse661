@@ -27,4 +27,12 @@ class UserImpl extends EntityImpl implements User
     public function getLastName(): string {
         return $this->getAttributeValue('last_name');
     }
+
+    public function verifyPassword(string $password): void {
+        $hashed_password    = $this->getAttributeValue('hashed_password');
+
+        if(!password_verify($password, $hashed_password)) {
+            throw new \Exception('Unable to veirify password for user: ' . $this->getFullName());
+        }
+    }
 }
