@@ -1,2 +1,4 @@
-composer.phar
+webapp/composer.phar
 webapp/vendor
+webapp/tests/_output
+webapp/_support/_generated

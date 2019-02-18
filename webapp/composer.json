@@ -7,8 +7,11 @@
     "psr-4": {
       "msse661\\": [
         "src",
-        "unittest"
+        "tests/unit"
       ]
     }
+  },
+  "require-dev": {
+    "codeception/codeception": "^2.5"
   }
 }
