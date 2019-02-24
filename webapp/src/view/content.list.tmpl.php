@@ -14,10 +14,10 @@
                 <?php print \msse661\view\ViewFactory::render('content', ['content' => $c], 'teaser'); ?>
             </td>
             <td data-title="User">
-                <?php print \msse661\view\ViewFactory::render('user', ['user' => $users[$c->getUuid()] ?? null], 'teaser'); ?>
+                <?php print \msse661\view\ViewFactory::render('user', ['user' => $c->getUser()], 'teaser'); ?>
             </td>
             <td data-title="Comments">
-                <?php print \msse661\view\ViewFactory::render('comment', ['comments' => $comments[$c->getUuid()] ?? []], 'teaser-list'); ?>
+                <?php print \msse661\view\ViewFactory::render('comment', ['comments' => $c->getComments()], 'teaser-list'); ?>
             </td>
         </tr>
     <?php endforeach; ?>

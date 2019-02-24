@@ -1,7 +1,8 @@
 {
   "require": {
     "monolog/monolog": "2.0.0-beta1",
-    "ramsey/uuid": "3.8.0"
+    "ramsey/uuid": "3.8.0",
+    "vlucas/phpdotenv": "^3.3"
   },
   "autoload": {
     "psr-4": {

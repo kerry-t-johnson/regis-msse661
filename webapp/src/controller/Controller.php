@@ -6,5 +6,7 @@ namespace msse661\controller;
 
 interface Controller {
 
-    function route(array $path, array $query = []) : string;
+    function route(array $request) : string;
+
+    function getResource(array $request);
 }

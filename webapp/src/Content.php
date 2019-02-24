@@ -12,6 +12,8 @@ interface Content extends Entity {
 
     function getUserUuid(): string;
 
+    function getUser(): User;
+
     function getPath(): string;
 
     function getState(): string;

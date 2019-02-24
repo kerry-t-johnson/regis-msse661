@@ -7,9 +7,10 @@ namespace msse661;
 class UserImpl extends EntityImpl implements User
 {
     private const REQUIRED_KEYS = ['id', 'email', 'first_name', 'last_name'];
+    private const HIDDEN_KEYS   = ['hashed_password'];
 
     public function __construct(array $userSpec) {
-        parent::__construct($userSpec, self::REQUIRED_KEYS);
+        parent::__construct('user', $userSpec, self::REQUIRED_KEYS, self::HIDDEN_KEYS);
     }
 
     public function getFullName(): string {

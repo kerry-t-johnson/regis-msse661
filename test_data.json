@@ -1,0 +1,56 @@
+{
+  "test_users": {
+    "user-id-1": {
+      "email": "fred.flintstone@gmail.com",
+      "first_name": "Fred",
+      "last_name": "Flintstone",
+      "password": "12345678"
+    },
+    "user-id-2": {
+      "email": "barney.rubble@gmail.com",
+      "first_name": "Barney",
+      "last_name": "Rubble",
+      "password": "abcdefgh"
+    }
+  },
+  "test_content": {
+    "content-id-1": {
+      "title": "Test Content 1",
+      "state": "approved",
+      "path": "https://loripsum.net/api/10/short/headers",
+      "test_user_id": "user-id-1"
+    },
+    "content-id-2": {
+      "title": "Test Content 2",
+      "state": "approved",
+      "path": "https://loripsum.net/api/5/medium/headers/code",
+      "test_user_id": "user-id-1"
+    },
+    "content-id-3": {
+      "title": "Test Content 3",
+      "state": "approved",
+      "path": "https://loripsum.net/api/10/short/headers/ul/ol",
+      "test_user_id": "user-id-1"
+    }
+  },
+  "test_comments": {
+    "comment-id-1": {
+      "title": "Question 1",
+      "text": "This is a Question about Content 1",
+      "test_content_id": "content-id-1",
+      "test_user_id": "user-id-2"
+    },
+    "comment-id-20": {
+      "title": "Question 2",
+      "text": "This is a Question about Content 2",
+      "test_content_id": "content-id-2",
+      "test_user_id": "user-id-2"
+    },
+    "comment-id-333": {
+      "title": "Question 3",
+      "text": "This is a Question about Content 3",
+      "test_content_id": "content-id-3",
+      "test_user_id": "user-id-2"
+    }
+  }
+}

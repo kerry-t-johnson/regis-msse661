@@ -1,6 +1,6 @@
 <div id="register-box">
     <div class="left">
-        <form name="register" action="/user/onRegistration" method="post" enctype="multipart/form-data">
+        <form name="register" action="/user/registration" method="post" enctype="multipart/form-data">
             <label>First name</label>
             <input type="text" name="first_name" placeholder="first name">
             <label>Last name</label>

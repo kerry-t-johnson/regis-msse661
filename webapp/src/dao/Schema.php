@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Msse661\dao;
+namespace msse661\dao;
 
 
 class Schema {
@@ -121,6 +121,12 @@ class Schema {
                     'hash'  => [
                         'type'  => 'VARCHAR(40)',
                     ],
+
+                    'comments_allowed' => [
+                        'type' => 'TINYINT(1)',
+                        'default' => 1,
+                    ],
+
                 ],
 
                 'track-updates' => true,
@@ -377,16 +383,20 @@ class Schema {
 ____________CONTENT_VIEW
             ,
             'comments_view' => <<<____________COMMENTS_VIEW
-                SELECT  comments.*,
-                        content_view.users      AS content_users,
-                        content_view.state      AS content_state,
-                        content_view.path       AS content_path,
-                        content_view.created    AS content_created,
-                        content_view.updated    AS content_updated,
-                        content_view.state_name AS content_state_name
-                FROM    comments,
-                        content_view
-                WHERE   comments.content = content_view.id
+                SELECT    comments.*,
+                          content_view.users      AS content_users,
+                          content_view.state      AS content_state,
+                          content_view.path       AS content_path,
+                          content_view.created    AS content_created,
+                          content_view.updated    AS content_updated,
+                          content_view.state_name AS content_state_name,
+                          SUM(comment_vote.vote)  AS comment_vote_total
+                FROM      comments,
+                          content_view,
+                          comment_vote
+                WHERE     comments.content = content_view.id
+                AND       comment_vote.comments = comments.id
+                GROUP BY  comments.id
 ____________COMMENTS_VIEW
             ,
         ];

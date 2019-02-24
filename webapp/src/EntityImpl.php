@@ -4,13 +4,26 @@
 namespace msse661;
 
 
+use Monolog\Logger;
+use msse661\util\logger\LoggerManager;
+
 class EntityImpl
 {
+    private $entity_type;
     private $values;
+    private $hiddenValues;
 
-    protected function __construct(array $spec, array $requiredKeys) {
+    /** @var Logger */
+    protected $logger;
+
+    protected function __construct(string $entity_type, array $spec, array $requiredKeys, array $hiddenValues = []) {
         $this->assertRequiredSpec($spec, $requiredKeys);
-        $this->values = $spec;
+
+        $this->entity_type  = $entity_type;
+        $this->values       = $spec;
+        $this->hiddenValues = $hiddenValues;
+
+        $this->logger = LoggerManager::getLogger(get_class($this));
     }
 
     public function getUuid(): string {
@@ -18,11 +31,19 @@ class EntityImpl
     }
 
     public function getCreationDateTime(): \DateTime {
-        return new DateTime($this->getAttributeValue('created'));
+        return new \DateTime($this->getAttributeValue('created'));
     }
 
     public function getUpdatedDateTime(): \DateTime {
-        return new DateTime($this->getAttributeValue('updated'));
+        return new \sDateTime($this->getAttributeValue('updated'));
+    }
+
+    public function toJson(): string {
+        $json_values    = $this->values;
+        foreach($this->hiddenValues as $h) {
+            unset($json_values[$h]);
+        }
+        return json_encode($json_values);
     }
 
     protected function getAttributeValue(string $attributeName, bool $required = true) {

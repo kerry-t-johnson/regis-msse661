@@ -2,44 +2,51 @@
 
 namespace msse661\dao\mysql;
 
+use msse661\dao\EntityDao;
+use msse661\Entity;
 use msse661\util\logger\LoggerManager;
 use mysql_xdevapi\Exception;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
 
 
-class BaseMysqlDao extends \mysqli
+class BaseMysqlDao extends \mysqli implements EntityDao
 {
-    protected $database_host;
-    protected $database_name;
+    protected $table;
+    protected $entityClass;
+    protected $databaseHost;
+    protected $databaseName;
+    protected $defaultOrderBy;
 
     /** @var \Monolog\Logger  */
     protected $logger;
 
-    public function __construct() {
-        $this->database_host    = $_ENV['MYSQL_HOST'] ?? 'localhost';
-        $this->database_name    = $_ENV['MYSQL_DATABASE'] ?? 'msse661';
-        /*
-         * Allow the environment to override the default values.
-         *
-         * This allows us to have default values for the development environment,
-         * but inject real values (secrets) in the production environment.
-         */
-        parent::__construct(
-            $this->database_host,
-            $_ENV['MYSQL_USER'] ?? 'msse661',
-            $_ENV['MYSQL_PASSWORD'] ?? 'password',
-            $this->database_name);
+    public function __construct($table, $entity_class, $default_order_by = '') {
+        $this->table            = $table;
+        $this->entityClass      = $entity_class;
+        $this->defaultOrderBy   = $default_order_by;
+        $this->databaseHost     = $_ENV['MYSQL_HOST'] ?? 'localhost';
+        $this->databaseName     = $_ENV['MYSQL_DATABASE'] ?? 'regis';
+        $this->logger           = LoggerManager::getLogger(get_class($this));
 
-        $this->logger = LoggerManager::getLogger(get_class($this));
+        if(!class_exists($entity_class)) {
+            $this->logger->error('__construct: Entity class does not exist', ['entity_class' => $entity_class]);
+            throw new \Exception('Entity class does not exist:' . $entity_class);
+        }
+
+        parent::__construct(
+            $this->databaseHost,
+            $_ENV['MYSQL_USER'] ?? 'regis',
+            $_ENV['MYSQL_PASSWORD'] ?? 'regis123',
+            $this->databaseName);
     }
 
     public function getDatabaseHost(): string {
-        return $this->database_host;
+        return $this->databaseHost;
     }
 
     public function getDatabaseName(): string {
-        return $this->database_name;
+        return $this->databaseName;
     }
 
     public function query($query, $resultmode = MYSQLI_STORE_RESULT) {
@@ -48,6 +55,10 @@ class BaseMysqlDao extends \mysqli
 
         foreach ($query as $q) {
             $result = parent::query($q, $resultmode);
+
+            if($result === false) {
+                throw new \Exception('Error while executing query: ' . $this->error);
+            }
         }
 
         return $result;
@@ -62,17 +73,13 @@ class BaseMysqlDao extends \mysqli
         $query              = $this->escapeQuery($query, $entitySpec);
 
         $this->logger->debug('createEntity', ['query' => $query]);
-        if ($this->query($query) === true) {
-            $this->logger->info("Created Entity", $entitySpec);
-            return $entitySpec;
-        } else {
-            throw new \Exception('createEntity: caught exception ' . $this->error . '\n');
-        }
-
+        $this->query($query);
+        $this->logger->info("Created Entity", $entitySpec);
+        return $entitySpec;
     }
 
-    protected function fetchExactlyOne(string $table, string $key, string $value): ?array {
-        $query = "SELECT * FROM {$table} WHERE {$key} = '{$value}'";
+    public function fetchExactlyOne(string $key, string $value): ?Entity {
+        $query = "SELECT * FROM {$this->table} WHERE {$key} = '{$value}'";
 
         $result = $this->query($query);
 
@@ -83,13 +90,16 @@ class BaseMysqlDao extends \mysqli
             throw new \Exception("Expected one object to match {$key} = {$value}.  Found {$result->num_rows} objects.");
         }
 
-        return $result->fetch_assoc();
+        $assoc = $result->fetch_assoc();
+        $this->logger->debug('fetchExactlyOne', ['assoc' => $assoc, 'entity_class' => $this->entityClass]);
+
+        return new $this->entityClass($assoc);
     }
 
-    protected function countWhere(string $table, string $where, array $values): bool {
+    protected function countWhere(string $where, array $values): bool {
         $query          = <<<________QUERY
             SELECT  COUNT(*) AS count
-            FROM    {$table}
+            FROM    {$this->table}
             WHERE   {$where}
 ________QUERY;
         $query  = $this->escapeQuery($query, $values);
@@ -98,68 +108,63 @@ ________QUERY;
         return $result->fetch_assoc()['count'];
     }
 
-    protected function fetch(string $table, int $offset = 0, int $limit = 0) {
+    public function fetch(int $offset = 0, int $limit = 0, string $orderBy = ''): array {
         $limitQuery     = $limit  > 0 ? "LIMIT  {$limit}"  : '';
         $offsetQuery    = $offset > 0 ? "OFFSET {$offset}" : '';
+        $orderByQuery   = $orderBy ? "ORDER BY {$orderBy}" : $this->defaultOrderBy;
         $query          = <<<________QUERY
             SELECT  *
-            FROM    {$table}
+            FROM    {$this->table}
             {$limitQuery}
             {$offsetQuery}
+            {$orderByQuery}
 ________QUERY;
 
         $result = $this->query($query);
 
         $entities = [];
-        if($result) {
-            while ($row = $result->fetch_assoc()) {
-                $entities[] = $row;
-            }
+        while ($row = $result->fetch_assoc()) {
+            $entities[] = new $this->entityClass($row);
         }
         return $entities;
     }
 
-    protected function fetchWhere(string $table, string $where, array $values, int $offset = 0, int $limit = 0) {
+    public function fetchWhere(string $where, array $values, int $offset = 0, int $limit = 0, string $orderBy = ''): array {
+        $orderBy        = empty($orderBy) ? $this->defaultOrderBy : $orderBy;
         $limitQuery     = $limit  > 0 ? "LIMIT  {$limit}"  : '';
         $offsetQuery    = $offset > 0 ? "OFFSET {$offset}" : '';
+        $orderByQuery   = $orderBy ? "ORDER BY {$orderBy}" : '';
         $query          = <<<________QUERY
             SELECT  *
-            FROM    {$table}
+            FROM    {$this->table}
             WHERE   {$where}
             {$limitQuery}
             {$offsetQuery}
+            {$orderByQuery}
 ________QUERY;
         $query  = $this->escapeQuery($query, $values);
 
         $result = $this->query($query);
 
+        $this->logger->debug('fetchWhere', ['query' => $query]);
+
         $entities = [];
-        if($result) {
-            while ($row = $result->fetch_assoc()) {
-                $entities[] = $row;
-            }
+        while ($row = $result->fetch_assoc()) {
+            $entities[] = new $this->entityClass($row);
         }
         return $entities;
     }
 
     public function escapeQuery(string $query, array $args): string {
-        $logger = LoggerManager::getLogger('test');
-
-        // $logger->debug('escapeQuery (before)', ['query' => $query, 'args' => $args]);
         foreach ($args as $key => $value) {
-            $query = str_replace(":{$key}", is_string($value) ? $this->real_escape_string((string)$value) : $value, $query);
+            $this->logger->debug('escapeQuery', ['key' => $key, 'value' => $value, 'is_string' => is_string($value)]);
+            $query = str_replace(":{$key}", (is_string($value) ? $this->real_escape_string((string)$value) : $value), $query);
         }
-        // $logger->debug('escapeQuery (after)', ['query' => $query]);
 
         return $query;
     }
 
     public static function newUuid(): string {
-        // This is not really a runtime error.  This indicates that the site is
-        // misconfigured (composer should have downloaded Uuid and its dependencies).
-        //
-        // If this fails, it's appropriate to 'die'
-
         try {
             $uuid = Uuid::uuid4();
 
@@ -171,6 +176,11 @@ ________QUERY;
             }
 
         } catch (UnsatisfiedDependencyException $e) {
+            // This is not really a runtime error.  This indicates that the site is
+            // misconfigured (composer should have downloaded Uuid and its dependencies).
+            //
+            // If this fails, it's appropriate to 'die'
+
             die('newUuid: caught exception: ' . $e->getMessage() . '\n');
         }
     }

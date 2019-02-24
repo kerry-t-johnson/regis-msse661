@@ -11,7 +11,7 @@
                 <label>Password</label>
                 <input type="password" name="password" placeholder="password">
                 <input id="submit" type="submit" value="Login" name="login" />
-                <a href="user/register">Register...</a>
+                <a href="/user/register">Register...</a>
             </form>
         <?php endif; ?>
     </div>

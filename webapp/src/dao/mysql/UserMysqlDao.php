@@ -10,6 +10,10 @@ use msse661\UserImpl;
 class UserMysqlDao extends BaseMysqlDao implements UserDao
 {
 
+    public function __construct() {
+        parent::__construct('users', '\\msse661\\UserImpl', 'last_name ASC');
+    }
+
     public function create(array $userSpec): User {
         $query = <<<________QUERY
             INSERT INTO users
@@ -24,18 +28,11 @@ ________QUERY;
     }
 
     public function getAll(int $offset = 0, int $limit = 0): array {
-        $raw = $this->fetch('users', $offset, $limit);
-
-        $entities = [];
-        foreach($raw as $r) {
-            $entities[] = new UserImpl($r);
-        }
-        return $entities;
-
+        return $this->fetch($offset, $limit);
     }
 
     public function getByEmail(string $email): User {
-        return new UserImpl($this->fetchExactlyOne('users', 'email', $email));
+        return $this->fetchExactlyOne('users', 'email', $email);
     }
 
     public function getByEmailAndPassword(string $email, string $password): User {
@@ -46,7 +43,7 @@ ________QUERY;
     }
 
     public function getByUuid(string $uuid): User {
-        return new UserImpl($this->fetchExactlyOne('users', 'id', $uuid));
+        return $this->fetchExactlyOne('id', $uuid);
     }
 
 }

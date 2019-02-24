@@ -5,59 +5,54 @@ namespace msse661\controller;
 
 
 use msse661\Content;
-use msse661\dao\mysql\CommentMysqlDao;
 use msse661\dao\mysql\ContentMysqlDao;
-use msse661\dao\mysql\UserMysqlDao;
 use msse661\util\FileManager;
+use msse661\util\TestDataFactory;
 use msse661\view\ViewFactory;
 
-class ContentController implements Controller {
+class ContentController extends BaseController implements Controller {
 
     /** @var Content */
     private $contentDao;
 
     public function __construct() {
+        parent::__construct('content');
         $this->contentDao = new ContentMysqlDao();
     }
 
-    public function route(array $path, array $query = []): string {
-        $contentUuid    = $path[0] ?? null;
-        $userDao        = new UserMysqlDao();
-        $commentsDao    = new CommentMysqlDao();
+    public function route(array $request): string {
+        $content        = $this->getResource($request);
 
-        if($contentUuid) {
-            $content    = $this->contentDao->getByUuid($contentUuid);
-            $user       = $userDao->getByUuid($content->getUserUuid());
-            $comments   = $commentsDao->getByContent($contentUuid);
+        if(is_array($content)) {
+            return ViewFactory::render(
+                'content',
+                ['content' => $content],
+                $request['query']['view'] ?? 'list');
 
-            return ViewFactory::render('content', ['content' => $content, 'user' => $user, 'comments' => $comments], $query['view'] ?? null);
         }
         else {
-            // TODO Implement pager
-
-            $content    = $this->contentDao->getAll();
-            $users      = [];
-            $comments   = [];
-
-            /** @var Content $c */
-            foreach($content as $c) {
-                $users[$c->getUuid()]       = $userDao->getByUuid($c->getUserUuid());
-                $comments[$c->getUuid()]    = $commentsDao->getByContent($c->getUuid());
-            }
+            $contentText    = filter_var($content->getPath(), FILTER_VALIDATE_URL) && strpos($content->getPath(), 'api')
+                ? file_get_contents($content->getPath())
+                : false;
+            $contentLink    = filter_var($content->getPath(), FILTER_VALIDATE_URL) && $contentText === false0
+                ? $content->getPath()
+                : false;
 
             return ViewFactory::render(
                 'content',
-                ['content' => $content, 'users' => $users, 'comments' => $comments],
-                'list');
+                ['content' => $content,
+                 'contentText' => $contentText,
+                 'contentLink' => $contentLink],
+                $request['query']['view'] ?? null);
         }
     }
 
-    public function uploadForm(array $path, array $query = []): string {
+    public function onGetUploadForm(array $request): string {
         $user = UserController::getCurrentUser();
         return ViewFactory::render('content', ['user' => $user], 'upload');
     }
 
-    public function upload(): string {
+    public function onPostUpload(array $request): string {
         try {
             $user = UserController::getCurrentUser();
             if ($user->getUuid() != $_POST['userUuid']) {
@@ -75,10 +70,17 @@ class ContentController implements Controller {
 
             $content = $this->contentDao->create($contentSpec);
 
-            return ViewFactory::render('content', ['content' => $content, 'user' => $user]);
+            $this->redirect("/content/{$content->getUuid()}");
         }
         catch(\Exception $ex) {
-
+            // TODO
         }
+    }
+
+    public function onGetCreateTestData(array $request) {
+        $testDataFactory = new TestDataFactory();
+        $testDataFactory->createTestData(dirname(__FILE__) . '/../../../test_data.json');
+
+        $this->redirect("/");
     }
 }

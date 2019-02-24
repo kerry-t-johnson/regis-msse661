@@ -4,6 +4,7 @@
 namespace  msse661\controller;
 
 
+use function GuzzleHttp\Psr7\str;
 use Monolog\Logger;
 use msse661\util\logger\LoggerManager;
 
@@ -40,7 +41,7 @@ class SiteController {
         $current_uri_parts = $current_uri_parts ?? self::currentUriParts();
 
         $request_query      = [];
-        $request_query_tmp  = !empty($current_uri_parts['query']) ? explode('?', $current_uri_parts['query']) : [];
+        $request_query_tmp  = !empty($current_uri_parts['query']) ? explode('&', $current_uri_parts['query']) : [];
 
         foreach($request_query_tmp as $query) {
             $query_parts    = explode('=', $query);
@@ -55,10 +56,10 @@ class SiteController {
         $current_path       = self::currentPath($current_uri_parts);
         $current_query      = self::currentQueryArgs($current_uri_parts);
 
-        return ['path'  => $current_path, 'query' => $current_query, 'uri' => $_SERVER['REQUEST_URI']];
+        return ['type' => $_SERVER['REQUEST_METHOD'], 'path'  => $current_path, 'query' => $current_query, 'uri' => $_SERVER['REQUEST_URI']];
     }
 
-    public static function route($uri = null) : string {
+    public static function route(string $alternatePath = null) : string {
         if(self::$logger == null) {
             self::$logger = LoggerManager::getLogger('SiteController');
         }
@@ -68,37 +69,14 @@ class SiteController {
             return false;
         }
 
-        $request            = SiteController::extractRequest();
-
-        $entity_type        = ucwords(array_shift($request['path']));
-        $entity_type        = !empty($entity_type) ? $entity_type : 'Content';
-        $entity_controller  = "\\msse661\\controller\\{$entity_type}Controller";
-
-        self::$logger->debug("route", ['request (extracted)' => $request, 'entity_type' => $entity_type, 'entity_controller' => $entity_controller]);
-
-        if(class_exists($entity_controller)) {
-            /** @var Controller $entity_controller */
-            $entity_controller  = new $entity_controller();
-            $request_path       = $request['path'];
-
-            if(!empty($request_path[0]) && method_exists($entity_controller, $request_path[0])) {
-                $function = array_shift($request_path);
-                return $entity_controller->{$function}($request_path, $request['query']);
-            }
-            else {
-                return $entity_controller->route($request['path'], $request['query']);
-            }
+        if($_SERVER['REQUEST_URI'] == '/' && $alternatePath != null) {
+            $_SERVER['REQUEST_URI'] = $alternatePath;
         }
-        else {
-            return "Unknown route: {$entity_controller}...\n\n" . print_r($request, true);
-        }
-    }
 
-    public static function redirect($uri) {
-        ob_start();
-        header("Location: {$uri}");
-        ob_end_flush();
-        die();
+        $request    = SiteController::extractRequest();
+        $router     = new BaseController(null);
+
+        return $router->route($request);
     }
 
 }

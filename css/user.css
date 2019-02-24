@@ -3,16 +3,6 @@
     outline: none;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    background: #DDD;
-    font-size: 16px;
-    color: #222;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
-}
-
 #register-box {
     position: relative;
     margin: 5% auto;
@@ -90,7 +80,6 @@ input[type="submit"]:active {
     left: 280px;
     width: 40px;
     height: 40px;
-    background: #DDD;
     border-radius: 50%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
     line-height: 40px;

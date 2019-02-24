@@ -11,13 +11,10 @@ use msse661\User;
 use msse661\util\logger\LoggerManager;
 use msse661\view\ViewFactory;
 
-class UserController implements Controller {
+class UserController extends BaseController implements Controller {
 
     /** @var UserDao */
     private $userDao;
-
-    /** @var Monolog\Logger */
-    private $logger;
 
     public static function getCurrentUser(): ?User {
         return $_SESSION['user'] ?? null;
@@ -39,49 +36,42 @@ class UserController implements Controller {
     }
 
     public function __construct() {
-        $this->userDao  = new UserMysqlDao();
-        $this->logger   = LoggerManager::getLogger('UserController');
+        parent::__construct('user');
     }
 
-    public function route(array $path, array $query = []) : string {
-        $userUuid   = $path[0] ?? null;
+    public function route(array $request) : string {
+        $user   = $this->getResource($request);
 
-        if($userUuid) {
-            $user = $this->userDao->getByUuid($userUuid);
-
-            return ViewFactory::render('user', ['user' => $user], $query['view'] ?? null);
-        }
-        else {
-            // TODO Use offset/limit (basically, a pager)
-            $users = $this->userDao->getAll();
-            return ViewFactory::render('user', ['users' => $users], $query['view'] ?? 'list');
-        }
+        return ViewFactory::render(
+            'user',
+            ['user' => $user],
+            $request['query']['view'] ?? (is_array($user) ? 'list' : null));
     }
 
-    public function login(array $path, array $query = []) {
+    public function onPostLogin(array $request) {
         $userDao    = new UserMysqlDao();
         $user       = $userDao->getByEmailAndPassword($_POST['email'], $_POST['password']);
 
-        $this->onLogin($user);
+        $this->login($user);
 
-        SiteController::redirect("/");
+        $this->redirect("/");
     }
 
-    public function onLogin(User $user) : void {
+    public function login(User $user) : void {
         self::startUserSession($user);
     }
 
-    public function logout(array $path, array $query = []) {
+    public function onPostLogout(array $path, array $query = []) {
         self::destroyUserSession();
 
-        SiteController::redirect("/");
+        $this->redirect("/");
     }
 
-    public function register(array $path, array $query = []) : string {
+    public function onGetRegister(array $path, array $query = []) : string {
         return ViewFactory::render('user', [], 'register');
     }
 
-    public function onRegistration(array $path, array $query = []) {
+    public function onPostRegistration(array $path, array $query = []) {
         $userDao        = new UserMysqlDao();
         $user_email     = $_POST['email'] ?? null;
         $user_password  = $_POST['password'] ?? null;
@@ -105,7 +95,7 @@ class UserController implements Controller {
             ];
 
             $user   = $userDao->create($userSpec);
-            $this->onLogin($user);
+            $this->login($user);
 
             return ViewFactory::render('user', ['user' => $user]);
         }

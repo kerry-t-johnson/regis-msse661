@@ -10,6 +10,10 @@ use msse661\dao\ContentDao;
 
 class ContentMysqlDao extends BaseMysqlDao implements ContentDao {
 
+    public function __construct() {
+        parent::__construct('content_view', '\\msse661\\ContentImpl', 'created DESC');
+    }
+
     public function create(array $contentSpec): Content {
         $optDescription = isset($tagSpec['description']) ? "':description'" : 'NULL';
         $query  = <<<________QUERY
@@ -29,30 +33,18 @@ ________QUERY;
     }
 
     public function getAll(int $offset = 0, int $limit = 0): array {
-        $raw = $this->fetch('content', $offset, $limit);
-
-        $entities = [];
-        foreach($raw as $r) {
-            $entities[] = new ContentImpl($r);
-        }
-        return $entities;
+        return $this->fetch($offset, $limit);
     }
 
     public function getByUuid(string $uuid): Content {
-        return new ContentImpl($this->fetchExactlyOne('content', 'id', $uuid));
+        return $this->fetchExactlyOne('id', $uuid);
     }
 
     public function hashExists(string $hash): bool {
-        return $this->countWhere('content', "hash = ':hash'", ['hash' => $hash]) > 0;
+        return $this->countWhere("hash = ':hash'", ['hash' => $hash]) > 0;
     }
 
     public function getByTitleLike(string $title, int $offset = 0, int $limit = 0): array {
-        $raw = $this->fetchWhere('content', "title LIKE '%:title%'", ['title' => $title], $offset, $limit);
-
-        $entities = [];
-        foreach($raw as $r) {
-            $entities[] = new ContentImpl($r);
-        }
-        return $entities;
+        return $this->fetchWhere("title LIKE '%:title%'", ['title' => $title], $offset, $limit);
     }
 }

@@ -7,7 +7,7 @@ namespace msse661;
 class CommentImpl extends EntityImpl implements Comment {
 
     public function __construct(array $commentSpec) {
-        parent::__construct($commentSpec, ['id', 'text', 'content', 'users']);
+        parent::__construct('comment', $commentSpec, ['id', 'text', 'content', 'users']);
     }
 
     function getTitle(): string {

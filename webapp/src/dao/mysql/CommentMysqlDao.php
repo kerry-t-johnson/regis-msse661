@@ -10,6 +10,10 @@ use msse661\dao\CommentDao;
 
 class CommentMysqlDao extends BaseMysqlDao implements CommentDao {
 
+    public function __construct() {
+        parent::__construct('comments', '\\msse661\\CommentImpl', 'created DESC');
+    }
+
     public function create(array $commentSpec): Comment {
         $optTitle   = isset($commentSpec['title']) ? "':title'" : 'NULL';
         $optParent  = isset($commentSpec['parent']) ? "':parent'" : 'NULL';
@@ -27,26 +31,14 @@ ________QUERY;
     }
 
     public function getByUuid(string $uuid): Comment {
-        return new CommentImpl($this->fetchExactlyOne('comments', 'id', $uuid));
+        return $this->fetchExactlyOne('id', $uuid);
     }
 
     public function getByContent(string $contentUuid, int $offset = 0, int $limit = 0): array {
-        $raw = $this->fetchWhere('comments', "content = ':content'", ['content' => $contentUuid], $offset, $limit);
-
-        $entities = [];
-        foreach($raw as $r) {
-            $entities[] = new CommentImpl($r);
-        }
-        return $entities;
+        return $this->fetchWhere("content = ':content'", ['content' => $contentUuid], $offset, $limit, 'created DESC');
     }
 
     public function getByTitleLike(string $title, int $offset = 0, int $limit = 0): array {
-        $raw = $this->fetchWhere('comment', "title LIKE '%:title%'", ['title' => $title], $offset, $limit);
-
-        $entities = [];
-        foreach($raw as $r) {
-            $entities[] = new CommentImpl($r);
-        }
-        return $entities;
+        return $this->fetchWhere("title LIKE '%:title%'", ['title' => $title], $offset, $limit);
     }
 }

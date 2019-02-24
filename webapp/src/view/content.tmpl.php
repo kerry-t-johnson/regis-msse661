@@ -9,23 +9,21 @@
         <a href="<?php print $content->getPath(); ?>"><?php print $content->getPath(); ?></a>
     </div>
     <div class="content-user">
-        <?php print \msse661\view\ViewFactory::render('user', ['user' => $user], 'teaser'); ?>
+        <?php print \msse661\view\ViewFactory::render('user', ['user' => $content->getUser()], 'teaser'); ?>
     </div>
     <div class="content-hash">
         <?php print $content->getHash(); ?>
     </div>
-    <?php if(filter_var($content->getPath(), FILTER_VALIDATE_URL)): ?>
-        <?php if(strpos($content->getPath(), 'api')): ?>
-            <div class="content-content">
-                <?php print file_get_contents($content->getPath()); ?>
-            </div>
-        <?php else: ?>
-            <div class="content-external-link">
-                <a href="/<?php print $content->getPath(); ?>" target="_blank">
-                    <?php print $content->getTitle(); ?>
-                </a>
-            </div>
-        <?php endif; ?>
+    <?php if($contentText !== false): ?>
+        <div class="content-content" id="content">
+            <?php print $contentText; ?>
+        </div>
+    <?php elseif($contentLink !== false): ?>
+        <div class="content-external-link">
+            <a href="/<?php print $contentLink; ?>" target="_blank">
+                <?php print $content->getTitle(); ?>
+            </a>
+        </div>
     <?php elseif(in_array($content->getImageType(), [IMAGETYPE_PNG, IMAGETYPE_JPEG])): ?>
         <div class="content-content">
             <img src="/<?php print $content->getPath(); ?>">

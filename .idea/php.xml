@@ -63,6 +63,8 @@
       <path value="$PROJECT_DIR$/webapp/vendor/phpunit/php-file-iterator" />
       <path value="$PROJECT_DIR$/webapp/vendor/phpunit/php-timer" />
       <path value="$PROJECT_DIR$/webapp/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/webapp/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/webapp/vendor/vlucas/phpdotenv" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

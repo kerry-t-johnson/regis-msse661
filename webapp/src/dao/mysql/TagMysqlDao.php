@@ -10,6 +10,10 @@ use msse661\TagImpl;
 
 class TagMysqlDao extends BaseMysqlDao implements TagDao {
 
+    public function __construct() {
+        parent::__construct('tag', '\\msse661\\TagImpl', 'name ASC');
+    }
+
     function create(array $tagSpec): Tag {
         $optDescription = isset($tagSpec['description']) ? "':description'" : 'NULL';
         $optParent      = isset($tagSpec['parent']) ? "':parent'" : 'NULL';
@@ -26,11 +30,11 @@ ________QUERY;
     }
 
     function getByUuid(string $uuid): Tag {
-        return new TagImpl($this->fetchExactlyOne('tag', 'id', $uuid));
+        return $this->fetchExactlyOne('id', $uuid);
     }
 
     function getByName(string $name): Tag {
-        return new TagImpl($this->fetchExactlyOne('tag', 'name', $name));
+        return $this->fetchExactlyOne('name', $name);
     }
 
 

@@ -22,11 +22,11 @@ services:
         source: ./webapp/unittest
         target: /var/www/webapp/unittest
     env_file:
-      - development.env
+      - webapp/test.env
 
   mysql:
     env_file:
-      - development.env
+      - webapp/test.env
 
 #  ftp:
 #    container_name: ftp
@@ -40,7 +40,7 @@ services:
 #        source: ./html
 #        target: /home/vsftpd
 #    env_file:
-#      - development.env
+#      - test.env
 #    environment:
 #      PASV_ADDRESS:
 
@@ -52,7 +52,7 @@ services:
     ports:
       - 8181:80
     env_file:
-      - development.env
+      - webapp/test.env
 
 volumes:
   htmldata:

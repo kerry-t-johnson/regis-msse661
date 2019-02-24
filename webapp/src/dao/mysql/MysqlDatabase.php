@@ -3,14 +3,29 @@
 
 namespace msse661\dao\mysql;
 
-class MysqlDatabase extends BaseMysqlDao
+use msse661\dao\Schema;
+use msse661\util\logger\LoggerManager;
+
+class MysqlDatabase extends \mysqli
 {
+    /** @var Schema */
     private $dbSpec;
 
+    /** @var \Monolog\Logger  */
+    protected $logger;
+
     public function __construct($dbSpec) {
-        parent::__construct();
+        $this->database_host    = $_ENV['MYSQL_HOST'] ?? 'localhost';
+        $this->database_name    = $_ENV['MYSQL_DATABASE'] ?? 'regis';
+
+        parent::__construct(
+            $this->database_host,
+            $_ENV['MYSQL_USER'] ?? 'regis',
+            $_ENV['MYSQL_PASSWORD'] ?? 'regis123',
+            $this->database_name);
 
         $this->dbSpec = $dbSpec;
+        $this->logger = LoggerManager::getLogger('MysqlDatabase');
 
         $this->initialize();
     }
@@ -20,7 +35,7 @@ class MysqlDatabase extends BaseMysqlDao
 
         $tables = $this->dbSpec->getTablesSchema();
         foreach ($tables as $tableName => $tableSpec) {
-            $this->logger->info("Creating MySQL table: {$tableName}");
+            $this->logger->info("Creating MySQL table: {$tableName}", ['spec' => $tableSpec]);
 
             $this->createTable($tableName, $tableSpec);
         }
@@ -52,7 +67,7 @@ class MysqlDatabase extends BaseMysqlDao
         if (array_key_exists('track-updates', $tableSpec)) {
             if ((array_key_exists('created', $tableSpec['columns']) ||
                 array_key_exists('updated', $tableSpec['columns']))) {
-                throw new Exception("track-updates was specified, but column(s) 'created'/'updated' already exist in spec");
+                throw new \Exception("track-updates was specified, but column(s) 'created'/'updated' already exist in spec");
             }
 
             $tableSpec['columns']['created'] = [
@@ -111,10 +126,13 @@ class MysqlDatabase extends BaseMysqlDao
 
         $query .= ");";
 
+        $this->logger->debug('createTable', ['query' => $query]);
         $this->query($query);
 
         if (isset($tableSpec['post-queries'])) {
-            $this->query($tableSpec['post-queries']);
+            foreach($tableSpec['post-queries'] as $query) {
+                $this->query($query);
+            }
         }
     }
 
@@ -124,20 +142,15 @@ class MysqlDatabase extends BaseMysqlDao
     }
 
     public function dropTable($tableName): void {
-        $this->query([
-            'SET FOREIGN_KEY_CHECKS = 0',
-            "DROP TABLE IF EXISTS {$tableName}",
-            'SET FOREIGN_KEY_CHECKS = 1',
-        ]);
+        $this->query('SET FOREIGN_KEY_CHECKS = 0');
+        $this->query("DROP TABLE IF EXISTS {$tableName}");
+        $this->query('SET FOREIGN_KEY_CHECKS = 1');
     }
 
-    public function dropView($viewName): void
-    {
-        $this->query([
-            'SET FOREIGN_KEY_CHECKS = 0',
-            "DROP VIEW IF EXISTS {$viewName}",
-            'SET FOREIGN_KEY_CHECKS = 1',
-        ]);
+    public function dropView($viewName): void {
+        $this->query('SET FOREIGN_KEY_CHECKS = 0');
+        $this->query("DROP VIEW IF EXISTS {$viewName}");
+        $this->query('SET FOREIGN_KEY_CHECKS = 1');
     }
 
 }

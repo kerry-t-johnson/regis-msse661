@@ -4,12 +4,22 @@
 namespace msse661;
 
 
+use msse661\dao\EntityDao;
+use msse661\dao\EntityDaoFactory;
+
 class ContentImpl extends EntityImpl implements Content {
 
     private const REQUIRED_KEYS = ['id', 'title', 'users', 'state', 'path', 'hash'];
+    private const HIDDEN_KEYS   = ['state', 'comments_allowed', 'hash'];
+
+    /** @var User */
+    private $user;
+
+    /** @var array */
+    private $comments;
 
     public function __construct(array $contentSpec) {
-        parent::__construct($contentSpec, self::REQUIRED_KEYS);
+        parent::__construct('content', $contentSpec, self::REQUIRED_KEYS, self::HIDDEN_KEYS);
     }
 
     public function getTitle(): string {
@@ -22,6 +32,26 @@ class ContentImpl extends EntityImpl implements Content {
 
     public function getUserUuid(): string {
         return $this->getAttributeValue('users');
+    }
+
+    public function getUser(): User {
+        if(!$this->user) {
+            /** @var EntityDao $userDao */
+            $userDao = EntityDaoFactory::createEntityDao('user');
+            $this->user = $userDao->fetchExactlyOne('id', $this->getUserUuid());
+        }
+
+        return $this->user;
+    }
+
+    public function getComments(): array {
+        if(!$this->comments) {
+            /** @var EntityDao $commentDao */
+            $commentDao = EntityDaoFactory::createEntityDao('comment');
+            $this->comments = $commentDao->fetchWhere("content = ':content'", ['content' => $this->getUuid()]);
+        }
+
+        return $this->comments;
     }
 
     public function getState(): string {

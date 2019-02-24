@@ -7,7 +7,7 @@ namespace msse661;
 class TagImpl extends EntityImpl implements Tag {
 
     public function __construct(array $tagSpec) {
-        parent::__construct($tagSpec, ['id', 'name']);
+        parent::__construct('tag', $tagSpec, ['id', 'name']);
     }
 
     function getName(): string {
