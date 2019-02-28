@@ -13,6 +13,16 @@
       "password": "abcdefgh"
     }
   },
+  "test_tags" : {
+    "tag-id-1": {
+      "name": "Software Engineering",
+      "description": ""
+    },
+    "tag-id-2": {
+      "name": "Data Science",
+      "description" : ""
+    }
+  },
   "test_content": {
     "content-id-1": {
       "title": "Test Content 1",

@@ -2,6 +2,7 @@
 
 namespace msse661\dao\mysql;
 
+use msse661\Config;
 use msse661\dao\EntityDao;
 use msse661\Entity;
 use msse661\util\logger\LoggerManager;
@@ -22,11 +23,13 @@ class BaseMysqlDao extends \mysqli implements EntityDao
     protected $logger;
 
     public function __construct($table, $entity_class, $default_order_by = '') {
+        $databaseConfig = Config::getDatabaseConfig();
+
         $this->table            = $table;
         $this->entityClass      = $entity_class;
         $this->defaultOrderBy   = $default_order_by;
-        $this->databaseHost     = $_ENV['MYSQL_HOST'] ?? 'localhost';
-        $this->databaseName     = $_ENV['MYSQL_DATABASE'] ?? 'regis';
+        $this->databaseHost     = $databaseConfig['host'];
+        $this->databaseName     = $databaseConfig['database'];
         $this->logger           = LoggerManager::getLogger(get_class($this));
 
         if(!class_exists($entity_class)) {
@@ -36,8 +39,8 @@ class BaseMysqlDao extends \mysqli implements EntityDao
 
         parent::__construct(
             $this->databaseHost,
-            $_ENV['MYSQL_USER'] ?? 'regis',
-            $_ENV['MYSQL_PASSWORD'] ?? 'regis123',
+            $databaseConfig['user'],
+            $databaseConfig['password'],
             $this->databaseName);
     }
 
@@ -57,7 +60,7 @@ class BaseMysqlDao extends \mysqli implements EntityDao
             $result = parent::query($q, $resultmode);
 
             if($result === false) {
-                throw new \Exception('Error while executing query: ' . $this->error);
+                throw new \Exception('Error while executing query: ' . $this->error . '(' . $q . ')');
             }
         }
 
@@ -72,9 +75,9 @@ class BaseMysqlDao extends \mysqli implements EntityDao
         $entitySpec['id']   = self::newUuid();
         $query              = $this->escapeQuery($query, $entitySpec);
 
-        $this->logger->debug('createEntity', ['query' => $query]);
+         $this->logger->debug('createEntity', ['query' => $query]);
         $this->query($query);
-        $this->logger->info("Created Entity", $entitySpec);
+         $this->logger->info("Created Entity", $entitySpec);
         return $entitySpec;
     }
 
@@ -91,7 +94,7 @@ class BaseMysqlDao extends \mysqli implements EntityDao
         }
 
         $assoc = $result->fetch_assoc();
-        $this->logger->debug('fetchExactlyOne', ['assoc' => $assoc, 'entity_class' => $this->entityClass]);
+         $this->logger->debug('fetchExactlyOne', ['assoc' => $assoc, 'entity_class' => $this->entityClass]);
 
         return new $this->entityClass($assoc);
     }
@@ -109,9 +112,10 @@ ________QUERY;
     }
 
     public function fetch(int $offset = 0, int $limit = 0, string $orderBy = ''): array {
+        $orderBy        = $orderBy ? $orderBy : $this->defaultOrderBy;
         $limitQuery     = $limit  > 0 ? "LIMIT  {$limit}"  : '';
         $offsetQuery    = $offset > 0 ? "OFFSET {$offset}" : '';
-        $orderByQuery   = $orderBy ? "ORDER BY {$orderBy}" : $this->defaultOrderBy;
+        $orderByQuery   = $orderBy ? "ORDER BY {$orderBy}" : '';
         $query          = <<<________QUERY
             SELECT  *
             FROM    {$this->table}
@@ -121,16 +125,18 @@ ________QUERY;
 ________QUERY;
 
         $result = $this->query($query);
+        $this->logger->debug('fetch', ['query' => $query]);
 
         $entities = [];
         while ($row = $result->fetch_assoc()) {
             $entities[] = new $this->entityClass($row);
         }
+        $this->logger->debug('fetch', ['entities' => $entities]);
         return $entities;
     }
 
     public function fetchWhere(string $where, array $values, int $offset = 0, int $limit = 0, string $orderBy = ''): array {
-        $orderBy        = empty($orderBy) ? $this->defaultOrderBy : $orderBy;
+        $orderBy        = $orderBy ? $orderBy : $this->defaultOrderBy;
         $limitQuery     = $limit  > 0 ? "LIMIT  {$limit}"  : '';
         $offsetQuery    = $offset > 0 ? "OFFSET {$offset}" : '';
         $orderByQuery   = $orderBy ? "ORDER BY {$orderBy}" : '';
@@ -157,7 +163,7 @@ ________QUERY;
 
     public function escapeQuery(string $query, array $args): string {
         foreach ($args as $key => $value) {
-            $this->logger->debug('escapeQuery', ['key' => $key, 'value' => $value, 'is_string' => is_string($value)]);
+            // $this->logger->debug('escapeQuery', ['key' => $key, 'value' => $value, 'is_string' => is_string($value)]);
             $query = str_replace(":{$key}", (is_string($value) ? $this->real_escape_string((string)$value) : $value), $query);
         }
 

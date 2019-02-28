@@ -12,6 +12,5 @@ interface Entity {
 
     public function getUpdatedDateTime(): \DateTime;
 
-    public function toJson(): string;
 
 }

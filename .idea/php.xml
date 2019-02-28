@@ -65,6 +65,7 @@
       <path value="$PROJECT_DIR$/webapp/vendor/phpunit/php-text-template" />
       <path value="$PROJECT_DIR$/webapp/vendor/phpoption/phpoption" />
       <path value="$PROJECT_DIR$/webapp/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/webapp/vendor/flow/jsonpath" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

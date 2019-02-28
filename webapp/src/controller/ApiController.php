@@ -12,32 +12,29 @@ class ApiController extends BaseController implements Controller {
         parent::__construct(null);
     }
 
-    public function route(array $request): string {
-        $content_type       = array_shift($request['path']);
-        $entity_controller  = $this->createEntityController($content_type);
+    public function route(array $request, callable $dataTransform = null) {
+        try {
+            $result = $this->invokeOtherController($request, $this);
 
-        $entity = $entity_controller->getResource($request, true);
+            header('Content-type: application/json');
+            print $result;
+            http_response_code(200);
 
-        $result = null;
-        if(is_array($entity)) {
-            /** @var Entity $e */
-            foreach($entity as $e) {
-                $result[] = $e->toJson();
-            }
+            die;
         }
-        else {
-            $result = $entity->toJson();
+        catch(\Exception $ex) {
+            http_response_code($ex->getCode());
+            print json_encode(['message' => $ex->getMessage()]);
+            die;
         }
-
-        header('Content-type: application/json');
-        echo json_encode($result);
-        http_response_code(200);
-
-        die;
     }
 
-    public function getResource(array $request, bool $allowSubResources = false) {
-        // TODO: Implement getResource() method.
+    public function __invoke($data) {
+        return json_encode($data);
+    }
+
+    public function getResource(array $request) {
+        throw new \Exception('Unsupported operation');
     }
 
 }

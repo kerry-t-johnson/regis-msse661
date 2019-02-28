@@ -3,6 +3,7 @@
 
 namespace msse661\dao\mysql;
 
+use msse661\Config;
 use msse661\dao\Schema;
 use msse661\util\logger\LoggerManager;
 
@@ -15,14 +16,13 @@ class MysqlDatabase extends \mysqli
     protected $logger;
 
     public function __construct($dbSpec) {
-        $this->database_host    = $_ENV['MYSQL_HOST'] ?? 'localhost';
-        $this->database_name    = $_ENV['MYSQL_DATABASE'] ?? 'regis';
+        $databaseConfig = Config::getDatabaseConfig();
 
         parent::__construct(
-            $this->database_host,
-            $_ENV['MYSQL_USER'] ?? 'regis',
-            $_ENV['MYSQL_PASSWORD'] ?? 'regis123',
-            $this->database_name);
+            $databaseConfig['host'],
+            $databaseConfig['user'],
+            $databaseConfig['password'],
+            $databaseConfig['database']);
 
         $this->dbSpec = $dbSpec;
         $this->logger = LoggerManager::getLogger('MysqlDatabase');

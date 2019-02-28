@@ -59,7 +59,7 @@ class SiteController {
         return ['type' => $_SERVER['REQUEST_METHOD'], 'path'  => $current_path, 'query' => $current_query, 'uri' => $_SERVER['REQUEST_URI']];
     }
 
-    public static function route(string $alternatePath = null) : string {
+    public static function route(string $alternatePath = null) {
         if(self::$logger == null) {
             self::$logger = LoggerManager::getLogger('SiteController');
         }
@@ -76,7 +76,11 @@ class SiteController {
         $request    = SiteController::extractRequest();
         $router     = new BaseController(null);
 
-        return $router->route($request);
+        return $router->route($request, [SiteController::class, 'identity']);
+    }
+
+    public static function identity($data) {
+        return $data;
     }
 
 }

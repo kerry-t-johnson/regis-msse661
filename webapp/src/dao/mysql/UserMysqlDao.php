@@ -32,7 +32,7 @@ ________QUERY;
     }
 
     public function getByEmail(string $email): User {
-        return $this->fetchExactlyOne('users', 'email', $email);
+        return $this->fetchExactlyOne('email', $email);
     }
 
     public function getByEmailAndPassword(string $email, string $password): User {

@@ -7,7 +7,7 @@ namespace msse661;
 use Monolog\Logger;
 use msse661\util\logger\LoggerManager;
 
-class EntityImpl
+class EntityImpl implements \JsonSerializable
 {
     private $entity_type;
     private $values;
@@ -38,12 +38,12 @@ class EntityImpl
         return new \sDateTime($this->getAttributeValue('updated'));
     }
 
-    public function toJson(): string {
+    public function jsonSerialize() {
         $json_values    = $this->values;
         foreach($this->hiddenValues as $h) {
             unset($json_values[$h]);
         }
-        return json_encode($json_values);
+        return $json_values;
     }
 
     protected function getAttributeValue(string $attributeName, bool $required = true) {

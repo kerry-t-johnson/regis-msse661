@@ -7,6 +7,8 @@ define('APP_TEST_ENV', 'APP_TEST_ENV');
 namespace msse661\util {
 
 
+    use msse661\dao\mysql\TagMysqlDao;
+
     class TestDataFactory {
 
         public function __construct() {
@@ -22,12 +24,18 @@ namespace msse661\util {
 
         private function _createTestData($data) {
             $test_users     = $data['test_users'] ?? [];
+            $test_tags      = $data['test_tags'] ?? [];
             $test_content   = $data['test_content'] ?? [];
             $test_comments  = $data['test_comments'] ?? [];
 
             $actual_users = [];
             foreach ($test_users as $testId => &$userSpec) {
                 $actual_users[$testId] = $this->createOrRetrieveTestUser($userSpec);
+            }
+
+            $actual_tags = [];
+            foreach($test_tags as $testId => &$tagSpec) {
+                $actual_tags[$testId] = $this->createOrRetrieveTestTag($tagSpec);
             }
 
             $actual_content = [];
@@ -55,7 +63,6 @@ namespace msse661\util {
             }
         }
 
-
         private function createOrRetrieveTestUser($userSpec): \msse661\User {
             $userDao = new \msse661\dao\mysql\UserMysqlDao();
 
@@ -64,6 +71,17 @@ namespace msse661\util {
             }
             catch (\Exception $e) {
                 return $userDao->create($userSpec);
+            }
+        }
+
+        private function createOrRetrieveTestTag($tagSpec): \msse661\User {
+            $tagDao = new TagMysqlDao();
+
+            try {
+                return $tagDao->getByName($tagSpec['name']);
+            }
+            catch (\Exception $e) {
+                return $tagDao->create($tagSpec);
             }
         }
 

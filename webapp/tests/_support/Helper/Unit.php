@@ -7,6 +7,7 @@ namespace Helper;
 require_once dirname(__FILE__) . '/../../../../bootstrap.php';
 
 use Monolog\Logger;
+use msse661\Config;
 use msse661\util\logger\LoggerManager;
 use msse661\util\TestDataFactory;
 
@@ -20,10 +21,14 @@ class Unit extends \Codeception\Module
 
         $this->logger = LoggerManager::getLogger('Unit');
 
-        $host   = $_ENV['MYSQL_HOST'] ?? 'localhost';
-        $user   = $_ENV['MYSQL_USER'] ?? 'regis';
-        $pass   = $_ENV['MYSQL_PASSWORD'] ?? 'regis123';
-        $db     = $_ENV['MYSQL_DATABASE'] ?? 'regis';
+        $databaseConfig = Config::getDatabaseConfig();
+
+        $this->logger->debug('_initialize', ['databaseConfig' => $databaseConfig]);
+
+        $host   = $databaseConfig['host'];
+        $user   = $databaseConfig['user'];
+        $pass   = $databaseConfig['pass'];
+        $db     = $databaseConfig['database'];
 
         $mysql = new \mysqli($host, $_ENV['MYSQL_ROOT_USER'] ?? 'msse661_admin', $_ENV['MYSQL_ROOT_PASSWORD'] ?? 'password');
 

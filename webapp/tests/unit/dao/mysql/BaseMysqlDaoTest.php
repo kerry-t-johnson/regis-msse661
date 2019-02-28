@@ -3,6 +3,7 @@
 namespace msse661\dao\mysql;
 
 use msse661\BaseTestCase;
+use msse661\Config;
 
 class BaseMysqlDaoTest extends BaseTestCase {
 
@@ -17,7 +18,9 @@ class BaseMysqlDaoTest extends BaseTestCase {
     protected function tearDown() {
         parent::tearDown();
 
-        $dao = new BaseMysqlDao();
+        $databaseConfig = Config::getDatabaseConfig();
+
+        $dao = new \mysqli($databaseConfig['host'], $databaseConfig['user'], $databaseConfig['password'], $databaseConfig['database']);
         foreach($this->tables as $table) {
             $dao->query("DELETE FROM {$table} WHERE id LIKE '%-test-%'");
         }

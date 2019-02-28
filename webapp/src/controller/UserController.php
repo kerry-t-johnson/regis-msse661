@@ -7,6 +7,7 @@ namespace msse661\controller;
 use Monolog\Logger;
 use msse661\dao\mysql\UserMysqlDao;
 use msse661\dao\UserDao;
+use msse661\PianoException;
 use msse661\User;
 use msse661\util\logger\LoggerManager;
 use msse661\view\ViewFactory;
@@ -39,9 +40,7 @@ class UserController extends BaseController implements Controller {
         parent::__construct('user');
     }
 
-    public function route(array $request) : string {
-        $user   = $this->getResource($request);
-
+    public function render($user) : string {
         return ViewFactory::render(
             'user',
             ['user' => $user],
@@ -54,37 +53,40 @@ class UserController extends BaseController implements Controller {
 
         $this->login($user);
 
-        $this->redirect("/");
+        return $user;
     }
 
     public function login(User $user) : void {
         self::startUserSession($user);
     }
 
-    public function onPostLogout(array $path, array $query = []) {
+    public function onPostLogout(array $request) {
         self::destroyUserSession();
 
-        $this->redirect("/");
+        return true;
     }
 
-    public function onGetRegister(array $path, array $query = []) : string {
+    public function onGetRegister(array $request) : string {
         return ViewFactory::render('user', [], 'register');
     }
 
-    public function onPostRegistration(array $path, array $query = []) {
+    public function onPostRegister(array $request) {
+        $this->logger->debug('onPostRegister', ['user_email' => $_POST['email']]);
         $userDao        = new UserMysqlDao();
         $user_email     = $_POST['email'] ?? null;
         $user_password  = $_POST['password'] ?? null;
 
         try {
+            $this->logger->debug('onPostRegister1');
             $userDao->getByEmail($user_email);
 
-            // User already exists
-            // TODO generate error
+            throw new PianoException("User with that email address already exists: {$user_email}", 403);
         }
         catch(\Exception $ex) {
+            $this->logger->debug('onPostRegister2');
             if (!filter_var($user_email, FILTER_VALIDATE_EMAIL)) {
                 // TODO Generate form error
+                $this->logger->debug('onPostRegister3');
             }
 
             $userSpec =[
@@ -97,7 +99,9 @@ class UserController extends BaseController implements Controller {
             $user   = $userDao->create($userSpec);
             $this->login($user);
 
-            return ViewFactory::render('user', ['user' => $user]);
+            $this->logger->debug('onPostRegister', ['user' => $user]);
+
+            return $user;
         }
     }
 }

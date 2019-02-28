@@ -20,9 +20,7 @@ class ContentController extends BaseController implements Controller {
         $this->contentDao = new ContentMysqlDao();
     }
 
-    public function route(array $request): string {
-        $content        = $this->getResource($request);
-
+    public function render(array $content): string {
         if(is_array($content)) {
             return ViewFactory::render(
                 'content',
@@ -50,6 +48,39 @@ class ContentController extends BaseController implements Controller {
     public function onGetUploadForm(array $request): string {
         $user = UserController::getCurrentUser();
         return ViewFactory::render('content', ['user' => $user], 'upload');
+    }
+
+    protected function onSpecializedQuery($request) {
+        $whereStr       = '';
+        $whereValues    = [];
+
+        $conjunction = '';
+        foreach($request['query'] as $key => $value) {
+            $whereStr   .= $conjunction;
+
+            switch ($key) {
+                case 'title':
+                    $whereStr .= "title LIKE '%:title%'";
+                    $whereValues['title'] = $value;
+                    break;
+                case 'description':
+                    $whereStr   .= "description LIKE '%:description%";
+                    $whereValues['description'] = $value;
+                    break;
+                case 'state':
+                    $whereStr   .= "state_name = ':state'";
+                    $whereValues['state'] = $value;
+                    break;
+            }
+
+            $conjunction .= ' AND ';
+        }
+
+        return $this->entityDao->fetchWhere(
+            $whereStr,
+            $whereValues,
+            $request['query']['offset'] ?? 0,
+            $request['query']['limit'] ?? 0);
     }
 
     public function onPostUpload(array $request): string {
