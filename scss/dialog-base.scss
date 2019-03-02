@@ -1,0 +1,146 @@
+@import "base";
+
+.dialog {
+  width: 350px;
+  height: 400px;
+  position: absolute;
+  left: 50%;
+  margin-left:-175px;
+  border: none;
+  border-radius: 10px;
+  top: 100px;
+  line-height: 5px;
+  text-align: center;
+  background-color: $dialog-bg-active;
+  -webkit-box-shadow: 0 0 36px 1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0 0 36px 1px rgba(0,0,0,0.75);
+  box-shadow: 0 0 36px 1px rgba(0,0,0,0.75);
+
+}
+
+.form-tab-active
+{
+  color: $dialog-text-active;
+  background-color: $dialog-bg-active;
+}
+
+.form-tab-inactive
+{
+  color: $dialog-text-inactive;
+  background-color: $dialog-bg-inactive;
+}
+
+.dialog input,textarea,label
+{
+  box-sizing: border-box;
+  background-color: $dialog-bg-active;
+  color: white;
+  position: relative;
+  top: 110px;
+  height: 25px;
+  width: 200px;
+  margin: 10px;
+  border:none;
+  border-bottom: 2px solid white;
+  transition: all 0.5s ;
+}
+
+.dialog label {
+  font-weight: inherit;
+  line-height: 1em;
+}
+
+.dialog label.two-rows
+{
+  padding-bottom: 35px;
+}
+
+.dialog textarea {
+  height: 100px;
+  padding-top: 5px;
+  line-height: 1.2em;
+}
+
+.dialog .input-file-hidden {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.input-file-hidden + label {
+  cursor: pointer; /* "hand" cursor */
+}
+
+.dialog .submit
+{
+  background-color: white;
+  color: $dialog-text;
+  position: relative;
+  top: 120px;
+}
+
+.dialog-header
+{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 50px;
+  box-shadow: none;
+  background: white;
+  border-radius: 10px 10px 0 0;
+}
+
+.dialog-header h3 {
+  color: $dialog-reverse-text-active;
+}
+
+.submit
+{
+  position: relative;
+  top: 160px;
+  width: 160px;
+  height: 30px;
+  border: none;
+  background-color: $dialog-submit;
+  color: $dialog-text;
+  font-size: 15px;
+  font-weight: bold;
+  transition: all 0.5s;
+}
+
+.mail:focus, .pass:focus
+{
+  outline: none;
+  border-bottom: 2px solid $dialog-bg-active;
+  width: 250px;
+}
+
+.dialog-actions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 50px;
+  display: block;
+  z-index: 1;
+}
+
+.dialog-actions a {
+  color: $dialog-text-inactive;
+}
+
+.dialog a.dialog-cancel {
+  font-size: 15px;
+  transition: all 0.5s;
+}
+
+.submit:hover
+{
+  background-color: $dialog-submit-hover;
+  color: white;
+  border-radius: 10px;
+}

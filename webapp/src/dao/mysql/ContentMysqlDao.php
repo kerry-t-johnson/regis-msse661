@@ -7,6 +7,7 @@ namespace msse661\dao\mysql;
 use msse661\Content;
 use msse661\ContentImpl;
 use msse661\dao\ContentDao;
+use msse661\TagImpl;
 
 class ContentMysqlDao extends BaseMysqlDao implements ContentDao {
 

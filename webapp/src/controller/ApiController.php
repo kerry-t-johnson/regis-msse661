@@ -12,15 +12,9 @@ class ApiController extends BaseController implements Controller {
         parent::__construct(null);
     }
 
-    public function route(array $request, callable $dataTransform = null) {
+    protected function routeImpl(array $request, callable $dataTransform, $resource = null) {
         try {
-            $result = $this->invokeOtherController($request, $this);
-
-            header('Content-type: application/json');
-            print $result;
-            http_response_code(200);
-
-            die;
+            $this->invokeOtherController($request, $this);
         }
         catch(\Exception $ex) {
             http_response_code($ex->getCode());
@@ -30,7 +24,11 @@ class ApiController extends BaseController implements Controller {
     }
 
     public function __invoke($data) {
-        return json_encode($data);
+        header('Content-type: application/json');
+        print json_encode($data);
+        http_response_code(200);
+
+        die;
     }
 
     public function getResource(array $request) {

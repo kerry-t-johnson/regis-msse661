@@ -6,6 +6,8 @@ namespace msse661;
 
 use msse661\dao\EntityDao;
 use msse661\dao\EntityDaoFactory;
+use msse661\dao\mysql\TagMysqlDao;
+use msse661\dao\TagDao;
 
 class ContentImpl extends EntityImpl implements Content {
 
@@ -81,5 +83,12 @@ class ContentImpl extends EntityImpl implements Content {
 
     public function getFullPath(): string {
         return $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . $this->getPath();
+    }
+
+    public function getTags(): array {
+        /** @var TagDao $tagDao */
+        $tagDao = new TagMysqlDao();
+
+        return $tagDao->getTagsByContent($this->getUuid());
     }
 }

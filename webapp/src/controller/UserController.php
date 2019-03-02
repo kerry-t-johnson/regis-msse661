@@ -40,11 +40,11 @@ class UserController extends BaseController implements Controller {
         parent::__construct('user');
     }
 
-    public function render($user) : string {
+    public function render($user, $view = null) : string {
         return ViewFactory::render(
             'user',
             ['user' => $user],
-            $request['query']['view'] ?? (is_array($user) ? 'list' : null));
+            $view ?? (is_array($user) ? 'list' : null));
     }
 
     public function onPostLogin(array $request) {

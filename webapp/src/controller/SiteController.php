@@ -7,6 +7,8 @@ namespace  msse661\controller;
 use function GuzzleHttp\Psr7\str;
 use Monolog\Logger;
 use msse661\util\logger\LoggerManager;
+use msse661\view\View;
+use msse661\view\ViewFactory;
 
 class SiteController {
 
@@ -51,15 +53,15 @@ class SiteController {
         return $request_query;
     }
 
-    private static function extractRequest() {
-        $current_uri_parts  = self::currentUriParts();
+    private static function extractRequest(string $path = null) {
+        $current_uri_parts  = self::currentUriParts($path);
         $current_path       = self::currentPath($current_uri_parts);
         $current_query      = self::currentQueryArgs($current_uri_parts);
 
         return ['type' => $_SERVER['REQUEST_METHOD'], 'path'  => $current_path, 'query' => $current_query, 'uri' => $_SERVER['REQUEST_URI']];
     }
 
-    public static function route(string $alternatePath = null) {
+    public static function route(string $path = null) {
         if(self::$logger == null) {
             self::$logger = LoggerManager::getLogger('SiteController');
         }
@@ -69,11 +71,7 @@ class SiteController {
             return false;
         }
 
-        if($_SERVER['REQUEST_URI'] == '/' && $alternatePath != null) {
-            $_SERVER['REQUEST_URI'] = $alternatePath;
-        }
-
-        $request    = SiteController::extractRequest();
+        $request    = SiteController::extractRequest($path);
         $router     = new BaseController(null);
 
         return $router->route($request, [SiteController::class, 'identity']);

@@ -1,0 +1,25 @@
+@import "base";
+
+.tag-list {
+  margin-bottom: 10px;
+  clear: both;
+}
+
+.tag {
+  color: white;
+  background-color: $dark-blue;
+  border-color: $dark-grey;
+
+  position: relative;
+  display: inline-block;
+  padding: .4em .5em;
+  margin: 2px 2px 2px 0;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  text-align: center;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 10px;
+  transition: all .15s ease-in-out;
+}

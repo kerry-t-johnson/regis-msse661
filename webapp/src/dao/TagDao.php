@@ -13,4 +13,6 @@ interface TagDao {
     function getByUuid(string $uuid): Tag;
 
     function getByName(string $name): Tag;
+
+    function getTagsByContent(string $content_uuid): array;
 }

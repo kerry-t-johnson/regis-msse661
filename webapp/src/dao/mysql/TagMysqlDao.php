@@ -29,13 +29,38 @@ ________QUERY;
         return new TagImpl($tagSpec);
     }
 
-    function getByUuid(string $uuid): Tag {
+    public function getRandom(int $limit = 5) {
+        return $this->fetch(0, $limit, 'RAND()');
+    }
+
+    public function getByUuid(string $uuid): Tag {
         return $this->fetchExactlyOne('id', $uuid);
     }
 
-    function getByName(string $name): Tag {
+    public function getByName(string $name): Tag {
         return $this->fetchExactlyOne('name', $name);
     }
 
+
+    public function getTagsByContent(string $content_uuid): array {
+        $query  = <<<QUERY
+            SELECT    tag.*
+            FROM      tag,
+                      content_tag
+            WHERE     content_tag.content_id = ':content_id'
+            AND       content_tag.tag_id = tag.id
+            ORDER BY  tag.name
+QUERY;
+
+        $query  = $this->escapeQuery($query, ['content_id' => $content_uuid]);
+        $result = $this->query($query);
+
+        $ret = [];
+        while($row = $result->fetch_assoc()) {
+            $ret[] = new TagImpl($row);
+        }
+
+        return $ret;
+    }
 
 }

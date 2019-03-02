@@ -34,6 +34,12 @@ class BaseController implements Controller {
 
         $dataTransform = $dataTransform ? $dataTransform : $this;
 
+        return $this->routeImpl($request, $dataTransform, null);
+    }
+
+    protected function routeImpl(array $request, callable $dataTransform, string $resource = null) {
+        $this->logger->debug("routeImpl", ['request' => $request, 'dataTransform' => $dataTransform, 'resource' => $resource]);
+
         try {
             return call_user_func($dataTransform, $this->invokeEntityMethod($request));
         }
@@ -42,13 +48,14 @@ class BaseController implements Controller {
                 return $this->invokeOtherController($request, $dataTransform);
             }
             catch(NoSuchControllerException $ex) {
-                array_shift($request['path']);
-                return call_user_func($dataTransform, $this->getResource($request));
+                $data   = $this->getResource($request);
+                $data   = call_user_func($dataTransform, $data);
+                return $this->render($data, $request['query']['view'] ?? null);
             }
         }
     }
 
-    public function render(array $request) {
+    public function render(array $request, $view = null) {
         throw new \Exception('Operation not implemented');
     }
 
@@ -63,12 +70,7 @@ class BaseController implements Controller {
 
             $this->logger->debug('getResource', ['entityUuid' => $resource, 'subAction' => $subAction, 'actionMethod' => $actionMethod]);
             if($actionMethod && method_exists($this, $actionMethod)) {
-                return $this->{$actionMethod}($request);
-            }
-            else if($subAction) {
-                /** @var EntityDao $subEntityDao */
-                $subEntityDao   = EntityDaoFactory::createEntityDao($subAction);
-                return $subEntityDao->fetchWhere("{$this->entityType} = ':entityUuid'", ['entityUuid' => $resource]);
+                return $this->{$actionMethod}($resource, $request);
             }
             else {
                 return $this->entityDao->fetchExactlyOne('id', $resource);
@@ -112,6 +114,7 @@ class BaseController implements Controller {
     }
 
     protected function invokeOtherController(array $request, callable $dataTransform) {
+        $this->logger->debug('invokeOtherController' , ['request' => $request, 'dataTransform' => $dataTransform]);
         $entity_type        = $request['path'][0] ?? false;
         $entity_type        = $entity_type? ucwords($entity_type) : 'NoSuchController';
         $entity_controller  = "\\msse661\\controller\\{$entity_type}Controller";
@@ -123,7 +126,7 @@ class BaseController implements Controller {
 
             /** @var Controller $other_controller */
             $other_controller   = new $entity_controller();
-            return $other_controller->route($request, $dataTransform);
+            return $other_controller->routeImpl($request, $dataTransform);
         }
         else {
             throw new NoSuchControllerException(implode('/', $request['path']));
@@ -144,7 +147,7 @@ class BaseController implements Controller {
     private function hasSpecializedQuery(array $request) {
         if(isset($request['query'])) {
             foreach($request['query'] as $key => $value) {
-                if($key != 'offset' && $key != 'limit') {
+                if($key != 'offset' && $key != 'limit' && $key != 'view') {
                     return true;
                 }
             }

@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
 
 
@@ -9,6 +10,5 @@ $(document).ready(function() {
         $(".loaded").fadeOut();
         $(".preloader").delay(1000).fadeOut("slow");
     });
-
 
 });

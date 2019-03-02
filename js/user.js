@@ -11,7 +11,8 @@ class User {
         $('#register-form').submit(this.onRegisterFormSubmit.bind(this));
         $('a#user-logout').click(this.onLogoutClick.bind(this));
         $('a#user-login').click(this.onToggleFormClick.bind(this));
-        $('a#login-register-cancel').click(this.onToggleFormClick.bind(this));
+        $('a#login-form-cancel').click(this.onToggleFormClick.bind(this));
+        $('a#register-form-cancel').click(this.onToggleFormClick.bind(this));
 
         $('.register-tab').click(function(){
             $('#register-form').addClass('register-form-active');
@@ -40,6 +41,14 @@ class User {
         $('#user-profile')
             .text('Welcome, ' + this._user.first_name)
             .removeClass("hide");
+    }
+
+    fullname() {
+        return this._user.first_name + ' ' + this._user.last_name;
+    }
+
+    uuid() {
+        return this._user.id;
     }
 
     onLogoutSuccessful() {
@@ -96,4 +105,5 @@ class User {
     }
 }
 
-new User();
+var pianoUser = new User();
+

@@ -1,25 +1,8 @@
 @import "base";
-
-#register-login-form-show-hide {
-    display: none;
-}
+@import "dialog-base";
 
 .register-login-form
 {
-    width: 350px;
-    height: 400px;
-    position: absolute;
-    left: 50%;
-    margin-left:-175px;
-    border: none;
-    border-radius: 10px;
-    top: 100px;
-    line-height: 5px;
-    text-align: center;
-    background-color: $dialog-bg-active;
-    -webkit-box-shadow: 0 0 36px 1px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0 0 36px 1px rgba(0,0,0,0.75);
-    box-shadow: 0 0 36px 1px rgba(0,0,0,0.75);
 
 }
 
@@ -28,112 +11,9 @@
     z-index: 1;
 }
 
-.form-tab-active
-{
-    color: $dialog-text-active;
-    background-color: $dialog-bg-active;
-}
-
-.form-tab-inactive
-{
-    color: $dialog-text-inactive;
-    background-color: $dialog-bg-inactive;
-}
-
 .register-form-active
 {
     z-index: 2;
-}
-
-.register-login-form input
-{
-    box-sizing: border-box;
-    background-color: $dialog-bg-active;
-    color: white;
-}
-
-.register-login-form .submit
-{
-    background-color: white;
-    color: $dialog-text;
-    position: relative;
-    top: 120px;
-}
-
-.dialog-header
-{
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 50px;
-    box-shadow: none;
-    background: white;
-    border-radius: 10px 10px 0 0;
-}
-
-.dialog-header h3 {
-    color: $dialog-reverse-text-active;
-}
-
-.register-login-form input
-{
-    position: relative;
-    top: 110px;
-    height: 25px;
-    width: 200px;
-    margin: 10px;
-    border:none;
-    background-color: $dialog-bg-active;
-    border-bottom: 2px solid white;
-    transition: all 0.5s ;
-}
-
-.mail:focus, .pass:focus
-{
-    outline: none;
-    border-bottom: 2px solid $dialog-bg-active;
-    width: 250px;
-}
-
-.submit
-{
-    position: relative;
-    top: 160px;
-    width: 160px;
-    height: 30px;
-    border: none;
-    background-color: $dialog-submit;
-    color: $dialog-text;
-    font-size: 15px;
-    font-weight: bold;
-    transition: all 0.5s;
-}
-
-.register-login-form a#login-register-cancel {
-    font-size: 15px;
-    transition: all 0.5s;
-}
-
-.dialog-actions {
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    bottom: 50px;
-    display: block;
-    z-index: 1;
-}
-
-.dialog-actions a {
-    color: $dialog-text-inactive;
-}
-
-.submit:hover
-{
-    background-color: $dialog-submit-hover;
-    color: white;
-    border-radius: 10px;
 }
 
 .login-tab
