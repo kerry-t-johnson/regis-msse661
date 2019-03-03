@@ -28,19 +28,29 @@
       "title": "Test Content 1",
       "state": "approved",
       "path": "https://loripsum.net/api/10/short/headers",
-      "test_user_id": "user-id-1"
+      "test_user_id": "user-id-1",
+      "test_tags" : [
+        "tag-id-1"
+      ]
     },
     "content-id-2": {
       "title": "Test Content 2",
       "state": "approved",
       "path": "https://loripsum.net/api/5/medium/headers/code",
-      "test_user_id": "user-id-1"
+      "test_user_id": "user-id-1",
+      "test_tags" : [
+        "tag-id-2"
+      ]
     },
     "content-id-3": {
       "title": "Test Content 3",
       "state": "approved",
       "path": "https://loripsum.net/api/10/short/headers/ul/ol",
-      "test_user_id": "user-id-1"
+      "test_user_id": "user-id-1",
+      "test_tags" : [
+        "tag-id-1",
+        "tag-id-2"
+      ]
     }
   },
   "test_comments": {

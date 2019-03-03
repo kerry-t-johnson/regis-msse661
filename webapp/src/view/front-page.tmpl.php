@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="css/login.css" />
     <link rel="stylesheet" href="css/tag.css" />
     <link rel="stylesheet" href="css/content-upload.css" />
+    <link rel="stylesheet" href="css/user.css" />
 
     <!--Theme custom css -->
     <link rel="stylesheet" href="css/style.css"/>
@@ -117,171 +118,6 @@
         </div>
     </div>
 </section><!-- End of portfolio-one Section -->
-
-<!-- Sections -->
-<section id="brand" class="brand sections">
-    <div class="container">
-        <div class="heading text-center">
-            <h1>Recent Brands we’ve worked with</h1>
-            <div class="separator"></div>
-        </div>
-        <!-- Example row of columns -->
-        <div class="row">
-            <div class="wrapper brand-category ">
-                <div class="brand-item">
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        <div class="brand-identity">
-                            <img src="images/brand/1.jpg" alt="brand"/>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        <div class="brand-identity">
-                            <img src="images/brand/2.jpg" alt="brand"/>
-                        </div>
-                    </div>
-
-                    <div class="brand-item col-md-2 col-sm-2 col-xs-12">
-                        <div class="brand-identity">
-                            <img src="images/brand/3.jpg" alt="brand"/>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        <div class="brand-identity">
-                            <img src="images/brand/4.jpg" alt="brand"/>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        <div class="brand-brand-identity">
-                            <img src="images/brand/5.jpg" alt="brand"/>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        <div class="brand-identity">
-                            <img src="images/brand/2.jpg" alt="brand"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="brand-item">
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        <div class="brand-identity">
-                            <img src="images/brand/1.jpg" alt="brand"/>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        <div class="brand-identity">
-                            <img src="images/brand/2.jpg" alt="brand"/>
-                        </div>
-                    </div>
-
-                    <div class="brand-item col-md-2 col-sm-2 col-xs-12">
-                        <div class="brand-identity">
-                            <img src="images/brand/3.jpg" alt="brand"/>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        <div class="brand-identity">
-                            <img src="images/brand/4.jpg" alt="brand"/>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        <div class="brand-brand-identity">
-                            <img src="images/brand/5.jpg" alt="brand"/>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 col-sm-2 col-xs-12">
-                        <div class="brand-identity">
-                            <img src="images/brand/2.jpg" alt="brand"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> <!-- /container -->
-</section>
-
-<!-- Sections -->
-<section id="testimonial" class="testimonial lightbg sections">
-    <div class="container">
-        <div class="heading text-center">
-            <h1>See what others are saying about us</h1>
-            <div class="separator"></div>
-        </div>
-        <!-- Example row of columns -->
-        <div class="row">
-            <div class="col-md-12" data-wow-delay="0.2s">
-                <div class="carousel slide" data-ride="carousel" id="quote-carousel">
-                    <!-- Bottom Carousel Indicators -->
-                    <ol class="carousel-indicators">
-                        <li data-target="#quote-carousel" data-slide-to="0" class="active">
-                            <img class="img-responsive " src="images/team/1.jpg" alt="Team Member">
-
-                        </li>
-                        <li data-target="#quote-carousel" data-slide-to="1">
-                            <img class="img-responsive" src="images/team/2.jpg" alt="Team Member">
-
-                        </li>
-                        <li data-target="#quote-carousel" data-slide-to="2">
-                            <img class="img-responsive" src="images/team/3.jpg" alt="Team Member">
-
-                        </li>
-                    </ol>
-
-                    <!-- Carousel Slides / Quotes -->
-                    <div class="carousel-inner text-center margin-top-60">
-
-                        <!-- Quote 1 -->
-                        <div class="item active">
-                            <div class="row">
-                                <div class="col-sm-6 col-sm-offset-3 details">
-                                    <p>" Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua."</p>
-                                    <small>Linda from <a href="#">example.com</a></small>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Quote 2 -->
-                        <div class="item">
-                            <div class="row">
-                                <div class="col-sm-6 col-sm-offset-3 details">
-
-                                    <p>" Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua."</p>
-                                    <small>Linda from <a href="#">example.com</a></small>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Quote 3 -->
-                        <div class="item">
-                            <div class="row">
-                                <div class="col-sm-6 col-sm-offset-3 details">
-                                    <p>" Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua."</p>
-                                    <small>Linda from <a href="#">example.com</a></small>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- Carousel Buttons Next/Prev -->
-                    <a data-slide="prev" href="#quote-carousel" class="left carousel-control"><i
-                            class="fa fa-chevron-left"></i></a>
-                    <a data-slide="next" href="#quote-carousel" class="right carousel-control"><i
-                            class="fa fa-chevron-right"></i></a>
-                </div>
-            </div>
-
-        </div>
-    </div> <!-- /container -->
-</section>
 
 <!-- Sections -->
 <section id="contact" class="contact">
@@ -388,50 +224,9 @@
     </div>
 </footer>
 
-<div id="register-login-form-show-hide" class="">
-    <div>
-        <form action="/user/login" method="post" id="login-form" class="register-login-form dialog">
-            <div class="dialog-header">
-                <h3> Login information</h3>
-            </div>
-            <div class="login-tab form-tab-active">Login</div>
-            <div class="register-tab form-tab-inactive">Register</div>
-            <div>
-                <input type="email" name="email" placeholder="e-mail address" required autocomplete="username"/>
-                <br/>
-                <input type="password" name="password" placeholder="password" required autocomplete="new-password"/>
-                <br/>
-                <input class="submit" type="submit" value="Login"/>
-                <br/>
-            </div>
-            <div class="dialog-actions">
-                <a href="#" id="login-form-cancel" class="dialog-cancel">Cancel</a>
-            </div>
-        </form>
-
-        <form id="register-form" class="register-login-form dialog">
-            <div class="dialog-header">
-                <h3> Register information</h3>
-            </div>
-            <div class="login-tab form-tab-inactive">Login</div>
-            <div class="register-tab form-tab-active">Register</div>
-            <input type="email" name="email" placeholder="e-mail address" required autocomplete="username" />
-            <br/>
-            <input type="text" name="first_name" placeholder="first name" required />
-            <br/>
-            <input type="text" name="last_name" placeholder="last name" required />
-            <br/>
-            <input type="password" name="password" placeholder="password" required autocomplete="new-password"/>
-            <input type="password" name="password" placeholder="repeat password" required autocomplete="new-password"/>
-            <br/>
-            <input class="submit" type="submit" value="Register"/>
-            <div class="dialog-actions">
-                <a href="#" id="register-form-cancel" class="dialog-cancel">Cancel</a>
-            </div>
-        </form>
-    </div>
-</div>
-<div id="content-upload-form-show-hide">
+<div id="dynamic">
+    <div id="register-login-form-wrapper"></div>
+    <div id="content-upload-form-show-hide"></div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -441,6 +236,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 <script src="js/user.js"></script>
+<script src="js/tags.js"></script>
 <script src="js/content.js"></script>
 <script src="js/main.js"></script>
 <script src="js/jquery.fileupload.js"></script>

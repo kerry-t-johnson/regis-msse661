@@ -30,13 +30,13 @@
   background-color: $dialog-bg-inactive;
 }
 
-.dialog input,textarea,label
+.dialog input,textarea,label,select
 {
   box-sizing: border-box;
   background-color: $dialog-bg-active;
   color: white;
   position: relative;
-  top: 110px;
+  top: 10px;
   height: 25px;
   width: 200px;
   margin: 10px;
@@ -56,7 +56,7 @@
 }
 
 .dialog textarea {
-  height: 100px;
+  height: 70px;
   padding-top: 5px;
   line-height: 1.2em;
 }
@@ -79,12 +79,11 @@
   background-color: white;
   color: $dialog-text;
   position: relative;
-  top: 120px;
+  top: 10px;
 }
 
 .dialog-header
 {
-  position: absolute;
   top: 0;
   width: 100%;
   height: 50px;
@@ -134,6 +133,9 @@
 }
 
 .dialog a.dialog-cancel {
+  position: relative;
+  top: 20px;
+  color: whitesmoke;
   font-size: 15px;
   transition: all 0.5s;
 }

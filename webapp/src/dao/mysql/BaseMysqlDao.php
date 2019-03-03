@@ -5,6 +5,7 @@ namespace msse661\dao\mysql;
 use msse661\Config;
 use msse661\dao\EntityDao;
 use msse661\Entity;
+use msse661\PianoException;
 use msse661\util\logger\LoggerManager;
 use mysql_xdevapi\Exception;
 use Ramsey\Uuid\Uuid;
@@ -87,7 +88,7 @@ class BaseMysqlDao extends \mysqli implements EntityDao
         $result = $this->query($query);
 
         if($result->num_rows == 0) {
-            throw new \Exception("Unable to find object to match {$key} = {$value}.");
+            throw new PianoException("Unable to find object to match {$key} = {$value}.", 404);
         }
         else if($result->num_rows > 1) {
             throw new \Exception("Expected one object to match {$key} = {$value}.  Found {$result->num_rows} objects.");

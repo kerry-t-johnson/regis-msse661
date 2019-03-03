@@ -41,16 +41,30 @@ ________QUERY;
         return $this->fetchExactlyOne('name', $name);
     }
 
+    public function applyTagsToContent(string $content_uuid, $tag) {
+        $tags = is_array($tag) ? $tag : [ $tag ];
+
+        foreach($tags as $t) {
+            $query = <<<____________QUERY
+                INSERT IGNORE INTO  content_tag
+                                    (content_id,    tag_id)
+                VALUES              (':content_id', ':tag_id')
+____________QUERY;
+
+            $query  = $this->escapeQuery($query, ['content_id' => $content_uuid, 'tag_id' => $t]);
+            $this->query($query);
+        }
+    }
 
     public function getTagsByContent(string $content_uuid): array {
-        $query  = <<<QUERY
+        $query  = <<<________QUERY
             SELECT    tag.*
             FROM      tag,
                       content_tag
             WHERE     content_tag.content_id = ':content_id'
             AND       content_tag.tag_id = tag.id
             ORDER BY  tag.name
-QUERY;
+________QUERY;
 
         $query  = $this->escapeQuery($query, ['content_id' => $content_uuid]);
         $result = $this->query($query);

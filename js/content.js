@@ -42,12 +42,16 @@ class ContentManager {
         $('#content-upload').submit(this.onPublishSubmit.bind(this));
         $('a#content-upload-form-cancel').click(this.onCancelFormClick.bind(this));
         $(this.fileInput).change(this.onFileInputChanged.bind(this));
+        $('#content-upload-user-uuid').val(pianoUser.uuid());
 
         $('#file-to-upload').fileupload({
             url: '/api/content/upload',
-            formData: [ { 'name': 'content-upload-user-uuid', 'value' : pianoUser.uuid() } ],
             dataType: 'json',
             add: function(event, data) { /* Do nothing until submit */ }
+        });
+
+        $.each(tagManager.tags(), function(index, tag) {
+            $('#content-tags').append($('<option>', { value: tag.id, text: tag.name }));
         });
     }
 
@@ -83,14 +87,19 @@ class ContentManager {
     }
 
     onPublishSubmit(event) {
-        console.log('onPublishSubmit');
         event.preventDefault();
-        console.log(this.fileInput);
+
+        let formValues = [];
+        $('#content-upload :input').each(function() {
+            if(this.name && this.name !== 'file-to-upload') {
+                formValues.push({'name': this.name, 'value': $(this).val()});
+            }
+        });
 
         let jqXHR = $('#file-to-upload').fileupload('send', {
             files: this.fileInput.prop('files'),
             url: '/api/content/upload',
-            formData: [ { 'name': 'content-upload-user-uuid', 'value' : pianoUser.uuid() } ],
+            formData: formValues,
             dataType: 'json',
         });
 

@@ -7,15 +7,20 @@
             <input type="hidden" name="content-upload-user-uuid" id="content-upload-user-uuid"/>
             <input type="text" name="title" placeholder="Title" required/>
             <br/>
-            <textarea name="description" placeholder="Description" rows="5"/>
+            <textarea name="description" placeholder="Description" rows="3"/>
             <br/>
-            <input type="file" name="file-to-upload" id="file-to-upload" class="input-file-hidden"/>
+            <input type="file" name="file-to-upload" id="file-to-upload" class="input-file-hidden" />
             <label for="file-to-upload">Select a file to upload</label>
             <br/>
-            <input class="submit" type="submit" value="Publish"/>
+            <select name="content-tags" id="content-tags" required>
+                <option disabled value="" selected hidden>Select a tag</option>
+            </select>
         </div>
         <div class="dialog-actions">
-            <a href="#" id="content-upload-form-cancel" class="dialog-cancel">Cancel</a>
+            <input class="submit" type="submit" value="Publish"/>
+            <div>
+                <a href="#" id="content-upload-form-cancel" class="dialog-cancel">Cancel</a>
+            </div>
         </div>
     </form>
 </div>

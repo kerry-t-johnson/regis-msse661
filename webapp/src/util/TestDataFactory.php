@@ -8,6 +8,7 @@ namespace msse661\util {
 
 
     use msse661\dao\mysql\TagMysqlDao;
+    use msse661\Tag;
 
     class TestDataFactory {
 
@@ -46,7 +47,12 @@ namespace msse661\util {
                 $contentSpec['users'] = $user->getUuid();
                 $contentSpec['hash'] = sha1($contentSpec['title']);
 
-                $actual_content[$testId] = $this->createOrRetrieveTestContent($contentSpec);
+                $actual_content[$testId]    = $this->createOrRetrieveTestContent($contentSpec);
+
+                $tagDao = new TagMysqlDao();
+                foreach($contentSpec['test_tags'] as $t) {
+                    $tagDao->applyTagsToContent($actual_content[$testId]->getUuid(), $actual_tags[$t]->getUuid());
+                }
             }
 
             $actual_comments = [];
@@ -74,7 +80,7 @@ namespace msse661\util {
             }
         }
 
-        private function createOrRetrieveTestTag($tagSpec): \msse661\User {
+        private function createOrRetrieveTestTag($tagSpec): Tag {
             $tagDao = new TagMysqlDao();
 
             try {

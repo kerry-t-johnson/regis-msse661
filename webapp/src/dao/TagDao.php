@@ -14,5 +14,7 @@ interface TagDao {
 
     function getByName(string $name): Tag;
 
+    function applyTagsToContent(string $content_uuid, $tag);
+
     function getTagsByContent(string $content_uuid): array;
 }

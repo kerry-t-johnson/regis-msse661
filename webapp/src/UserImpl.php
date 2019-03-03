@@ -33,7 +33,7 @@ class UserImpl extends EntityImpl implements User
         $hashed_password    = $this->getAttributeValue('hashed_password');
 
         if(!password_verify($password, $hashed_password)) {
-            throw new \Exception('Unable to veirify password for user: ' . $this->getFullName());
+            throw new PianoException('Unable to verify password for user: ' . $this->getFullName(), 401);
         }
     }
 }

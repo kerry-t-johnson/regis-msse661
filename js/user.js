@@ -7,20 +7,8 @@ class User {
         user = user ? JSON.parse(user) : null;
         console.log(user);
 
-        $('#login-form').submit(this.onLoginFormSubmit.bind(this));
-        $('#register-form').submit(this.onRegisterFormSubmit.bind(this));
         $('a#user-logout').click(this.onLogoutClick.bind(this));
-        $('a#user-login').click(this.onToggleFormClick.bind(this));
-        $('a#login-form-cancel').click(this.onToggleFormClick.bind(this));
-        $('a#register-form-cancel').click(this.onToggleFormClick.bind(this));
-
-        $('.register-tab').click(function(){
-            $('#register-form').addClass('register-form-active');
-        });
-
-        $('.login-tab').click(function(){
-            $('#register-form').removeClass('register-form-active');
-        });
+        $('a#user-login').click(this.onLoginRegisterClick.bind(this));
 
         if(user) {
             this.onLoginSuccessful(user);
@@ -30,21 +18,77 @@ class User {
         }
     }
 
+    onLoginRegisterClick() {
+        if($('#user-login-register-form').length) {
+            this.showLogin();
+        }
+        else {
+            $.ajax({
+                url: '/html/login-register.form.html',
+                type: 'GET',
+                context: this,
+                success: function(result) {
+                    this.onFormRetrieved(result)
+                },
+                error: function (xhr, resp, text) {
+                    console.log('xhr: ' + xhr);
+                    console.log('resp: ' + resp);
+                    console.log('text: ' + text);
+                }
+            });
+        }
+    }
+
+    onFormRetrieved(html) {
+        $('#register-login-form-wrapper').html(html);
+
+        $('#login-form').submit(this.onLoginFormSubmit.bind(this));
+        $('#register-form').submit(this.onRegisterFormSubmit.bind(this));
+        $('a#login-form-cancel').click(this.onCancelFormClick.bind(this));
+        $('a#register-form-cancel').click(this.onCancelFormClick.bind(this));
+
+        $('.register-tab').click(function(){
+            this.showRegister();
+        }.bind(this));
+
+        $('.login-tab').click(function(){
+            this.showLogin();
+        }.bind(this));
+
+        this.showLogin();
+    }
+
     onLoginSuccessful(userData) {
         console.log('User logged in: ' + userData.email);
 
         this._user = userData;
         $.cookie('user', JSON.stringify(userData));
-        $("#register-login-form-show-hide").hide();
         $('#user-login').addClass('hide');
         $('#user-logout').removeClass('hide');
         $('#user-profile')
             .text('Welcome, ' + this._user.first_name)
             .removeClass("hide");
+        $('#portfolio').addClass('user').removeClass('no-user');
+        this.hideAll();
     }
 
     fullname() {
         return this._user.first_name + ' ' + this._user.last_name;
+    }
+
+    hideAll() {
+        $('#login-form-show-hide').addClass('hide');
+        $('#register-form-show-hide').addClass('hide');
+    }
+
+    showLogin() {
+        $('#login-form-show-hide').removeClass('hide');
+        $('#register-form-show-hide').addClass('hide');
+    }
+
+    showRegister() {
+        $('#login-form-show-hide').addClass('hide');
+        $('#register-form-show-hide').removeClass('hide');
     }
 
     uuid() {
@@ -59,6 +103,7 @@ class User {
         $("#register-login-form-show-hide").hide();
         $('#user-login').removeClass('hide');
         $('#user-logout').addClass('hide');
+        $('#portfolio').removeClass('user').addClass('no-user');
         $('#user-profile')
             .text('')
             .addClass('hide');
@@ -94,9 +139,8 @@ class User {
         this.ajaxUserSubmit($('#login-form').serialize(), '/api/user/login', this.onLoginSuccessful.bind(this));
     }
 
-    onToggleFormClick() {
-        $("#register-login-form-show-hide").slideToggle();
-        return false;
+    onCancelFormClick() {
+        this.hideAll();
     }
 
     onLogoutClick() {

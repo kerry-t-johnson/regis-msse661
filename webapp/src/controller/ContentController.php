@@ -113,6 +113,9 @@ class ContentController extends BaseController implements Controller {
 
         $content = $this->contentDao->create($contentSpec);
 
+        $tagDao = new TagMysqlDao();
+        $tagDao->applyTagsToContent($content->getUuid(), $_POST['content-tags']);
+
         return $content;
     }
 
