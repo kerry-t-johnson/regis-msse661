@@ -108,10 +108,8 @@
                     <div class="portfolio_menu">
                         <?php print $tag_content; ?>
                     </div>
-
                     <div class="portfolio_content_details">
                         <?php print $data; ?>
-                        <a href="#" class="btn btn-primary">Show More</a>
                     </div>
                 </div>
             </div>
@@ -120,76 +118,8 @@
 </section><!-- End of portfolio-one Section -->
 
 <!-- Sections -->
-<section id="contact" class="contact">
-    <div class="container">
-        <!-- Example row of columns -->
-        <div class="row">
-
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="contact-top">
-                    <h1>Contact Us</h1>
-                </div>
-                <div class="contact-left-info">
-                    <h5>Our Address</h5>
-                    <p>House No,11132, Sector 31, Gurgaon 122001 India</p>
-                </div>
-
-                <div class="contact-left-info">
-                    <h5>Call Us</h5>
-                    <p>+ 91-9876543210</p>
-                    <p>+ 91-9876543210</p>
-                </div>
-
-                <div class="contact-left-info">
-                    <h5>Email Us</h5>
-                    <p>contactus@email.com</p>
-                </div>
-            </div>
-            <div class="col-md-8 col-sm-6 col-xs-12">
-                <div class="contact-top navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right bottom-nav">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#portfolio">Content</a></li>
-                        <li><a href="#testimonial">Testimonials</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-
-                <div class="contact-form">
-                    <form action="" method="POST">
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12 col-xs-12">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Name</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 col-sm-12 col-xs-12">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Subject</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail2" placeholder="">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Your Message</label>
-                                    <textarea rows="7" class="form-control" id="exampleInputPassword1"
-                                              placeholder=""></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="contact-btn">
-                            <button type="submit" class="btn btn-primary">Send Message</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-        </div>
+<section id="content-full" class="content-full sections">
+    <div id="content-container">
     </div> <!-- /container -->
 </section>
 

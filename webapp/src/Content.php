@@ -24,4 +24,6 @@ interface Content extends Entity {
 
     function getImageType(): int;
 
+    function getTags(): array;
+
 }

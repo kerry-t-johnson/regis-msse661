@@ -1,6 +1,18 @@
-
-
 class User {
+
+    constructor(data) {
+        this._data = data;
+    }
+
+    uuid() {
+        return this._data.uuid;
+    }
+
+
+
+}
+
+class CurrentUser {
 
     constructor() {
         let user = $.cookie('user');
@@ -149,5 +161,42 @@ class User {
     }
 }
 
-var pianoUser = new User();
+var currentUser = new CurrentUser();
 
+class UserManager {
+
+    constructor() {
+        this._users = [];
+    }
+
+    user(id, callback) {
+        if(this._users[id]) {
+            setTimeout(callback, 0, this._users[id]);
+        }
+        else {
+            this.fetchUser(id, callback);
+        }
+    }
+
+    fetchUser(id, callback = 0) {
+        $.ajax({
+            url: '/api/user/' + id,
+            type: 'GET',
+            context: this,
+            dataType: 'json',
+            success: this.onUserReceived.bind(this, callback)
+        });
+    }
+
+    onUserReceived(callback, data) {
+        console.log('UserManager.onUserReceived');
+        console.log(data);
+
+        this._users[data.id] = new User(data);
+        if(callback) {
+            callback(this._users[data.id]);
+        }
+    }
+}
+
+var userManager = new UserManager();

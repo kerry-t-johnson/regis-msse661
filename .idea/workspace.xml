@@ -2,25 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c55b696f-a82d-4db6-92ca-0557aa450f02" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/html/login-register.form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/html/content-focus.tmpl.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/content-upload.form.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/content-upload.form.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/content.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/content.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/tags.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/tags.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/_base.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/_base.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/dialog-base.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/dialog-base.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/login.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/login.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/main.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/user.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/user.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_data.json" beforeDir="false" afterPath="$PROJECT_DIR$/test_data.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/src/UserImpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/UserImpl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/src/controller/ContentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/controller/ContentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/src/dao/TagDao.php" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/dao/TagDao.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/src/dao/mysql/BaseMysqlDao.php" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/dao/mysql/BaseMysqlDao.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/src/dao/mysql/TagMysqlDao.php" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/dao/mysql/TagMysqlDao.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/src/util/TestDataFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/util/TestDataFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/Content.php" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/Content.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/ContentImpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/ContentImpl.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/view/content.portfolio.tmpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/view/content.portfolio.tmpl.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webapp/src/view/front-page.tmpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/view/front-page.tmpl.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webapp/src/view/tag.button-group.tmpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/webapp/src/view/tag.button-group.tmpl.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,34 +24,43 @@
     <pharPath>$PROJECT_DIR$/composer.phar</pharPath>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="vertical" split-proportion="0.46455833">
+    <splitter split-orientation="vertical" split-proportion="0.5528899">
       <split-first>
-        <splitter split-orientation="horizontal" split-proportion="0.42227817">
+        <splitter split-orientation="horizontal" split-proportion="0.49280328">
           <split-first>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
               <file pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/webapp/src/controller/UserController.php">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="765">
-                      <caret line="51" column="42" selection-start-line="51" selection-start-column="42" selection-end-line="51" selection-end-column="42" />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/webapp/src/UserImpl.php">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="233">
-                      <caret line="35" column="103" selection-start-line="35" selection-start-column="103" selection-end-line="35" selection-end-column="103" />
+                    <state relative-caret-position="144">
+                      <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
                     </state>
                   </provider>
                 </entry>
               </file>
               <file pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/webapp/src/dao/mysql/UserMysqlDao.php">
+                <entry file="file://$PROJECT_DIR$/index.php">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="629">
-                      <caret line="39" column="23" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
+                    <state relative-caret-position="357">
+                      <caret line="21" column="23" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/webapp/src/Content.php">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="328">
+                      <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/webapp/src/ContentImpl.php">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="162">
+                      <caret line="14" column="62" selection-start-line="14" selection-start-column="62" selection-end-line="14" selection-end-column="62" />
                     </state>
                   </provider>
                 </entry>
@@ -70,24 +70,6 @@
                   <provider selected="true" editor-type-id="text-editor">
                     <state relative-caret-position="765">
                       <caret line="47" column="28" selection-start-line="47" selection-start-column="28" selection-end-line="47" selection-end-column="28" />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/html/login-register.form.html">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="595">
-                      <caret line="35" column="38" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/scss/_base.scss">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="136">
-                      <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
                     </state>
                   </provider>
                 </entry>
@@ -122,11 +104,11 @@
                   </provider>
                 </entry>
               </file>
-              <file pinned="false" current-in-tab="false">
+              <file pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/js/content.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="561">
-                      <caret line="33" column="27" selection-start-line="33" selection-start-column="27" selection-end-line="33" selection-end-column="27" />
+                    <state relative-caret-position="270">
+                      <caret line="223" column="3" lean-forward="true" selection-start-line="223" selection-start-column="3" selection-end-line="223" selection-end-column="3" />
                     </state>
                   </provider>
                 </entry>
@@ -143,6 +125,15 @@
                       <folding>
                         <element signature="e#40#60#0#PHP" expanded="true" />
                       </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/webapp/src/view/tag.button-group.tmpl.php">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="51">
+                      <caret line="3" column="46" selection-start-line="3" selection-start-column="46" selection-end-line="3" selection-end-column="46" />
                     </state>
                   </provider>
                 </entry>
@@ -183,8 +174,8 @@
               <file pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/webapp/src/view/front-page.tmpl.php">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="255">
-                      <caret line="128" column="41" selection-start-line="128" selection-start-column="41" selection-end-line="128" selection-end-column="41" />
+                    <state relative-caret-position="272">
+                      <caret line="45" column="12" lean-forward="true" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
                     </state>
                   </provider>
                 </entry>
@@ -233,23 +224,23 @@
         </splitter>
       </split-first>
       <split-second>
-        <splitter split-orientation="horizontal" split-proportion="0.42250803">
+        <splitter split-orientation="horizontal" split-proportion="0.45099384">
           <split-first>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
               <file pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/js/user.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="1785">
-                      <caret line="105" column="47" selection-start-line="105" selection-start-column="47" selection-end-line="105" selection-end-column="47" />
+                    <state relative-caret-position="981">
+                      <caret line="193" lean-forward="true" selection-start-line="193" selection-end-line="193" />
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file pinned="false" current-in-tab="false">
+              <file pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/js/main.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="204">
-                      <caret line="12" selection-start-line="12" selection-end-line="12" />
+                    <state relative-caret-position="153">
+                      <caret line="9" selection-start-line="9" selection-end-line="9" />
                     </state>
                   </provider>
                 </entry>
@@ -266,7 +257,7 @@
                   </provider>
                 </entry>
               </file>
-              <file pinned="false" current-in-tab="true">
+              <file pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/webapp/src/controller/ContentController.php">
                   <provider selected="true" editor-type-id="text-editor">
                     <state relative-caret-position="148">
@@ -330,20 +321,11 @@
           </split-first>
           <split-second>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-              <file pinned="false" current-in-tab="true">
+              <file pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/webapp/src/dao/mysql/TagMysqlDao.php">
                   <provider selected="true" editor-type-id="text-editor">
                     <state relative-caret-position="221">
                       <caret line="52" selection-start-line="52" selection-end-line="52" />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/webapp/src/dao/TagDao.php">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="187">
-                      <caret line="11" selection-start-line="11" selection-end-line="11" />
                     </state>
                   </provider>
                 </entry>
@@ -378,8 +360,8 @@
               <file pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/webapp/src/view/front-page.tmpl.php">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="4097">
-                      <caret line="241" column="41" selection-start-line="241" selection-end-line="242" />
+                    <state relative-caret-position="2856">
+                      <caret line="171" column="41" selection-start-line="171" selection-end-line="172" />
                     </state>
                   </provider>
                 </entry>
@@ -387,8 +369,8 @@
               <file pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/webapp/src/view/content.portfolio.tmpl.php">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="187">
-                      <caret line="11" column="34" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
+                    <state relative-caret-position="153">
+                      <caret line="11" column="61" selection-start-line="11" selection-start-column="61" selection-end-line="11" selection-end-column="61" />
                     </state>
                   </provider>
                 </entry>
@@ -411,9 +393,13 @@
                   </provider>
                 </entry>
               </file>
-              <file pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/webapp/src/view/content.tmpl.php">
-                  <provider selected="true" editor-type-id="text-editor" />
+              <file pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/html/content-focus.tmpl.html">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state>
+                      <caret column="12" selection-start-column="12" selection-end-column="12" />
+                    </state>
+                  </provider>
                 </entry>
               </file>
             </leaf>
@@ -496,8 +482,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/webapp/tests/_support/Helper/Unit.php" />
-        <option value="$PROJECT_DIR$/webapp/src/Config.php" />
         <option value="$PROJECT_DIR$/config.php" />
         <option value="$PROJECT_DIR$/webapp/src/dao/mysql/UserMysqlDao.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
@@ -507,14 +491,11 @@
         <option value="$PROJECT_DIR$/webapp/src/NoSuchControllerException.php" />
         <option value="$PROJECT_DIR$/css/login.css" />
         <option value="$PROJECT_DIR$/js/tag.js" />
-        <option value="$PROJECT_DIR$/webapp/src/view/tag.button-group.tmpl.php" />
         <option value="$PROJECT_DIR$/webapp/src/view/View.php" />
         <option value="$PROJECT_DIR$/webapp/src/view/BaseView.php" />
         <option value="$PROJECT_DIR$/webapp/src/controller/TagController.php" />
         <option value="$PROJECT_DIR$/webapp/src/controller/UserController.php" />
         <option value="$PROJECT_DIR$/webapp/src/dao/mysql/ContentMysqlDao.php" />
-        <option value="$PROJECT_DIR$/webapp/src/ContentImpl.php" />
-        <option value="$PROJECT_DIR$/webapp/src/view/content.portfolio.tmpl.php" />
         <option value="$PROJECT_DIR$/scss/_tag.scss" />
         <option value="$PROJECT_DIR$/scss/tag.scss" />
         <option value="$PROJECT_DIR$/webapp/src/controller/Controller.php" />
@@ -524,7 +505,6 @@
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/webapp/src/view/ViewFactory.php" />
         <option value="$PROJECT_DIR$/scss/content-upload.scss" />
-        <option value="$PROJECT_DIR$/js/main.js" />
         <option value="$PROJECT_DIR$/css/dialog-base.css" />
         <option value="$PROJECT_DIR$/js/login.js" />
         <option value="$PROJECT_DIR$/webapp/src/util/FileManager.php" />
@@ -532,7 +512,6 @@
         <option value="$PROJECT_DIR$/webapp/src/dao/ContentDao.php" />
         <option value="$PROJECT_DIR$/webapp/src/dao/TagDao.php" />
         <option value="$PROJECT_DIR$/webapp/src/controller/ContentController.php" />
-        <option value="$PROJECT_DIR$/js/content.js" />
         <option value="$PROJECT_DIR$/scss/login.scss" />
         <option value="$PROJECT_DIR$/html/login-register.form.html" />
         <option value="$PROJECT_DIR$/scss/dialog-base.scss" />
@@ -541,12 +520,19 @@
         <option value="$PROJECT_DIR$/webapp/src/dao/mysql/TagMysqlDao.php" />
         <option value="$PROJECT_DIR$/webapp/src/util/TestDataFactory.php" />
         <option value="$PROJECT_DIR$/scss/_base.scss" />
-        <option value="$PROJECT_DIR$/js/user.js" />
         <option value="$PROJECT_DIR$/scss/main.scss" />
         <option value="$PROJECT_DIR$/scss/user.scss" />
         <option value="$PROJECT_DIR$/webapp/src/dao/mysql/BaseMysqlDao.php" />
         <option value="$PROJECT_DIR$/webapp/src/UserImpl.php" />
+        <option value="$PROJECT_DIR$/webapp/src/Content.php" />
+        <option value="$PROJECT_DIR$/webapp/src/view/tag.button-group.tmpl.php" />
+        <option value="$PROJECT_DIR$/webapp/src/view/content.portfolio.tmpl.php" />
+        <option value="$PROJECT_DIR$/js/user.js" />
+        <option value="$PROJECT_DIR$/webapp/src/ContentImpl.php" />
+        <option value="$PROJECT_DIR$/html/content-focus.tmpl.html" />
+        <option value="$PROJECT_DIR$/js/content.js" />
         <option value="$PROJECT_DIR$/webapp/src/view/front-page.tmpl.php" />
+        <option value="$PROJECT_DIR$/js/main.js" />
       </list>
     </option>
   </component>
@@ -670,7 +656,30 @@
             <path>
               <item name="regis-msse661" type="b2602c69:ProjectViewProjectNode" />
               <item name="regis-msse661" type="462c0819:PsiDirectoryNode" />
-              <item name="scss" type="462c0819:PsiDirectoryNode" />
+              <item name="html" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="regis-msse661" type="b2602c69:ProjectViewProjectNode" />
+              <item name="regis-msse661" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="regis-msse661" type="b2602c69:ProjectViewProjectNode" />
+              <item name="regis-msse661" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="regis-msse661" type="b2602c69:ProjectViewProjectNode" />
+              <item name="regis-msse661" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="regis-msse661" type="b2602c69:ProjectViewProjectNode" />
+              <item name="regis-msse661" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="regis-msse661" type="b2602c69:ProjectViewProjectNode" />
@@ -695,19 +704,19 @@
     <property name="ts.external.directory.path" value="C:\dev\regis-msse661\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\dev\regis-msse661\webapp\src\controller" />
-      <recent name="C:\dev\regis-msse661" />
-      <recent name="C:\dev\regis-msse661\css" />
-      <recent name="C:\dev\regis-msse661\webapp\tests\functional" />
-      <recent name="C:\sw\ampps\www\regis-msse661" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\dev\regis-msse661\webapp\src" />
       <recent name="C:\dev\regis-msse661\webapp\src\util" />
       <recent name="C:\dev\regis-msse661\webapp" />
       <recent name="C:\dev\regis-msse661\webapp\tests\utils" />
       <recent name="C:\dev\regis-msse661\webapp\tests\_support\Helper" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\dev\regis-msse661\html" />
+      <recent name="C:\dev\regis-msse661\webapp\src\controller" />
+      <recent name="C:\dev\regis-msse661" />
+      <recent name="C:\dev\regis-msse661\css" />
+      <recent name="C:\dev\regis-msse661\webapp\tests\functional" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -798,7 +807,7 @@
       <workItem from="1551479149132" duration="20253000" />
       <workItem from="1551548798396" duration="125000" />
       <workItem from="1551550426945" duration="13259000" />
-      <workItem from="1551579990147" duration="273000" />
+      <workItem from="1551579990147" duration="12701000" />
     </task>
     <task id="LOCAL-00001" summary="Begin MySQL integration.  However, moving to a directory within Ampps">
       <created>1549080195191</created>
@@ -856,7 +865,14 @@
       <option name="project" value="LOCAL" />
       <updated>1551548900544</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Near end of Week 7.  File upload via JS and API is working.  Laptop is dying.">
+      <created>1551580325418</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1551580325418</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -892,14 +908,14 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="353597000" />
+    <option name="totallyTimeSpent" value="366025000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1928" height="1041" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.59323883" visible="true" weight="0.15548456" />
-      <window_info active="true" id="Structure" order="1" sideWeight="0.40676117" side_tool="true" visible="true" weight="0.15548456" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.76008725" visible="true" weight="0.16932908" />
+      <window_info id="Structure" order="1" sideWeight="0.23991276" side_tool="true" visible="true" weight="0.16932908" />
       <window_info id="DB Browser" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -961,27 +977,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Near end of Week 7.  File upload via JS and API is working.  Laptop is dying." />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/webapp/src/view/BaseView.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
-          <caret line="26" column="19" lean-forward="true" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/src/view/tag.button-group.tmpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scss/style.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="574" column="27" lean-forward="true" selection-start-line="574" selection-start-column="27" selection-end-line="574" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webapp/src/dao/EntityDao.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -996,20 +991,6 @@
           <folding>
             <element signature="e#40#75#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="23" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/src/ContentImpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1496">
-          <caret line="91" column="59" selection-start-line="91" selection-start-column="59" selection-end-line="91" selection-end-column="59" />
         </state>
       </provider>
     </entry>
@@ -1133,20 +1114,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/content.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="27" selection-start-line="33" selection-start-column="27" selection-end-line="33" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/src/UserImpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="35" column="103" selection-start-line="35" selection-start-column="103" selection-end-line="35" selection-end-column="103" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webapp/src/dao/ContentDao.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -1175,20 +1142,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1190">
           <caret line="74" column="8" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1785">
-          <caret line="105" column="47" selection-start-line="105" selection-start-column="47" selection-end-line="105" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>
@@ -1240,23 +1193,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/src/controller/ContentController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1598">
-          <caret line="100" column="63" selection-start-line="100" selection-start-column="63" selection-end-line="100" selection-end-column="63" />
-          <folding>
-            <element signature="e#40#60#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/src/dao/mysql/TagMysqlDao.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="52" selection-start-line="52" selection-end-line="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webapp/src/dao/TagDao.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -1285,20 +1221,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/src/view/front-page.tmpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4097">
-          <caret line="241" column="41" selection-start-line="241" selection-end-line="242" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/src/view/content.portfolio.tmpl.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="34" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scss/tag.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -1313,8 +1235,102 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/src/UserImpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/src/dao/mysql/TagMysqlDao.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="32" column="49" selection-start-line="32" selection-start-column="49" selection-end-line="32" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/src/Content.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="23" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/src/view/tag.button-group.tmpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="46" selection-start-line="3" selection-start-column="46" selection-end-line="3" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/webapp/src/view/content.tmpl.php">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/src/controller/ContentController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1700">
+          <caret line="100" column="63" selection-start-line="100" selection-start-column="63" selection-end-line="100" selection-end-column="63" />
+          <folding>
+            <element signature="e#40#60#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/src/view/content.portfolio.tmpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="11" column="61" selection-start-line="11" selection-start-column="61" selection-end-line="11" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/src/ContentImpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="14" column="62" selection-start-line="14" selection-start-column="62" selection-end-line="14" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/html/content-focus.tmpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="12" selection-start-column="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="981">
+          <caret line="193" lean-forward="true" selection-start-line="193" selection-end-line="193" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/content.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="223" column="3" lean-forward="true" selection-start-line="223" selection-start-column="3" selection-end-line="223" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/src/view/front-page.tmpl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="45" column="12" lean-forward="true" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">

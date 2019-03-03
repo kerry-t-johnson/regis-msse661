@@ -12,7 +12,7 @@ use msse661\dao\TagDao;
 class ContentImpl extends EntityImpl implements Content {
 
     private const REQUIRED_KEYS = ['id', 'title', 'users', 'state', 'path', 'hash'];
-    private const HIDDEN_KEYS   = ['state', 'comments_allowed', 'hash'];
+    private const HIDDEN_KEYS   = ['state', 'comments_allowed'];
 
     /** @var User */
     private $user;

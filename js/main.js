@@ -6,9 +6,13 @@ $(document).ready(function() {
      * Preloader
      ---------------------------------------------*/
 
-    $(window).on('load', function () {
+    let removePreloader = function () {
         $(".loaded").fadeOut();
-        $(".preloader").delay(1000).fadeOut("slow");
-    });
+        $(".preloader").delay(900).fadeOut("slow");
+    }
+
+    window.addEventListener
+        ? window.addEventListener("load", removePreloader,false)
+        : window.attachEvent && window.attachEvent("onload", removePreloader);
 
 });
