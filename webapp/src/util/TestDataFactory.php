@@ -7,7 +7,10 @@ define('APP_TEST_ENV', 'APP_TEST_ENV');
 namespace msse661\util {
 
 
+    use msse661\BaseTestCase;
+    use msse661\Content;
     use msse661\dao\mysql\TagMysqlDao;
+    use msse661\dao\mysql\UserMysqlDao;
     use msse661\Tag;
 
     class TestDataFactory {
@@ -100,6 +103,28 @@ namespace msse661\util {
                 return $content[0];
             }
             else {
+                $userDao    = new UserMysqlDao();
+                $user       = $userDao->getByUuid($contentSpec['users']);
+
+                /** @var Content $content */
+                $file_contents  = file_get_contents($contentSpec['path']);
+                $temp_file_name = tempnam('/tmp', 'test_content');
+                $temp_file      = fopen($temp_file_name, 'w');
+                fwrite($temp_file, $file_contents);
+                fclose($temp_file);
+
+                $fileSpec   = FileManager::saveUserFile(
+                    $user,
+                    [
+                        'tmp_name'  => $temp_file_name,
+                        'name'      => BaseTestCase::generateRandomName() . '.html',
+                    ],
+                    true);
+
+                $contentSpec['path']        = $fileSpec['path'];
+                $contentSpec['mime_type']   = $fileSpec['mime_type'];
+                $contentSpec['hash']        = $fileSpec['hash'];
+
                 return $contentDao->create($contentSpec);
             }
         }

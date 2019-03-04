@@ -14,26 +14,26 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
     <!--        <link rel="stylesheet" href="css/bootstrap-theme.min.css">-->
 
 
     <!--For Plugins external css-->
-    <link rel="stylesheet" href="css/plugins.css"/>
-    <link rel="stylesheet" href="css/lora-web-font.css"/>
-    <link rel="stylesheet" href="css/opensans-web-font.css"/>
-    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/vendor/plugins.css"/>
+    <link rel="stylesheet" href="css/vendor/lora-web-font.css"/>
+    <link rel="stylesheet" href="css/vendor/opensans-web-font.css"/>
+    <link rel="stylesheet" href="css/vendor/magnific-popup.css">
 
     <link rel="stylesheet" href="css/login.css" />
     <link rel="stylesheet" href="css/tag.css" />
-    <link rel="stylesheet" href="css/content-upload.css" />
+    <link rel="stylesheet" href="css/content.css" />
     <link rel="stylesheet" href="css/user.css" />
 
     <!--Theme custom css -->
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/vendor/style.css"/>
 
     <!--Theme Responsive css-->
-    <link rel="stylesheet" href="css/responsive.css"/>
+    <link rel="stylesheet" href="css/vendor/responsive.css"/>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -44,9 +44,9 @@
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
-<div class='preloader'>
-    <div class='loaded'>&nbsp;</div>
-</div>
+<!--<div class='preloader'>-->
+<!--    <div class='loaded'>&nbsp;</div>-->
+<!--</div>-->
 <nav class="navbar navbar-default navbar-fixed-top" id="main_navbar">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -58,16 +58,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php"><img src="images/logo.png" alt="logo"/></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#portfolio">Content</a></li>
-                <li><a href="#testimonial">Testimonials</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#content">Content</a></li>
                 <li><a href="#" id="user-profile" class="hide">Profile</a></li>
                 <li><a href="#" id="user-login" class="hide">Login / Register</a></li>
                 <li><a href="#" id="user-logout" class="hide">Logout</a></li>
@@ -96,26 +93,26 @@
 </header>
 
 
-<section id="portfolio" class="portfolio lightbg sections">
+<section id="content" class="content lightbg sections">
     <div class="container">
         <div class="heading text-center">
             <h1>Content</h1>
             <div class="separator"></div>
         </div>
         <div class="row">
-            <div class="main_portfolio whitebackground">
-                <div class="portfolio_content text-center">
-                    <div class="portfolio_menu">
+            <div class="main_content whitebackground">
+                <div class="content_content text-center">
+                    <div class="content_menu">
                         <?php print $tag_content; ?>
                     </div>
-                    <div class="portfolio_content_details">
+                    <div class="content_content_details">
                         <?php print $data; ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section><!-- End of portfolio-one Section -->
+</section><!-- End of content-one Section -->
 
 <!-- Sections -->
 <section id="content-full" class="content-full sections">
@@ -169,6 +166,6 @@
 <script src="js/tags.js"></script>
 <script src="js/content.js"></script>
 <script src="js/main.js"></script>
-<script src="js/jquery.fileupload.js"></script>
+<script src="js/vendor/jquery.fileupload.js"></script>
 </body>
 </html>

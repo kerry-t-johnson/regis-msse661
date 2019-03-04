@@ -16,15 +16,16 @@ class ContentMysqlDao extends BaseMysqlDao implements ContentDao {
     }
 
     public function create(array $contentSpec): Content {
-        $optDescription = isset($tagSpec['description']) ? "':description'" : 'NULL';
+        $optDescription = isset($contentSpec['description']) ? "':description'" : 'NULL';
         $query  = <<<________QUERY
-            INSERT INTO content (id, title, description, users, state, path, hash)
+            INSERT INTO content (id, title, description, users, state, path, mime_type, hash)
             VALUES (':id',
                     ':title',
                     {$optDescription},
                     ':users', 
                     (SELECT id FROM content_state WHERE name = ':state' LIMIT 1),
                     ':path',
+                    ':mime_type',
                     ':hash')
 ________QUERY;
 

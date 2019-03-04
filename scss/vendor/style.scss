@@ -1,6 +1,6 @@
 /*
 Author: XpeedStudio
-Author URI: http://themeforest.net/user/XpeedStudio/portfolio
+Author URI: http://themeforest.net/user/XpeedStudio/content
 */
 /* ==========================================================================
    Author's custom styles
@@ -9,7 +9,6 @@ html,
 body {
     background-color: #ffffff;
     font-size: 14px;
-    color: #999999;
     width: 100%;
     padding: 0;
     margin-left: 0;
@@ -36,7 +35,7 @@ body {
     position: absolute;
     left: 50%;
     top: 50%;
-    background-image: url(../images/loading.gif);
+    background-image: url(../../images/loading.gif);
     background-repeat: no-repeat;
     background-position: center;
     -moz-background-size: cover;
@@ -290,6 +289,8 @@ Separator
     width: 130px;
     margin: auto;
     background: #00a5ff;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .separator2 {
@@ -487,7 +488,7 @@ textarea::-ms-input-placeholder
 
 /*For Home Section*/
 .home{
-    background: url(../images/header_bg.jpg) no-repeat center top fixed;
+    background: url(../../images/header_bg.jpg) no-repeat center top fixed;
     background-size: cover;
     -moz-background-size: cover;
     -webkit-background-size: cover;
@@ -538,13 +539,13 @@ textarea::-ms-input-placeholder
 
 
 
-/* Portfolio Section */
-.portfolio_menu{
+/* content Section */
+.content_menu{
     width:100%;
     margin:0 auto;
     padding-top: 25px;
 }
-.single_portfolio_img{
+.single_content_img{
     position:relative;
     box-shadow:2px 2px 5px 0 rgba(55,50,40, .20);
     -webkit-box-shadow:2px 2px 5px 0 rgba(55,50,40, .20);
@@ -552,7 +553,7 @@ textarea::-ms-input-placeholder
     -o-box-shadow:2px 2px 5px 0 rgba(55,50,40, .20);
     -ms-box-shadow:2px 2px 5px 0 rgba(55,50,40, .20);
 }
-.single_portfolio_overlay{
+.single_content_overlay{
     background:#565d67;
     position:absolute;
     left:0;
@@ -562,22 +563,22 @@ textarea::-ms-input-placeholder
     opacity:0;
     transition:.5s;
 }
-.single_portfolio_img .single_portfolio_overlay img{
+.single_content_img .single_content_overlay img{
     width: 45%;
     height: 40%;
     top: 30%;
     position: absolute;
     left: 30%;
 }
-.single_portfolio_img:hover .single_portfolio_overlay{
+.single_content_img:hover .single_content_overlay{
     opacity:1;
 }
-.portfolio_content_details{
+.content_content_details{
     padding-top: 10px;
     width: 90%;
     margin: 0 auto;
 }
-.portfolio_content_details a{
+.content_content_details a{
     margin-top: 50px;
     text-transform: uppercase;
 }
@@ -637,13 +638,14 @@ textarea::-ms-input-placeholder
     margin-left: 30px;
 }*/
 
-.portfolio-item{
+.content-item{
     margin-top:30px;
+  height: 400px;
 }
-.portfolio-item img{
+.content-item img{
     width:100%;
 }
-.portfolio-item h2{
+.content-item h2{
     font-size: 18px;
     line-height: 3rem;
     margin-bottom:0;

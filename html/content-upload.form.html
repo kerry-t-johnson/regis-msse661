@@ -7,10 +7,10 @@
             <input type="hidden" name="content-upload-user-uuid" id="content-upload-user-uuid"/>
             <input type="text" name="title" placeholder="Title" required/>
             <br/>
-            <textarea name="description" placeholder="Description" rows="3"/>
+            <textarea name="description" placeholder="Description" rows="3" required/>
             <br/>
-            <input type="file" name="file-to-upload" id="file-to-upload" class="input-file-hidden" />
-            <label for="file-to-upload">Select a file to upload</label>
+            <input type="file" name="file-to-upload" id="file-to-upload" class="input-file-hidden" accept="application/pdf, text/html, text/plain" />
+            <label for="file-to-upload">Select a PDF to upload</label>
             <br/>
             <select name="content-tags" id="content-tags" required>
                 <option disabled value="" selected hidden>Select a tag</option>

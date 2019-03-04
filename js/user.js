@@ -80,7 +80,8 @@ class CurrentUser {
         $('#user-profile')
             .text('Welcome, ' + this._user.first_name)
             .removeClass("hide");
-        $('#portfolio').addClass('user').removeClass('no-user');
+        $('#content').addClass('user').removeClass('no-user');
+        $('#publish').removeClass('hide');
         this.hideAll();
     }
 
@@ -115,7 +116,8 @@ class CurrentUser {
         $("#register-login-form-show-hide").hide();
         $('#user-login').removeClass('hide');
         $('#user-logout').addClass('hide');
-        $('#portfolio').removeClass('user').addClass('no-user');
+        $('#content').removeClass('user').addClass('no-user');
+        $('#publish').addClass('hide');
         $('#user-profile')
             .text('')
             .addClass('hide');

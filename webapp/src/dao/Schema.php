@@ -118,6 +118,10 @@ class Schema {
                         'type' => 'VARCHAR(1024)',
                     ],
 
+                    'mime_type' => [
+                        'type' => 'VARCHAR(256)',
+                    ],
+
                     'hash'  => [
                         'type'  => 'VARCHAR(40)',
                     ],

@@ -11,7 +11,7 @@ use msse661\dao\TagDao;
 
 class ContentImpl extends EntityImpl implements Content {
 
-    private const REQUIRED_KEYS = ['id', 'title', 'users', 'state', 'path', 'hash'];
+    private const REQUIRED_KEYS = ['id', 'title', 'users', 'state', 'path', 'mime_type', 'hash'];
     private const HIDDEN_KEYS   = ['state', 'comments_allowed'];
 
     /** @var User */
@@ -73,8 +73,7 @@ class ContentImpl extends EntityImpl implements Content {
     }
 
     public function getMimeType(): string {
-        $fileInfo = new \finfo();
-        return $fileInfo->file($this->getFullPath(), FILEINFO_MIME_TYPE);
+        return $this->getAttributeValue('mime_type');
     }
 
     public function getImageType(): int {
@@ -91,4 +90,5 @@ class ContentImpl extends EntityImpl implements Content {
 
         return $tagDao->getTagsByContent($this->getUuid());
     }
+
 }

@@ -30,7 +30,23 @@ class Content {
         this._data = data;
         console.log(this._data);
         userManager.fetchUser(data.users, this.onUserReceived.bind(this));
-        this.show();
+
+        if(this._data.mime_type === 'text/html' || this._data.mime_type === 'text/plain') {
+            console.log('Retrieving HTML from ' + this._data.path);
+            $.ajax({
+                url: this._data.path,
+                dataType: 'html',
+                context: this,
+                success: function(result) {
+                    console.log(this);
+                    this._data.html = result;
+                    this.show();
+                }.bind(this)
+            });
+        }
+        else {
+            this.show();
+        }
     }
 
     show() {
@@ -42,6 +58,7 @@ class Content {
             }
 
             setTimeout(this.show.bind(this), 1000);
+            return;
         }
 
         if(!this._html) {
@@ -53,7 +70,6 @@ class Content {
             }
         }
 
-        console.log(this._html);
         $('#content-container').html(this._html);
 
         $("body, html").animate({
@@ -76,6 +92,7 @@ Content.requestFullTemplate = function() {
     $.ajax({
         url: '/html/content-focus.tmpl.html',
         type: 'GET',
+        dataType: 'html',
         context: this,
         success: function(result) {
             Content.fullTemplate = result;
@@ -213,9 +230,9 @@ class ContentManager {
 var contentManager = new ContentManager();
 
 // init Isotope
-var grid = $('.portfolio-one').isotope({
-    itemSelector: '.portfolio-item',
-    layoutMode: 'fitRows'
+var grid = $('.content-one').isotope({
+    itemSelector:   '.content-item',
+    layoutMode:     'fitRows'
 });
 
 $('.filters-button-group').on('click', 'button', function () {

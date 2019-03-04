@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectTasksOptions" suppressed-tasks="SCSS">
-    <TaskOptions isEnabled="true">
-      <option name="arguments" value="$FilePathRelativeToProjectRoot$:css/$FileNameWithoutExtension$.css" />
+    <TaskOptions isEnabled="false">
+      <option name="arguments" value="scss:css" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" />
-      <option name="exitCodeBehavior" value="ERROR" />
+      <option name="exitCodeBehavior" value="ALWAYS" />
       <option name="fileExtension" value="scss" />
       <option name="immediateSync" value="true" />
       <option name="name" value="Sass" />
-      <option name="output" value="css/$FileNameWithoutExtension$.css:css/$FileNameWithoutExtension$.css.map" />
+      <option name="output" value="css/$FileNameWithoutExtension$.css:css/$FileNameWithoutExtension$.css.map:css/vendor/$FileNameWithoutExtension$.css:css/vendor/$FileNameWithoutExtension$.css.map" />
       <option name="outputFilters">
         <array />
       </option>
