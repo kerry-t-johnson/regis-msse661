@@ -100,14 +100,19 @@ class UserController extends BaseController implements Controller {
     }
 
     public function onPostLogin(array $request) {
-        $userDao    = new UserMysqlDao();
-        $user       = $userDao->getByEmailAndPassword($_POST['email'], $_POST['password']);
+        try {
+            $userDao = new UserMysqlDao();
+            $user = $userDao->getByEmailAndPassword($_POST['email'], $_POST['password']);
 
-        $this->login($user);
+            $this->login($user);
 
-        $this->redirect('user/' . $user->getUuid());
+            $this->redirect('user/' . $user->getUuid());
 
-        return $user;
+            return $user;
+        }
+        catch(\Exception $ex) {
+            $this->redirect('user/login&error=true');
+        }
     }
 
     public function login(User $user) : void {
@@ -127,7 +132,8 @@ class UserController extends BaseController implements Controller {
     }
 
     public function onGetLogin(array $request) : string {
-        return ViewFactory::render('user', [], 'login');
+        $this->logger->info('onGetLogin', ['request' => $request, 'server' => $_SERVER]);
+        return ViewFactory::render('user', ['error' => $request['query']['error'] ? true : false], 'login');
     }
 
     public function onGetRegister(array $request) : string {

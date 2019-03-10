@@ -147,7 +147,7 @@ class BaseController implements Controller {
         // Redirects don't apply when accessed via the api
         if(strpos($_SERVER['REQUEST_URI'], 'api/') === false) {
             ob_start();
-            header('Location: ' . ($dest ? "index.php?route={$dest}" : '/'));
+            header('Location: ' . ($dest ? "/index.php?route={$dest}" : '/'));
             ob_end_flush();
             die();
         }
