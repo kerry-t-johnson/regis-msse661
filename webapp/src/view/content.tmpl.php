@@ -22,7 +22,6 @@
         </div>
     </div>
 </div>
-<?php print \msse661\view\ViewFactory::render('html', [], 'body-footer'); ?>
 
 <?php print \msse661\view\ViewFactory::render('html', [], 'scripts'); ?>
 <!-- jQuery Plugins -->

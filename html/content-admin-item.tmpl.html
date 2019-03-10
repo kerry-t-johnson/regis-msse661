@@ -1,14 +1,14 @@
 <li id="{{:id}}-item">
     <div class="collapsible-header">
         <div class="content-list-title col-md-6">
-            <h4>{{:title}}</h4>
+            <h4><a href="/index.php?route=content/{{:id}}">{{:title}}</a></h4>
         </div>
         <div class="col-md-4 valign-wrapper">
             {{for tags}}
-            <div class="chip blue-grey darken-1 white-text">{{:name}}</div>
+            <div class="chip blue-grey darken-1 white-text">{{:~truncate(name, 20)}}</div>
             {{/for}}
         </div>
-        <div class="col-sm-1 valign-wrapper">
+        <div class="col-sm-1 valign-wrapper right-align">
             {{:comment_count}}
         </div>
         <div class="col-sm-1 col-sm-offset-1 valign-wrapper">

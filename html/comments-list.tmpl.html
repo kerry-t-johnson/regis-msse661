@@ -1,3 +1,33 @@
 <div>
-{{for tmpl="comments_item" /}}
+    {{if  comments.length}}
+        {{for comments tmpl="comments_item" /}}
+    {{else}}
+        Be the first to comment.
+    {{/if}}
+    <div>
+        <!-- Dropdown Trigger -->
+        <a class="dropdown-trigger btn blue-grey darken-2" href="#" id="comment-{{:id}}-trigger" data-target="comment-{{:id}}-wrapper">Comment</a>
+
+        <div id="comment-{{:id}}-wrapper" class="dropdown-content card">
+            <div class="card-content">
+                <a href="#" id="comment-{{:id}}-close" data-target="{{:id}}"><i class="material-icons right">close</i></a>
+                <form id="comment-{{:id}}-form" class="comment-form" data-comment-content="{{:id}}">
+                    <div>
+                        <input type="text" placeholder="comment title" id="comment-title-for-{{:id}}" required>
+                        <textarea class="materialize-textarea" id="comment-text-for-{{:id}}" placeholder="comment" name="comment" required></textarea>
+                    </div>
+                    <div>
+                        <button class="btn waves-effect waves-light blue-grey darken-2 center-align comment-submit-button"
+                                type="submit"
+                                name="action"
+                                data-comment-content="{{:id}}"
+                        >
+                            Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

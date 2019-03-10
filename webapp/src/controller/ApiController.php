@@ -17,8 +17,9 @@ class ApiController extends BaseController implements Controller {
             $this->invokeOtherController($request, $this);
         }
         catch(\Exception $ex) {
+            $this->logger->error('Uncaught exception', ['ex' => $ex, 'code' => $ex->getCode()]);
             http_response_code($ex->getCode());
-            print json_encode(['message' => $ex->getMessage()]);
+            print json_encode($ex->getMessage());
             die;
         }
     }

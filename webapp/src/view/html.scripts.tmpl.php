@@ -14,12 +14,12 @@
 <script src="/html/vendor/login/vendor/daterangepicker/moment.min.js"></script>
 <script src="/html/vendor/login/vendor/daterangepicker/daterangepicker.js"></script>
 <script src="/html/vendor/login/vendor/countdowntime/countdowntime.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.js"></script>
 <script src="/html/vendor/login/js/main.js"></script>
 <script src="/js/user.js"></script>
 <script src="/js/tags.js"></script>
 <script src="/js/content.js"></script>
 <script src="/js/main.js"></script>
 <script src="/js/comments.js"></script>
-<script src="/js/vendor/jquery.fileupload.js"></script>
 <script src="/js/vendor/jquery-dateformat.min.js"></script>
 

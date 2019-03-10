@@ -31,30 +31,26 @@ function setZ(item, i) {
 }
 
 function pulseItem(item, loops) {
-    const delay = 500;
+    const delay = 200;
     let currentDelay = delay;
 
-    loops = ((typeof loops == 'undefined') ? 1 : loops) * 2;
+    loops = (typeof loops == 'undefined') ? 1 : loops;
 
     for(let lp = 0; lp < loops; ++lp) {
-        setTimeout(function() {
-            $(item).toggle('highlight');
-        }, currentDelay);
-        currentDelay += delay;
-        // for (let i = 1; i <= 5; i++) {
-        //     setTimeout(function () {
-        //         setZ(item, i);
-        //     }, currentDelay);
-        //     currentDelay += delay;
-        // }
-        // for (let i = 5; i >= 1; i--) {
-        //     setTimeout(function () {
-        //         setZ(item, i);
-        //     }, currentDelay);
-        //     currentDelay += delay;
-        // }
+        for (let i = 1; i <= 5; i++) {
+            setTimeout(function () {
+                setZ(item, i);
+            }, currentDelay);
+            currentDelay += delay;
+        }
+        for (let i = 5; i >= 1; i--) {
+            setTimeout(function () {
+                setZ(item, i);
+            }, currentDelay);
+            currentDelay += delay;
+        }
     }
-    // setTimeout(function() { clearZ(item); }, currentDelay);
+    setTimeout(function() { clearZ(item); }, currentDelay);
 }
 
 function prettyPrintDate(date) {

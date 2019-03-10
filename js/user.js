@@ -1,10 +1,3 @@
-class User {
-
-    constructor(data) {
-        this._data = data;
-    }
-
-}
 
 class CurrentUser {
 
@@ -93,6 +86,7 @@ var userManager = new UserManager();
 
 
 $('#upload-form-wrapper').modal();
+$('#modify-form-wrapper').modal();
 $('#delete-form-wrapper').modal();
 
 $(function(){
@@ -113,24 +107,23 @@ $(function(){
         }
 
         function onContentRetrievedForEdit(c) {
-            $('#upload-form-wrapper h2').text('Update content');
-            $('#upload-form #title').val(c.title);
-            $('#upload-form #description').val(c.description);
-            $('#upload-form .file-field').hide();
-            $('#upload-form [type=checkbox]').each(function(index, element){
+            $('#modify-form-wrapper h2').text(`Update '${c.title}'`);
+            $('#modify-form #modify-title').val(c.title);
+            $('#modify-form #modify-description').val(c.description);
+            $('#modify-form [type=checkbox]').each(function(index, element){
                 $(element).prop('checked', c.hasTag($(element).val()));
             });
-            M.textareaAutoResize($('#description'));
+            M.textareaAutoResize($('#modify-description'));
             M.updateTextFields();
-            $('#upload-form-submit').click(function(event) { onContentEditSubmit(event, c); });
-            $('#upload-form-wrapper').modal('open');
+            $('#modify-form-submit').click(function(event) { onContentEditSubmit(event, c); });
+            $('#modify-form-wrapper').modal('open');
         }
 
         function onContentEditSubmit(event, c) {
             console.log(c);
             event.preventDefault();
             let tags = [];
-            $('#upload-form [type=checkbox]').each(function(index, element){
+            $('#modify-form [type=checkbox]').each(function(index, element){
                 if($(element).prop('checked')){
                     tags.push($(element).val());
                 }
@@ -143,8 +136,8 @@ $(function(){
                 dataType: 'json',
                 data: JSON.stringify({
                     id: c.id,
-                    title: $('#title').val(),
-                    description: $('#description').val(),
+                    title: $('#modify-title').val(),
+                    description: $('#modify-description').val(),
                     users: currentUser.id,
                     tags: tags
                 }),
@@ -165,10 +158,12 @@ $(function(){
         }
 
         function onContentEditSuccess(data) {
-            $('#upload-form-wrapper').modal('close');
-            $('#' + data.id + '-item').html($.templates.content_admin_item.render(data));
+            console.log('onContentEditSuccess');
+            $('#modify-form-wrapper').modal('close');
+            $('#' + data.id + '-item').replaceWith($.templates.content_admin_item.render(data));
             $('.edit-content').click(onContentEditClick);
-            pulseItem($('#' + data.id + '-item'), 3);
+            $('.delete-content').click(onContentDeleteClick);
+            $('.collapsible').collapsible();
         }
 
         function updateUserTagPreference() {
@@ -219,4 +214,22 @@ $(function(){
 
         currentUser.tags(retrieveUserTaggedContent);
     }
+
+    if($('#user-register-form').is(':visible')) {
+        $('#user-register-form').validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true,
+                    remote: "/index.php?route=api/user/check"
+                }
+            },
+            invalidHandler: function(event, validator) {
+                console.log('invalid!!!');
+                console.log(event);
+                console.log(validator);
+            }
+        });
+    }
+
 });

@@ -10,13 +10,6 @@ $logger->debug('foo', ['user' => $user]);
     <div class="container">
 
         <div class="navbar-header">
-            <!-- Logo -->
-            <div class="navbar-brand">
-                <a class="logo" href="/">
-                    <img src="./images/logo-alt.png" alt="logo">
-                </a>
-            </div>
-            <!-- /Logo -->
 
             <!-- Mobile toggle -->
             <button class="navbar-toggle">
@@ -29,12 +22,7 @@ $logger->debug('foo', ['user' => $user]);
         <nav id="nav transparent">
             <ul class="main-menu nav navbar-nav navbar-right">
                 <li><a href="/">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Courses</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <?php if($user): $logger->debug('foo', ['user' => $user]);
-                    ?>
+                <?php if($user): ?>
                     <li>
                         <a href="/index.php?route=user/<?php print $user->getUuid(); ?>">
                             Welcome, <?php print $user->getFirstName(); ?>

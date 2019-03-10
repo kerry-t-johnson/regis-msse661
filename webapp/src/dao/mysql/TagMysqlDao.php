@@ -24,9 +24,7 @@ class TagMysqlDao extends BaseMysqlDao implements TagDao {
             VALUES      (:id,   :name,    {$optDescription},   {$optParent})
 ________QUERY;
 
-        $tagSpec = $this->createEntity($tagSpec, $query);
-
-        return new TagImpl($tagSpec);
+        return $this->createEntity($tagSpec, $query);
     }
 
     public function getRandom(int $limit = 5) {

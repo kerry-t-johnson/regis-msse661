@@ -79,7 +79,8 @@ class BaseMysqlDao extends \mysqli implements EntityDao
         // $this->logger->debug('createEntity', ['query' => $query]);
         $this->query($query);
         // $this->logger->info("Created Entity", $entitySpec);
-        return $entitySpec;
+
+        return $this->fetchExactlyOne('id', $entitySpec['id']);
     }
 
     public function fetchExactlyOne(string $key, string $value): ?Entity {
@@ -100,7 +101,7 @@ class BaseMysqlDao extends \mysqli implements EntityDao
         return new $this->entityClass($assoc);
     }
 
-    protected function countWhere(string $where, array $values): bool {
+    protected function countWhere(string $where, array $values): int {
         $query          = <<<________QUERY
             SELECT  COUNT(*) AS count
             FROM    {$this->table}

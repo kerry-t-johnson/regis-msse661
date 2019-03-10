@@ -25,9 +25,7 @@ class CommentMysqlDao extends BaseMysqlDao implements CommentDao {
             VALUES      (:id, {$optTitle},  :text,  {$optQues},    {$optParent},  :content, :users)
 ________QUERY;
 
-        $commentSpec = $this->createEntity($commentSpec, $query);
-
-        return new CommentImpl($commentSpec);
+        return $this->createEntity($commentSpec, $query);
     }
 
     public function countByContent(string $contentUuid): int {

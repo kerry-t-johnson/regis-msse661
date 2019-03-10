@@ -55,6 +55,7 @@ class BaseController implements Controller {
         }
         catch(\Exception $ex) {
             $this->logger->error('Uncaught exception in route', ['exception' => $ex]);
+            throw $ex;
         }
     }
 

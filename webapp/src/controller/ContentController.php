@@ -5,6 +5,8 @@ namespace msse661\controller;
 
 
 use msse661\Content;
+use msse661\dao\CommentDao;
+use msse661\dao\EntityDaoFactory;
 use msse661\dao\mysql\CommentMysqlDao;
 use msse661\dao\mysql\ContentMysqlDao;
 use msse661\dao\mysql\TagMysqlDao;
@@ -74,6 +76,17 @@ class ContentController extends BaseController implements Controller {
         $this->logger->debug('onGetComments', ['resource' => $resource, 'request' => $request]);
         $commentDao = new CommentMysqlDao();
         return $commentDao->getByContent($resource);
+    }
+
+    public function onPostComment(string $resource, array $request) {
+        $this->logger->info('onPostComment', ['resource' => $resource]);
+        $commentSpec = json_decode(file_get_contents('php://input'), true);
+
+        $this->logger->debug('onPostComment', ['commentSpec' => $commentSpec]);
+
+        /** @var CommentDao $commentDao */
+        $commentDao = EntityDaoFactory::createEntityDao('comment');
+        return $commentDao->create($commentSpec);
     }
 
     protected function onSpecializedQuery($request) {

@@ -22,9 +22,7 @@ class UserMysqlDao extends BaseMysqlDao implements UserDao
 ________QUERY;
 
         $userSpec['hashed_password'] = password_hash($userSpec['password'], PASSWORD_DEFAULT);
-        $userSpec = $this->createEntity($userSpec, $query);
-
-        return new UserImpl(['id' => $userSpec['id'], 'email' =>$userSpec['email'], 'first_name' => $userSpec['first_name'], 'last_name' => $userSpec['last_name']]);
+        return $this->createEntity($userSpec, $query);
     }
 
     public function getAll(int $offset = 0, int $limit = 0): array {

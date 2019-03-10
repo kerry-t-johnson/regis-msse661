@@ -236,10 +236,6 @@ $('.button-group').each(function (i, buttonGroup) {
     });
 });
 
-$.get('/html/content-portfolio.tmpl.html', function(tmpl) {
-    $.templates('content_portfolio', tmpl);
-});
-
 $.get('/html/content-admin-list.tmpl.html', function(tmpl) {
    $.templates('content_admin_list', tmpl);
 });

@@ -44,3 +44,9 @@
 body.waiting * {
     cursor: wait !important;
 }
+
+
+label.error {
+    font-size: 1.1rem;
+    color: darkred;
+}

@@ -71,14 +71,12 @@ $user_tags = $user->getTags(true);
                         <input type="hidden" name="content-upload-user-uuid" value="<?php print $user->getUuid(); ?>"/>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="title" type="text" name="title">
-                                <label for="title">Title</label>
+                                <input id="title" type="text" name="title" required placeholder="title"/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <textarea id="description" class="materialize-textarea" name="description"></textarea>
-                                <label for="description">Description</label>
+                                <textarea id="description" class="materialize-textarea" name="description" required placeholder="description"></textarea>
                             </div>
                         </div>
                         <div class="row">
@@ -86,7 +84,7 @@ $user_tags = $user->getTags(true);
                                 <div class="btn blue-grey darken-2">
                                     <span>Browse</span>
                                     <input type="file" name="file-to-upload"
-                                           accept="application/pdf, text/html, text/plain"/>
+                                           accept="application/pdf, text/html, text/plain" required/>
                                 </div>
                                 <div class="file-path-wrapper">
                                     <input class="file-path validate" type="text" placeholder="Upload file"/>
@@ -125,6 +123,57 @@ $user_tags = $user->getTags(true);
     </div>
 
     <!-- Modal Structure -->
+    <div id="modify-form-wrapper" class="modal bottom-sheet">
+        <div class="section-header text-center">
+            <h2>Publish content</h2>
+        </div>
+        <div class="container">
+            <form id="modify-form" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="hidden" name="content-modify-user-uuid" value="<?php print $user->getUuid(); ?>"/>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="modify-title" type="text" name="title" required placeholder="title"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="modify-description" class="materialize-textarea" name="description" required placeholder="description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <h3>Interests</h3>
+                        <?php foreach ($all_tags as $tag): ?>
+                            <p>
+                                <label>
+                                    <input
+                                            type="checkbox"
+                                            class="filled-in checkbox-blue-gray"
+                                            name="content-tags[]"
+                                            value="<?php print $tag->getUuid(); ?>"
+                                        <?php if (array_key_exists($tag->getUuid(), $user_tags)) {
+                                            print "checked";
+                                        } ?> />
+                                    <span><?php print $tag->getName(); ?></span>
+                                </label>
+                            </p>
+                        <?php endforeach; ?>
+                    </div>
+                    <div class="col-md-2">
+                        <button id="modify-form-submit"
+                                class="btn waves-effect waves-light blue-grey darken-2 center-align" type="submit"
+                                name="action">Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Structure -->
     <div id="delete-form-wrapper" class="modal bottom-sheet">
         <div class="section-header text-center">
             <h2>Delete </h2>
@@ -145,7 +194,6 @@ $user_tags = $user->getTags(true);
     </div>
 
 </div>
-<?php print \msse661\view\ViewFactory::render('html', [], 'body-footer'); ?>
 
 <?php print \msse661\view\ViewFactory::render('html', [], 'scripts'); ?>
 <!-- jQuery Plugins -->

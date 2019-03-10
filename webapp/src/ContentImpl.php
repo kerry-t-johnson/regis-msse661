@@ -34,6 +34,14 @@ class ContentImpl extends EntityImpl implements Content {
         if($this->getMimeType() == 'text/plain') {
             $this->values['html'] = file_get_contents($this->getPath());
         }
+        else if($this->getMimeType() == 'application/pdf') {
+            $this->values['html'] =<<<IFRAME
+                <iframe src="/{$this->getPath()}"
+                        style="width:728px; height:700px;"
+                        frameborder="0">
+                </iframe>
+IFRAME;
+        }
     }
 
     public function getTitle(): string {

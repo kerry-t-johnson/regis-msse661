@@ -1,7 +1,13 @@
 <ul class="collapsible">
     <li class="active">
         <div class="collapsible-header">Description</div>
-        <div class="collapsible-body">{{:description}}</div>
+        <div class="collapsible-body">
+            {{if description}}
+                {{:description}}
+            {{else}}
+                No description provided.
+            {{/if}}
+        </div>
     </li>
     <li>
         <div class="collapsible-header">Content</div>

@@ -5,6 +5,7 @@ namespace msse661\controller;
 
 
 use Monolog\Logger;
+use msse661\dao\EntityDaoFactory;
 use msse661\dao\mysql\ContentMysqlDao;
 use msse661\dao\mysql\TagMysqlDao;
 use msse661\dao\mysql\UserMysqlDao;
@@ -41,6 +42,7 @@ class UserController extends BaseController implements Controller {
 
     public function __construct() {
         parent::__construct('user');
+        $this->userDao = EntityDaoFactory::createEntityDao('user');
     }
 
     public function render($user, $view = null) : string {
@@ -63,6 +65,20 @@ class UserController extends BaseController implements Controller {
         $this->logger->debug('onGetTag', ['resource' => $resource, 'request' => $request]);
         $tagDao = new TagMysqlDao();
         return $tagDao->getTagsByUser($resource);
+    }
+
+    public function onGetCheck(array $request) {
+        $email = $request['query']['email'] ?? null;
+        $email = $email ? urldecode($email) : null;
+        $this->logger->info('onGetCheck', ['email' => $email]);
+
+        try {
+            $this->userDao->getByEmail($email);
+            return 'That email address is already used.';
+        }
+        catch(\Exception $ex) {
+            return "true";
+        }
     }
 
     public function onPostTag(string $resource, array $request) {

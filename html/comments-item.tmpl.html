@@ -21,18 +21,22 @@
     </div>
     <div id="comment-{{:id}}-reveal" class="card-reveal">
         <span class="card-title grey-text text-darken-4">Re: {{:title}}<i class="material-icons right">close</i></span>
-        <form id="comment-{{:id}}-response-form">
-            <textarea class="materialize-textarea" id="reply-to-{{:id}}"></textarea>
-            <button class="btn waves-effect waves-light blue-grey darken-2 center-align comment-response-submit-button"
-                    type="submit"
-                    name="action"
-                    data-comment-uuid="{{:id}}"
-                    data-comment-title="{{:title}}"
-                    data-comment-content="{{:content}}"
-            >
-                Submit
-                <i class="material-icons right">send</i>
-            </button>
+        <form id="comment-{{:id}}-response-form" class="comment-reply-form" data-comment-uuid="{{:id}}" data-comment-title="{{:title}}" data-comment-content="{{:content}}">
+            <div>
+                <textarea class="materialize-textarea" id="reply-to-{{:id}}" name="comment" required></textarea>
+            </div>
+            <div>
+                <button class="btn waves-effect waves-light blue-grey darken-2 center-align comment-response-submit-button"
+                        type="submit"
+                        name="action"
+                        data-comment-uuid="{{:id}}"
+                        data-comment-title="{{:title}}"
+                        data-comment-content="{{:content}}"
+                >
+                    Submit
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
         </form>
     </div>
 </div>

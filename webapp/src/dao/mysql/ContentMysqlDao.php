@@ -29,9 +29,7 @@ class ContentMysqlDao extends BaseMysqlDao implements ContentDao {
                     :hash)
 ________QUERY;
 
-        $contentSpec = $this->createEntity($contentSpec, $query);
-
-        return new ContentImpl($contentSpec);
+        return $this->createEntity($contentSpec, $query);
     }
 
     public function update(array $contentSpec): Content {
