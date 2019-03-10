@@ -1,27 +1,27 @@
-<div class="content-one">
-    <?php
-        /** @var \msse661\Content $c */
-        foreach($content as $c):
-            $tagIds = [];
-            foreach($c->getTags() as $t) {
-                $tagIds[] = $t->getUuid();
-            }
-        ?>
-            <div class="col-sm-4 col-xs-12 content-item <?php print implode(' ', $tagIds); ?>" data-category="transition">
-                <div class="single_content_img">
-                    <a class="content-img content-full-link" href="#" data-content="<?php print $c->getUuid(); ?>">
-                        <img src="images/content/1.jpg" alt=""/>
-                    </a>
-                    <h2><?php print $c->getTitle(); ?></h2>
-                    <span><?php print $c->getUser()->getFullName(); ?></span>
-                    <div class="tag-list">
-                        <?php foreach($c->getTags() as $t): ?>
-                            <div class="tag">
-                                <?php print $t->getName(); ?>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
+<?php
+    $tagIds = [];
+    foreach($content->getTags() as $t) {
+        $tagIds[] = $t->getUuid();
+    }
+?>
+
+<div class="col-md-3 col-sm-6 col-xs-6 <?php print implode(' ', $tagIds); ?>" data-category="transition">
+    <div class="course">
+        <a class="course-img" href="/content.php?id=<? $content->getUuid(); ?>" data-content="<?php print $content->getUuid(); ?>">
+            <img src="images/course01.jpg" alt=""/>
+        </a>
+        <a class="course-title" href="/content.php?id=<? $content->getUuid(); ?>"><?php print $content->getTitle(); ?></a>
+        <?php print \msse661\view\ViewFactory::render('user', ['user' => $content->getUser() ], 'teaser'); ?>
+        <div class="course-details">
+        </div>
+        <div class="tag-list">
+            <?php foreach($content->getTags() as $t): ?>
+            <div class="course-tag">
+                <span class="course-tag-label">
+                    <?php print $t->getName(); ?>
+                </span>
             </div>
-    <?php endforeach; ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
 </div>

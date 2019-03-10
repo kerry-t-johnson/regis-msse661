@@ -4,7 +4,6 @@
 namespace  msse661\controller;
 
 
-use function GuzzleHttp\Psr7\str;
 use Monolog\Logger;
 use msse661\util\logger\LoggerManager;
 use msse661\view\View;
@@ -12,7 +11,7 @@ use msse661\view\ViewFactory;
 
 class SiteController {
 
-    /** @var Monolog\Logger */
+    /** @var \Monolog\Logger */
     private static $logger = null;
 
     public static function currentUri($uri = null) : string {
@@ -47,7 +46,22 @@ class SiteController {
 
         foreach($request_query_tmp as $query) {
             $query_parts    = explode('=', $query);
-            $request_query[$query_parts[0]] = count($query_parts) > 1 ? $query_parts[1] : null;
+            $query_key      = $query_parts[0];
+            $query_value    = count($query_parts) > 1 ? $query_parts[1] : null;
+
+            self::$logger->debug('currentQueryArgs', ['query_key' => $query_key, 'query_value' => $query_value, 'request_query' => $request_query]);
+            if(isset($request_query[$query_key])) {
+                if(is_array($request_query[$query_key])) {
+                    $request_query[$query_key][] = $query_value;
+                }
+                else {
+                    $original = $request_query[$query_key];
+                    $request_query[$query_key] = [$original, $query_value];
+                }
+            }
+            else {
+                $request_query[$query_key] = $query_value;
+            }
         }
 
         return $request_query;
@@ -67,11 +81,31 @@ class SiteController {
         }
 
         // Don't attempt to load an entity controller for known file extensions:
-        if(preg_match('@\.(ico|php|png|css)@', $_SERVER['REQUEST_URI'])) {
+        if(preg_match('@\.(ico|png|css)@', $_SERVER['REQUEST_URI'])) {
             return false;
         }
 
         $request    = SiteController::extractRequest($path);
+        if(isset($request['query']['route'])) {
+            $request['path'] = explode('/', trim($request['query']['route'], '/'));
+            unset($request['query']['route']);
+        }
+        $router     = new BaseController(null);
+
+        return $router->route($request, [SiteController::class, 'identity']);
+    }
+
+    public static function routeApi(string $path = null) {
+        if(self::$logger == null) {
+            self::$logger = LoggerManager::getLogger('SiteController');
+        }
+
+        $request    = SiteController::extractRequest($path);
+        $request['path'] = explode('/', trim($request['query']['route'], '/'));
+        unset($request['query']['route']);
+
+        self::$logger->debug('routeApi', ['request' => $request]);
+
         $router     = new BaseController(null);
 
         return $router->route($request, [SiteController::class, 'identity']);

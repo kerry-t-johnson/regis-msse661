@@ -5,6 +5,8 @@ namespace msse661\controller;
 
 
 use Monolog\Logger;
+use msse661\dao\mysql\ContentMysqlDao;
+use msse661\dao\mysql\TagMysqlDao;
 use msse661\dao\mysql\UserMysqlDao;
 use msse661\dao\UserDao;
 use msse661\PianoException;
@@ -18,6 +20,7 @@ class UserController extends BaseController implements Controller {
     private $userDao;
 
     public static function getCurrentUser(): ?User {
+        $logger = LoggerManager::getLogger('UserController');
         return $_SESSION['user'] ?? null;
     }
 
@@ -47,11 +50,46 @@ class UserController extends BaseController implements Controller {
             $view ?? (is_array($user) ? 'list' : null));
     }
 
+    public function onGetContent(string $resource, array $request) {
+        $this->logger->info('onGetContent', ['resource' => $resource]);
+        $contentDao = new ContentMysqlDao();
+        return $contentDao->getByUser(
+            $resource,
+            $request['query']['offset'] ?? 0,
+            $request['query']['limit'] ?? 0);
+    }
+
+    public function onGetTag(string $resource, array $request) {
+        $this->logger->debug('onGetTag', ['resource' => $resource, 'request' => $request]);
+        $tagDao = new TagMysqlDao();
+        return $tagDao->getTagsByUser($resource);
+    }
+
+    public function onPostTag(string $resource, array $request) {
+        $data = json_decode(file_get_contents('php://input'), true);
+        $this->logger->debug('onPostTag', ['resource' => $resource, 'request' => $request, 'post' => $_POST, 'data' => $data]);
+
+        $tagDao = new TagMysqlDao();
+        foreach($data as $tagCheckbox) {
+            $this->logger->debug('Applying checkbox change: ', ['checkbox' => $tagCheckbox]);
+            if($tagCheckbox['value']) {
+                $tagDao->saveUserTags($resource, $tagCheckbox['uuid']);
+            }
+            else {
+                $tagDao->clearUserTags($resource, $tagCheckbox['uuid']);
+            }
+        }
+
+        return $tagDao->getTagsByUser($resource);
+    }
+
     public function onPostLogin(array $request) {
         $userDao    = new UserMysqlDao();
         $user       = $userDao->getByEmailAndPassword($_POST['email'], $_POST['password']);
 
         $this->login($user);
+
+        $this->redirect('user/' . $user->getUuid());
 
         return $user;
     }
@@ -60,10 +98,20 @@ class UserController extends BaseController implements Controller {
         self::startUserSession($user);
     }
 
+    public function onGetLogout(array $request) {
+        return $this->onPostLogout($request);
+    }
+
     public function onPostLogout(array $request) {
         self::destroyUserSession();
 
+        $this->redirect();
+
         return true;
+    }
+
+    public function onGetLogin(array $request) : string {
+        return ViewFactory::render('user', [], 'login');
     }
 
     public function onGetRegister(array $request) : string {
@@ -100,6 +148,8 @@ class UserController extends BaseController implements Controller {
             $this->login($user);
 
             $this->logger->debug('onPostRegister', ['user' => $user]);
+
+            $this->redirect('user/' . $user->getUuid());
 
             return $user;
         }

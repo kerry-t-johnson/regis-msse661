@@ -16,4 +16,6 @@ interface User extends Entity
 
     public function verifyPassword(string $password): void;
 
+    function getTags(bool $assoc = false): array;
+
 }

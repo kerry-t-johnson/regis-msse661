@@ -4,8 +4,10 @@
 namespace msse661;
 
 
+use msse661\dao\CommentDao;
 use msse661\dao\EntityDao;
 use msse661\dao\EntityDaoFactory;
+use msse661\dao\mysql\CommentMysqlDao;
 use msse661\dao\mysql\TagMysqlDao;
 use msse661\dao\TagDao;
 
@@ -14,14 +16,24 @@ class ContentImpl extends EntityImpl implements Content {
     private const REQUIRED_KEYS = ['id', 'title', 'users', 'state', 'path', 'mime_type', 'hash'];
     private const HIDDEN_KEYS   = ['state', 'comments_allowed'];
 
-    /** @var User */
-    private $user;
-
-    /** @var array */
-    private $comments;
-
     public function __construct(array $contentSpec) {
         parent::__construct('content', $contentSpec, self::REQUIRED_KEYS, self::HIDDEN_KEYS);
+
+        /** @var EntityDao $userDao */
+        $userDao = EntityDaoFactory::createEntityDao('user');
+        $this->values['user'] = $userDao->fetchExactlyOne('id', $this->getUserUuid());
+
+        /** @var TagDao $tagDao */
+        $tagDao = new TagMysqlDao();
+        $this->values['tags'] = $tagDao->getTagsByContent($this->getUuid());
+
+        /** @var CommentDao $commentDao */
+        $commentDao = new CommentMysqlDao();
+        $this->values['comment_count'] = $commentDao->countByContent($this->getUuid());
+
+        if($this->getMimeType() == 'text/plain') {
+            $this->values['html'] = file_get_contents($this->getPath());
+        }
     }
 
     public function getTitle(): string {
@@ -37,13 +49,7 @@ class ContentImpl extends EntityImpl implements Content {
     }
 
     public function getUser(): User {
-        if(!$this->user) {
-            /** @var EntityDao $userDao */
-            $userDao = EntityDaoFactory::createEntityDao('user');
-            $this->user = $userDao->fetchExactlyOne('id', $this->getUserUuid());
-        }
-
-        return $this->user;
+        return $this->getAttributeValue('user');
     }
 
     public function getComments(): array {
@@ -56,16 +62,13 @@ class ContentImpl extends EntityImpl implements Content {
         return $this->comments;
     }
 
+
     public function getState(): string {
         return $this->getAttributeValue('state');
     }
 
     public function getPath(): string {
         return $this->getAttributeValue('path');
-    }
-
-    public function getContent(): string {
-        return file_get_contents('http://loripsum.net/api/' . $this->getPath());
     }
 
     public function getHash(): string {
@@ -85,10 +88,7 @@ class ContentImpl extends EntityImpl implements Content {
     }
 
     public function getTags(): array {
-        /** @var TagDao $tagDao */
-        $tagDao = new TagMysqlDao();
-
-        return $tagDao->getTagsByContent($this->getUuid());
+        return $this->getAttributeValue('tags');
     }
 
 }

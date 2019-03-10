@@ -18,7 +18,7 @@ class UserMysqlDao extends BaseMysqlDao implements UserDao
         $query = <<<________QUERY
             INSERT INTO users
                         (id,    email,    first_name,    last_name,     hashed_password )
-            VALUES      (':id', ':email', ':first_name', ':last_name', ':hashed_password')
+            VALUES      (:id,  :email,   :first_name,   :last_name,    :hashed_password)
 ________QUERY;
 
         $userSpec['hashed_password'] = password_hash($userSpec['password'], PASSWORD_DEFAULT);

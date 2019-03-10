@@ -4,6 +4,8 @@
 namespace msse661;
 
 
+use msse661\dao\mysql\TagMysqlDao;
+
 class UserImpl extends EntityImpl implements User
 {
     private const REQUIRED_KEYS = ['id', 'email', 'first_name', 'last_name'];
@@ -36,4 +38,12 @@ class UserImpl extends EntityImpl implements User
             throw new PianoException('Unable to verify password for user: ' . $this->getFullName(), 401);
         }
     }
+
+    public function getTags(bool $assoc = false): array {
+        /** @var TagDao $tagDao */
+        $tagDao = new TagMysqlDao();
+
+        return $tagDao->getTagsByUser($this->getUuid(), $assoc);
+    }
+
 }

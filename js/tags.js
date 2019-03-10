@@ -14,7 +14,7 @@ class TagManager {
 
     updateTags() {
         $.ajax({
-            url: '/api/tag',
+            url: '/api.php?route=api/tag',
             type: 'GET',
             dataType: 'json',
             context: this,

@@ -10,7 +10,7 @@ use msse661\util\logger\LoggerManager;
 class EntityImpl implements \JsonSerializable
 {
     private $entity_type;
-    private $values;
+    protected $values;
     private $hiddenValues;
 
     /** @var Logger */

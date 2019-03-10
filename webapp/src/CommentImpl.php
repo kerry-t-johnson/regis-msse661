@@ -4,10 +4,21 @@
 namespace msse661;
 
 
+use msse661\dao\CommentDao;
+use msse661\dao\EntityDaoFactory;
+
 class CommentImpl extends EntityImpl implements Comment {
 
     public function __construct(array $commentSpec) {
         parent::__construct('comment', $commentSpec, ['id', 'text', 'content', 'users']);
+
+        /** @var EntityDao $userDao */
+        $userDao = EntityDaoFactory::createEntityDao('user');
+        $this->values['user'] = $userDao->fetchExactlyOne('id', $this->getUserUuid());
+
+        /** @var CommentDao $comentDao */
+        $comentDao = EntityDaoFactory::createEntityDao('comment');
+        $this->values['children'] = $comentDao->getByParent($this->getUuid());
     }
 
     function getTitle(): string {
@@ -38,5 +49,8 @@ class CommentImpl extends EntityImpl implements Comment {
         return $this->getAttributeValue('users');
     }
 
+    public function setRecentReply($reply) {
+        $this->values['recent_reply'] = $reply;
+    }
 
 }

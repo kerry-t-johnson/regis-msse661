@@ -235,6 +235,42 @@ class Schema {
                 ]
             ],
 
+            'user_tag' => [
+                'columns' => [
+                    'user_id' => [
+                        'type' => 'VARCHAR(36)',
+                    ],
+
+                    'tag_id' => [
+                        'type' => 'VARCHAR(36)',
+                    ],
+
+                ],
+
+                'track-updates' => true,
+
+                'foreign-keys' => [
+                    'user_id' => [
+                        'reference-table' => 'users',
+                        'reference-column' => 'id',
+                        'on-delete-action' => 'CASCADE',
+                    ],
+
+                    'tag_id' => [
+                        'reference-table' => 'tag',
+                        'reference-column' => 'id',
+                        'on-delete-action' => 'CASCADE',
+                    ],
+                ],
+
+                'unique-keys' => [
+                    'id' => [
+                        'user_id',
+                        'tag_id',
+                    ]
+                ]
+            ],
+
             'comments' => [
                 'columns' => [
                     'id' => [

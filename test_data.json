@@ -21,6 +21,22 @@
     "tag-id-2": {
       "name": "Data Science",
       "description" : ""
+    },
+    "tag-id-3": {
+      "name": "Enterprise Systems Engineering",
+      "description" : ""
+    },
+    "tag-id-4":{
+      "name": "Health Informatics",
+      "description" : ""
+    },
+    "tag-id-5": {
+      "name": "Information Assurance",
+      "description": ""
+    },
+    "tag-id-6": {
+      "name": "Information Technology Management",
+      "description": ""
     }
   },
   "test_content": {

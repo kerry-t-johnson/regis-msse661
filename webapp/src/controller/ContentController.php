@@ -5,6 +5,7 @@ namespace msse661\controller;
 
 
 use msse661\Content;
+use msse661\dao\mysql\CommentMysqlDao;
 use msse661\dao\mysql\ContentMysqlDao;
 use msse661\dao\mysql\TagMysqlDao;
 use msse661\PianoException;
@@ -22,8 +23,8 @@ class ContentController extends BaseController implements Controller {
         $this->contentDao = new ContentMysqlDao();
     }
 
-    public function render(array $content, $view = null): string {
-        $this->logger->debug('render', ['content' => $content, 'view' => $view]);
+    public function render($content, $view = null): string {
+        // $this->logger->debug('render', ['content' => $content, 'view' => $view]);
         if(is_array($content)) {
             return ViewFactory::render(
                 'content',
@@ -47,6 +48,13 @@ class ContentController extends BaseController implements Controller {
         }
     }
 
+    public function onDeleteDelete(string $resource) {
+        $this->logger->info('onDeleteDelete', ['resource' => $resource]);
+        $this->contentDao->delete($resource);
+
+        return ['result' => 'success'];
+    }
+
     public function onGetUploadForm(array $request): string {
         $user = UserController::getCurrentUser();
         return ViewFactory::render('content', ['user' => $user], 'upload');
@@ -60,6 +68,12 @@ class ContentController extends BaseController implements Controller {
         $this->logger->debug('onGetTag', ['resource' => $resource, 'request' => $request]);
         $tagDao = new TagMysqlDao();
         return $tagDao->getTagsByContent($resource);
+    }
+
+    public function onGetComments(string $resource, array $request) {
+        $this->logger->debug('onGetComments', ['resource' => $resource, 'request' => $request]);
+        $commentDao = new CommentMysqlDao();
+        return $commentDao->getByContent($resource);
     }
 
     protected function onSpecializedQuery($request) {
@@ -80,9 +94,22 @@ class ContentController extends BaseController implements Controller {
                     $whereValues['description'] = $value;
                     break;
                 case 'state':
-                    $whereStr   .= "state_name = ':state'";
+                    $whereStr   .= "state_name = :state";
                     $whereValues['state'] = $value;
                     break;
+                case 'tag':
+                    // Only add once (the first time):
+                    if(!isset($whereValues['tags'])) {
+                        $whereStr .= 'content_tag.tag_id IN (:tags) AND content_view.id = content_tag.content_id';
+                    }
+                    $whereValues['tags'] = is_array($value) ? $value : [ $value ];
+                    break;
+                case 'exclude-user':
+                    $whereStr .= 'users != :user';
+                    $whereValues['user'] = $value;
+                    break;
+                default:
+                    continue;
             }
 
             $conjunction .= ' AND ';
@@ -92,7 +119,9 @@ class ContentController extends BaseController implements Controller {
             $whereStr,
             $whereValues,
             $request['query']['offset'] ?? 0,
-            $request['query']['limit'] ?? 0);
+            $request['query']['limit'] ?? 0,
+            '',
+            isset($whereValues['tags']) ? ['content_tag'] : []);
     }
 
     public function onPostUpload(array $request) {
@@ -116,7 +145,30 @@ class ContentController extends BaseController implements Controller {
         $tagDao = new TagMysqlDao();
         $tagDao->applyTagsToContent($content->getUuid(), $_POST['content-tags']);
 
+        $this->redirect('user/' . $user->getUuid());
+
         return $content;
+    }
+
+    public function onPutEdit(string $resource, array $request) {
+        $this->logger->info('onPutEdit', ['resource' => $resource]);
+
+        $contentSpec = json_decode(file_get_contents('php://input'), true);
+        $this->logger->debug('onPutEdit', ['input' => $contentSpec]);
+
+        $user = UserController::getCurrentUser();
+        if ($user->getUuid() != $contentSpec['users']) {
+            throw new PianoException('Not authorized', 401);
+        }
+
+        $content = $this->contentDao->update($contentSpec);
+
+        $tagDao = new TagMysqlDao();
+        $tagDao->applyTagsToContent($content->getUuid(), $contentSpec['tags'], true);
+
+        $this->redirect('user/' . $user->getUuid());
+
+        return $this->contentDao->getByUuid($contentSpec['id']);
     }
 
     public function onGetCreateTestData(array $request) {

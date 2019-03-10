@@ -1,0 +1,18 @@
+<li id="{{:id}}-item">
+    <div class="collapsible-header">
+        <div class="content-list-title col-md-6">
+            <h4><a href="/index.php?route=content/{{:id}}">{{:title}}</a></h4>
+        </div>
+        <div class="col-md-5 valign-wrapper">
+            {{for tags}}
+            <div class="chip blue-grey darken-1 white-text">{{:~truncate(name, 15)}}</div>
+            {{/for}}
+        </div>
+        <div class="col-sm-1 valign-wrapper">
+            {{:comment_count}}
+        </div>
+    </div>
+    <div class="collapsible-body">
+        {{:description}}
+    </div>
+</li>

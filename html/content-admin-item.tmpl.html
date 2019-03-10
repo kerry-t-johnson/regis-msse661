@@ -1,0 +1,22 @@
+<li id="{{:id}}-item">
+    <div class="collapsible-header">
+        <div class="content-list-title col-md-6">
+            <h4>{{:title}}</h4>
+        </div>
+        <div class="col-md-4 valign-wrapper">
+            {{for tags}}
+            <div class="chip blue-grey darken-1 white-text">{{:name}}</div>
+            {{/for}}
+        </div>
+        <div class="col-sm-1 valign-wrapper">
+            {{:comment_count}}
+        </div>
+        <div class="col-sm-1 col-sm-offset-1 valign-wrapper">
+            <a href="#!" class="blue-grey-text edit-content" data-content-uuid="{{:id}}" data-content-title="{{:title}}"><i class="material-icons">edit</i></a>
+            <a href="#!" class="blue-grey-text delete-content" data-content-uuid="{{:id}}" data-content-title="{{:title}}"><i class="material-icons">delete</i></a>
+        </div>
+    </div>
+    <div class="collapsible-body">
+        {{:description}}
+    </div>
+</li>

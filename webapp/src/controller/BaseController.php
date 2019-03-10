@@ -53,6 +53,9 @@ class BaseController implements Controller {
                 return $this->render($data, $request['query']['view'] ?? null);
             }
         }
+        catch(\Exception $ex) {
+            $this->logger->error('Uncaught exception in route', ['exception' => $ex]);
+        }
     }
 
     public function render(array $request, $view = null) {
@@ -93,13 +96,19 @@ class BaseController implements Controller {
     }
 
     protected function onDefaultQuery($request) {
-        return $this->entityDao->fetch(
-            $request['query']['offset'] ?? 0,
-            $request['query']['limit'] ?? 0);
+        if($this->entityDao) {
+            return $this->entityDao->fetch(
+                $request['query']['offset'] ?? 0,
+                $request['query']['limit'] ?? 0);
+        }
+        else {
+            return [];
+        }
     }
 
     protected function invokeEntityMethod(array $request) {
         $controller_method_name = !empty($request['path'][0]) ? ('on' . ucwords(strtolower($request['type'])) . ucwords($request['path'][0])) : false;
+        $this->logger->debug('invokeEntityMethod' , ['request' => $request, 'controller_method_name' => $controller_method_name]);
 
         if ($controller_method_name && method_exists($this, $controller_method_name)) {
             array_shift($request['path']);
@@ -133,11 +142,14 @@ class BaseController implements Controller {
         }
     }
 
-    protected function redirect(string $dest) {
-        ob_start();
-        header("Location: {$dest}");
-        ob_end_flush();
-        die();
+    protected function redirect(string $dest = '') {
+        // Redirects don't apply when accessed via the api
+        if(strpos($_SERVER['REQUEST_URI'], 'api/') === false) {
+            ob_start();
+            header('Location: ' . ($dest ? "index.php?route={$dest}" : '/'));
+            ob_end_flush();
+            die();
+        }
     }
 
     public function __invoke($data) {

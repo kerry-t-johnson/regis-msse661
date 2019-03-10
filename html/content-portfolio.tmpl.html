@@ -1,0 +1,16 @@
+<div class="course">
+    <a class="course-img" href="/index.php?route=content/{{:id}} {{for tags}} {{:id}} {{/for}}" data-content="{{:id}}">
+        <img src="images/course01.jpg" alt=""/>
+    </a>
+    <a class="course-title" href="/index.php?route=content/{{:id}}">{{:title}}</a>
+    <div class="course-details">
+        {{:~truncate(description, 100)}}
+    </div>
+    <div>
+        {{for tags}}
+        <div class="chip blue-grey darken-2 white-text">
+            {{:name}}
+        </div>
+        {{/for}}
+    </div>
+</div>

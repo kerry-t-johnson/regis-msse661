@@ -76,9 +76,9 @@ class BaseMysqlDao extends \mysqli implements EntityDao
         $entitySpec['id']   = self::newUuid();
         $query              = $this->escapeQuery($query, $entitySpec);
 
-         $this->logger->debug('createEntity', ['query' => $query]);
+        // $this->logger->debug('createEntity', ['query' => $query]);
         $this->query($query);
-         $this->logger->info("Created Entity", $entitySpec);
+        // $this->logger->info("Created Entity", $entitySpec);
         return $entitySpec;
     }
 
@@ -95,7 +95,7 @@ class BaseMysqlDao extends \mysqli implements EntityDao
         }
 
         $assoc = $result->fetch_assoc();
-         $this->logger->debug('fetchExactlyOne', ['assoc' => $assoc, 'entity_class' => $this->entityClass]);
+        // $this->logger->debug('fetchExactlyOne', ['assoc' => $assoc, 'entity_class' => $this->entityClass]);
 
         return new $this->entityClass($assoc);
     }
@@ -126,34 +126,37 @@ ________QUERY;
 ________QUERY;
 
         $result = $this->query($query);
-        $this->logger->debug('fetch', ['query' => $query]);
+        // $this->logger->debug('fetch', ['query' => $query]);
 
         $entities = [];
         while ($row = $result->fetch_assoc()) {
             $entities[] = new $this->entityClass($row);
         }
-        $this->logger->debug('fetch', ['entities' => $entities]);
+        // $this->logger->debug('fetch', ['entities' => $entities]);
         return $entities;
     }
 
-    public function fetchWhere(string $where, array $values, int $offset = 0, int $limit = 0, string $orderBy = ''): array {
+    public function fetchWhere(string $where, array $values, int $offset = 0, int $limit = 0, string $orderBy = '', array $join_tables = []): array {
+        $join_tables    = $join_tables ? ',' . implode(',', $join_tables) : '';
         $orderBy        = $orderBy ? $orderBy : $this->defaultOrderBy;
         $limitQuery     = $limit  > 0 ? "LIMIT  {$limit}"  : '';
         $offsetQuery    = $offset > 0 ? "OFFSET {$offset}" : '';
         $orderByQuery   = $orderBy ? "ORDER BY {$orderBy}" : '';
         $query          = <<<________QUERY
-            SELECT  *
+            SELECT  {$this->table}.*
             FROM    {$this->table}
+                    {$join_tables}
             WHERE   {$where}
             {$limitQuery}
             {$offsetQuery}
+            GROUP BY {$this->table}.id
             {$orderByQuery}
 ________QUERY;
         $query  = $this->escapeQuery($query, $values);
 
         $result = $this->query($query);
 
-        $this->logger->debug('fetchWhere', ['query' => $query]);
+        // $this->logger->debug('fetchWhere', ['query' => $query]);
 
         $entities = [];
         while ($row = $result->fetch_assoc()) {
@@ -164,8 +167,23 @@ ________QUERY;
 
     public function escapeQuery(string $query, array $args): string {
         foreach ($args as $key => $value) {
-            // $this->logger->debug('escapeQuery', ['key' => $key, 'value' => $value, 'is_string' => is_string($value)]);
-            $query = str_replace(":{$key}", (is_string($value) ? $this->real_escape_string((string)$value) : $value), $query);
+            // $this->logger->debug('escapeQuery', ['key' => $key, 'value' => $value, 'is_string' => is_string($value), 'is_array' => is_array($value)]);
+            if(is_array($value)) {
+                $value_str  = '';
+                $join       = '';
+                foreach($value as $v) {
+                    // $this->logger->debug('escapeQuery', ['value_str' => $value_str, 'v' => $v]);
+                    $value_str .= $join;
+                    if(is_string($v)) {
+                        $value_str .= "'" . $this->real_escape_string($v) . "'";
+                    }
+                    $join = ', ';
+                }
+                $query = str_replace(":{$key}", $value_str, $query);
+            }
+            else if(is_string($value)) {
+                $query = str_replace(":{$key}", "'" . $this->real_escape_string((string)$value) . "'", $query);
+            }
         }
 
         return $query;

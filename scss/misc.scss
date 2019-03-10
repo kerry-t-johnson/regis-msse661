@@ -1,3 +1,5 @@
+@import "base";
+
 .form-background {
     position: relative;
     background-color: #A0BDD1;
@@ -28,4 +30,17 @@
     border: 0.1rem solid #30719D;
     font-family: verdana;
     font-size: 1rem;
+}
+
+#header.nav {
+    position:absolute;
+    background-color: $light-blue;
+}
+
+#header.nav .main-menu li a {
+    color:#FFF;
+}
+
+body.waiting * {
+    cursor: wait !important;
 }

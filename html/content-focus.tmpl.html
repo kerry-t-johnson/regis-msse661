@@ -1,14 +1,10 @@
-<div class="container">
-    <div class="heading text-center">
-        <h1>${title}</h1>
-        <div class="separator"></div>
-    </div>
-    <div class="row">
-        <div class="content-description">${description}</div>
-    </div>
-    <div class="separator"></div>
-    <div class="row">
-        <div class="content-content">${html}</div>
-    </div>
-    <div class="content-hash">${hash}</div>
-</div>
+<ul class="collapsible">
+    <li class="active">
+        <div class="collapsible-header">Description</div>
+        <div class="collapsible-body">{{:description}}</div>
+    </li>
+    <li>
+        <div class="collapsible-header">Content</div>
+        <div class="collapsible-body">{{:html}}</div>
+    </li>
+</ul>

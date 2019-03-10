@@ -4,12 +4,6 @@ class User {
         this._data = data;
     }
 
-    uuid() {
-        return this._data.uuid;
-    }
-
-
-
 }
 
 class CurrentUser {
@@ -19,9 +13,6 @@ class CurrentUser {
         user = user ? JSON.parse(user) : null;
         console.log(user);
 
-        $('a#user-logout').click(this.onLogoutClick.bind(this));
-        $('a#user-login').click(this.onLoginRegisterClick.bind(this));
-
         if(user) {
             this.onLoginSuccessful(user);
         }
@@ -30,137 +21,34 @@ class CurrentUser {
         }
     }
 
-    onLoginRegisterClick() {
-        if($('#user-login-register-form').length) {
-            this.showLogin();
-        }
-        else {
-            $.ajax({
-                url: '/html/login-register.form.html',
-                type: 'GET',
-                context: this,
-                success: function(result) {
-                    this.onFormRetrieved(result)
-                },
-                error: function (xhr, resp, text) {
-                    console.log('xhr: ' + xhr);
-                    console.log('resp: ' + resp);
-                    console.log('text: ' + text);
-                }
-            });
-        }
-    }
-
-    onFormRetrieved(html) {
-        $('#register-login-form-wrapper').html(html);
-
-        $('#login-form').submit(this.onLoginFormSubmit.bind(this));
-        $('#register-form').submit(this.onRegisterFormSubmit.bind(this));
-        $('a#login-form-cancel').click(this.onCancelFormClick.bind(this));
-        $('a#register-form-cancel').click(this.onCancelFormClick.bind(this));
-
-        $('.register-tab').click(function(){
-            this.showRegister();
-        }.bind(this));
-
-        $('.login-tab').click(function(){
-            this.showLogin();
-        }.bind(this));
-
-        this.showLogin();
+    tags(callback) {
+        $.ajax({
+            url: '/index.php?route=api/user/' + this.id + '/tag',
+            type: 'GET',
+            success: function(data) {
+                callback(data);
+            }
+        });
     }
 
     onLoginSuccessful(userData) {
         console.log('User logged in: ' + userData.email);
 
-        this._user = userData;
+        Object.assign(this, userData);
         $.cookie('user', JSON.stringify(userData));
-        $('#user-login').addClass('hide');
-        $('#user-logout').removeClass('hide');
-        $('#user-profile')
-            .text('Welcome, ' + this._user.first_name)
-            .removeClass("hide");
-        $('#content').addClass('user').removeClass('no-user');
-        $('#publish').removeClass('hide');
-        this.hideAll();
     }
 
     fullname() {
         return this._user.first_name + ' ' + this._user.last_name;
     }
 
-    hideAll() {
-        $('#login-form-show-hide').addClass('hide');
-        $('#register-form-show-hide').addClass('hide');
-    }
-
-    showLogin() {
-        $('#login-form-show-hide').removeClass('hide');
-        $('#register-form-show-hide').addClass('hide');
-    }
-
-    showRegister() {
-        $('#login-form-show-hide').addClass('hide');
-        $('#register-form-show-hide').removeClass('hide');
-    }
-
-    uuid() {
-        return this._user.id;
-    }
-
     onLogoutSuccessful() {
         console.log('User logged out.');
 
-        this._user = null;
         $.cookie('user', '');
-        $("#register-login-form-show-hide").hide();
-        $('#user-login').removeClass('hide');
-        $('#user-logout').addClass('hide');
-        $('#content').removeClass('user').addClass('no-user');
-        $('#publish').addClass('hide');
-        $('#user-profile')
-            .text('')
-            .addClass('hide');
     }
 
-    ajaxUserSubmit(formData, url, func) {
-        $.ajax($.extend({}, {
-            url: url,
-            type: "POST",
-            dataType: "json",
-            context: this,
-            data: formData ? formData : undefined,
-            success: function (result) {
-                func.call(this, result);
-            },
-            error: function (xhr, resp, text) {
-                console.log('xhr: ' + xhr);
-                console.log('resp: ' + resp);
-                console.log('text: ' + text);
-            }
-        }));
-    }
 
-    onRegisterFormSubmit(e) {
-        e.preventDefault();
-        this.ajaxUserSubmit($('#register-form').serialize(),
-            '/api/user/register',
-            this.onLoginSuccessful.bind(this));
-    }
-
-    onLoginFormSubmit(e) {
-        e.preventDefault();
-        this.ajaxUserSubmit($('#login-form').serialize(), '/api/user/login', this.onLoginSuccessful.bind(this));
-    }
-
-    onCancelFormClick() {
-        this.hideAll();
-    }
-
-    onLogoutClick() {
-        this.ajaxUserSubmit(null, '/api/user/logout', this.onLogoutSuccessful.bind(this));
-        return false;
-    }
 }
 
 var currentUser = new CurrentUser();
@@ -182,7 +70,7 @@ class UserManager {
 
     fetchUser(id, callback = 0) {
         $.ajax({
-            url: '/api/user/' + id,
+            url: '/api.php?route=api/user/' + id,
             type: 'GET',
             context: this,
             dataType: 'json',
@@ -202,3 +90,133 @@ class UserManager {
 }
 
 var userManager = new UserManager();
+
+
+$('#upload-form-wrapper').modal();
+$('#delete-form-wrapper').modal();
+
+$(function(){
+    if($('#user-content-wrapper').is(':visible')) {
+
+        function onContentEditClick(event) {
+            event.preventDefault();
+            contentManager.fetch($(this).data('content-uuid'), onContentRetrievedForEdit);
+        }
+
+        function onContentDeleteClick(event) {
+            event.preventDefault();
+            console.log(this);
+            let content_uuid = $(this).data('content-uuid');
+            $('#delete-form-wrapper h2').text('Delete ' + "'" + $(this).data('content-title') + "'?");
+            $('#delete-form-submit').click(function(event) { onContentDeleteSubmit(event, content_uuid); });
+            $('#delete-form-wrapper').modal('open');
+        }
+
+        function onContentRetrievedForEdit(c) {
+            $('#upload-form-wrapper h2').text('Update content');
+            $('#upload-form #title').val(c.title);
+            $('#upload-form #description').val(c.description);
+            $('#upload-form .file-field').hide();
+            $('#upload-form [type=checkbox]').each(function(index, element){
+                $(element).prop('checked', c.hasTag($(element).val()));
+            });
+            M.textareaAutoResize($('#description'));
+            M.updateTextFields();
+            $('#upload-form-submit').click(function(event) { onContentEditSubmit(event, c); });
+            $('#upload-form-wrapper').modal('open');
+        }
+
+        function onContentEditSubmit(event, c) {
+            console.log(c);
+            event.preventDefault();
+            let tags = [];
+            $('#upload-form [type=checkbox]').each(function(index, element){
+                if($(element).prop('checked')){
+                    tags.push($(element).val());
+                }
+            });
+
+            $.ajax({
+                url: '/index.php?route=api/content/' + c.id + '/edit',
+                type: 'put',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify({
+                    id: c.id,
+                    title: $('#title').val(),
+                    description: $('#description').val(),
+                    users: currentUser.id,
+                    tags: tags
+                }),
+                success: onContentEditSuccess,
+                error: function(jqXhr, errMsg, err) {
+                    console.log('error');
+                }
+            });
+        } // onContentEditSubmit
+
+        function onContentDeleteSubmit(event, content_uuid) {
+            event.preventDefault();
+            contentManager.delete(content_uuid, function(id) {
+                let p = $('#' + id + '-item').parent();
+                $(p).remove();
+                $('#delete-form-wrapper').modal('close');
+            });
+        }
+
+        function onContentEditSuccess(data) {
+            $('#upload-form-wrapper').modal('close');
+            $('#' + data.id + '-item').html($.templates.content_admin_item.render(data));
+            $('.edit-content').click(onContentEditClick);
+            pulseItem($('#' + data.id + '-item'), 3);
+        }
+
+        function updateUserTagPreference() {
+            $.ajax({
+                url: 'index.php?route=api/user/' + currentUser.id + '/tag',
+                type: 'POST',
+                data: JSON.stringify([{ uuid: this.value, value: this.checked }]),
+                dataType: "json",
+                context: this,
+                success: function(data){
+                    let checked = false;
+                    let checkbox = this;
+                    data.forEach(function(element){
+                        if(element.id == checkbox.value) {
+                            checked = true;
+                        }
+                    });
+                    this.checked = checked;
+                    retrieveUserTaggedContent(data);
+                },
+                error: function(jqxhr, errMsg, errThrown) {
+                    M.toast({html: errMsg});
+                    console.log(errMsg);
+                }
+            });
+
+        }
+
+        function retrieveUserTaggedContent(tags) {
+            contentManager.retrieveByTag(tags, function(content){
+                $('#user-tagged-content').html($.templates.content_interest_list.render(content));
+                $('.collapsible').collapsible();
+            },
+                'exclude-user=' + currentUser.id);
+        }
+
+        contentManager.retrieveByUser(currentUser.id, function (data) {
+            console.log('got user content');
+            console.log(data);
+            $('#user-content-list').empty();
+            $('#user-content-list').html($.templates.content_admin_list.render(data));
+            $('.collapsible').collapsible();
+            $('.edit-content').click(onContentEditClick);
+            $('.delete-content').click(onContentDeleteClick);
+        });
+
+        $('form#user-tags :checkbox').change(updateUserTagPreference);
+
+        currentUser.tags(retrieveUserTaggedContent);
+    }
+});

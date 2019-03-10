@@ -77,5 +77,6 @@
     <orderEntry type="library" name="jquery.magnific-popup" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="jquery.cookie" level="application" />
+    <orderEntry type="library" name="@types/jsrender" level="application" />
   </component>
 </module>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{bootstrap, isotope.pkgd, jquery, jquery-ui, jquery.cookie, jquery.magnific-popup, modernizr, respond}" />
+    <file url="PROJECT" libraries="{@types/jsrender, bootstrap, isotope.pkgd, jquery, jquery-ui, jquery.cookie, jquery.magnific-popup, modernizr, respond}" />
   </component>
 </project>

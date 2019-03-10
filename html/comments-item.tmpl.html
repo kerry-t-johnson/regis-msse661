@@ -1,0 +1,38 @@
+<div class="card darken-1" id="card-{{:id}}">
+    <div class="card-content">
+        <span class="card-title activator">{{:title}}</span>
+        <ul class="collection">
+            <li class="collection-item">
+                <p>{{:text}}</p>
+                <p class="right-align">- {{:user.first_name}} {{:user.last_name}}</p>
+                <p class="right-align">{{:~prettyPrintDate(created)}}</p>
+            </li>
+            {{for children}}
+            <li class="collection-item" id="comment-reply-{{:id}}">
+                <p>{{:text}}</p>
+                <p class="right-align">- {{:user.first_name}} {{:user.last_name}}</p>
+                <p class="right-align">{{:~prettyPrintDate(created)}}</p>
+            </li>
+            {{/for}}
+        </ul>
+    </div>
+    <div class="card-action">
+        <a href="#" class="activator">Reply</a>
+    </div>
+    <div id="comment-{{:id}}-reveal" class="card-reveal">
+        <span class="card-title grey-text text-darken-4">Re: {{:title}}<i class="material-icons right">close</i></span>
+        <form id="comment-{{:id}}-response-form">
+            <textarea class="materialize-textarea" id="reply-to-{{:id}}"></textarea>
+            <button class="btn waves-effect waves-light blue-grey darken-2 center-align comment-response-submit-button"
+                    type="submit"
+                    name="action"
+                    data-comment-uuid="{{:id}}"
+                    data-comment-title="{{:title}}"
+                    data-comment-content="{{:content}}"
+            >
+                Submit
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+    </div>
+</div>
